@@ -1,0 +1,214 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище LogModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="marks">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StudentId" Type="nchar" MaxLength="25" />
+          <Property Name="SubjectId" Type="int" />
+          <Property Name="Type" Type="nchar" MaxLength="25" />
+          <Property Name="Month" Type="int" />
+          <Property Name="Value" Type="int" />
+        </EntityType>
+        <EntityType Name="studetns">
+          <Key>
+            <PropertyRef Name="PassportId" />
+          </Key>
+          <Property Name="PassportId" Type="nchar" MaxLength="25" Nullable="false" />
+          <Property Name="Fio" Type="nchar" MaxLength="35" />
+          <Property Name="GroupId" Type="nchar" MaxLength="10" />
+          <Property Name="Birthday" Type="datetime" />
+          <Property Name="Phone" Type="nchar" MaxLength="14" />
+        </EntityType>
+        <EntityType Name="subjects">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SubjectName" Type="nchar" MaxLength="30" />
+        </EntityType>
+        <Association Name="MarkToStudent">
+          <End Role="studetns" Type="Self.studetns" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="marks" Type="Self.marks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="studetns">
+              <PropertyRef Name="PassportId" />
+            </Principal>
+            <Dependent Role="marks">
+              <PropertyRef Name="StudentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MarkToSubject">
+          <End Role="subjects" Type="Self.subjects" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="marks" Type="Self.marks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="subjects">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="marks">
+              <PropertyRef Name="SubjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище LogModelContainer">
+          <EntitySet Name="marks" EntityType="Self.marks" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="studetns" EntityType="Self.studetns" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="subjects" EntityType="Self.subjects" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="MarkToStudent" Association="Self.MarkToStudent">
+            <End Role="studetns" EntitySet="studetns" />
+            <End Role="marks" EntitySet="marks" />
+          </AssociationSet>
+          <AssociationSet Name="MarkToSubject" Association="Self.MarkToSubject">
+            <End Role="subjects" EntitySet="subjects" />
+            <End Role="marks" EntitySet="marks" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="LogModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="mark">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StudentId" Type="String" MaxLength="25" FixedLength="true" Unicode="true" />
+          <Property Name="SubjectId" Type="Int32" />
+          <Property Name="Type" Type="String" MaxLength="25" FixedLength="true" Unicode="true" />
+          <Property Name="Month" Type="Int32" />
+          <Property Name="Value" Type="Int32" />
+          <NavigationProperty Name="studetn" Relationship="Self.MarkToStudent" FromRole="marks" ToRole="studetns" />
+          <NavigationProperty Name="subject" Relationship="Self.MarkToSubject" FromRole="marks" ToRole="subjects" />
+        </EntityType>
+        <EntityType Name="studetn">
+          <Key>
+            <PropertyRef Name="PassportId" />
+          </Key>
+          <Property Name="PassportId" Type="String" MaxLength="25" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Fio" Type="String" MaxLength="35" FixedLength="true" Unicode="true" />
+          <Property Name="GroupId" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Birthday" Type="DateTime" Precision="3" />
+          <Property Name="Phone" Type="String" MaxLength="14" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="marks" Relationship="Self.MarkToStudent" FromRole="studetns" ToRole="marks" />
+        </EntityType>
+        <EntityType Name="subject">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SubjectName" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="marks" Relationship="Self.MarkToSubject" FromRole="subjects" ToRole="marks" />
+        </EntityType>
+        <Association Name="MarkToStudent">
+          <End Role="studetns" Type="Self.studetn" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="marks" Type="Self.mark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="studetns">
+              <PropertyRef Name="PassportId" />
+            </Principal>
+            <Dependent Role="marks">
+              <PropertyRef Name="StudentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MarkToSubject">
+          <End Role="subjects" Type="Self.subject" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="marks" Type="Self.mark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="subjects">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="marks">
+              <PropertyRef Name="SubjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="LogEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="marks" EntityType="Self.mark" />
+          <EntitySet Name="studetns" EntityType="Self.studetn" />
+          <EntitySet Name="subjects" EntityType="Self.subject" />
+          <AssociationSet Name="MarkToStudent" Association="Self.MarkToStudent">
+            <End Role="studetns" EntitySet="studetns" />
+            <End Role="marks" EntitySet="marks" />
+          </AssociationSet>
+          <AssociationSet Name="MarkToSubject" Association="Self.MarkToSubject">
+            <End Role="subjects" EntitySet="subjects" />
+            <End Role="marks" EntitySet="marks" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище LogModelContainer" CdmEntityContainer="LogEntities">
+          <EntitySetMapping Name="marks">
+            <EntityTypeMapping TypeName="LogModel.mark">
+              <MappingFragment StoreEntitySet="marks">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+                <ScalarProperty Name="SubjectId" ColumnName="SubjectId" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Month" ColumnName="Month" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="studetns">
+            <EntityTypeMapping TypeName="LogModel.studetn">
+              <MappingFragment StoreEntitySet="studetns">
+                <ScalarProperty Name="PassportId" ColumnName="PassportId" />
+                <ScalarProperty Name="Fio" ColumnName="Fio" />
+                <ScalarProperty Name="GroupId" ColumnName="GroupId" />
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="subjects">
+            <EntityTypeMapping TypeName="LogModel.subject">
+              <MappingFragment StoreEntitySet="subjects">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="SubjectName" ColumnName="SubjectName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
