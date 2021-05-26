@@ -17,11 +17,12 @@ namespace Log
         public int Id { get; set; }
         public string StudentId { get; set; }
         public Nullable<int> SubjectId { get; set; }
-        public string Type { get; set; }
+        public Nullable<int> TypeId { get; set; }
         public Nullable<int> Month { get; set; }
-        public Nullable<int> Value { get; set; }
+        public string Value { get; set; }
     
-        public virtual studetn studetn { get; set; }
+        public virtual student studetn { get; set; }
         public virtual subject subject { get; set; }
+        public virtual typeMark typeMark { get; set; }
     }
 }

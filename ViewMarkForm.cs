@@ -9,13 +9,15 @@ namespace Log
         public ViewMarkForm()
         {
             InitializeComponent();
+            fillGrid = FillData;
         }
 
-        LogEntities Log;
+        LogEntities log;
+        FillDataGridView fillGrid;
 
         private void ViewMarkForm_Load(object sender, EventArgs e)
         {
-            FillData(ref Log);
+            fillGrid(ref log);
             //Задаем размер по заполнению
             dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
@@ -25,36 +27,43 @@ namespace Log
             log?.Dispose();
             log = new LogEntities();
             markBindingSource.DataSource = log.marks.ToList();
-            studetnBindingSource.DataSource = log.studetns.ToList();
+            studentBindingSource.DataSource = log.students.ToList();
             subjectBindingSource.DataSource = log.subjects.ToList();
+            typeMarkBindingSource.DataSource = log.typeMarks.ToList();
         }
 
         private void ViewMarkForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            Log.SaveChanges();
-            Log.Dispose();
+            log.SaveChanges();
+            log.Dispose();
         }
 
-        private void deleteButton(object sender, EventArgs e)
+        private void deleteButton_Click(object sender, EventArgs e)
         {
             int keySelectedIndex = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value.ToString());
-            mark mark = Log.marks.Find(keySelectedIndex);
-            Log.marks.Remove(mark);
+            mark mark = log.marks.Find(keySelectedIndex);
+            log.marks.Remove(mark);
             int delIndex = dataGridView.SelectedRows[0].Index;
             dataGridView.Rows.RemoveAt(delIndex);
-            Log.SaveChanges();
+            log.SaveChanges();
         }
 
-        private void addButton(object sender, EventArgs e)
+        private void addButton_Click(object sender, EventArgs e)
         {
             mark mark = new mark();
-            Log.marks.Add(mark);
-            Log.SaveChanges();
+            log.marks.Add(mark);
+            log.SaveChanges();
             dataGridView.DataSource = null;
             dataGridView.Refresh();
-            FillData(ref Log);
+            fillGrid(ref log);
             dataGridView.DataSource = markBindingSource;
             dataGridView.Refresh();
+        }
+
+        private void addGroupBtn_Click(object sender, EventArgs e)
+        {
+            AddGroupMarkForm addGroupMarkForm = new AddGroupMarkForm(ref log, ref dataGridView, ref fillGrid, ref markBindingSource);
+            addGroupMarkForm.Show();
         }
     }
 }

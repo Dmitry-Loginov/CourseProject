@@ -12,9 +12,9 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="StudentId" Type="nchar" MaxLength="25" />
           <Property Name="SubjectId" Type="int" />
-          <Property Name="Type" Type="nchar" MaxLength="25" />
+          <Property Name="TypeId" Type="int" />
           <Property Name="Month" Type="int" />
-          <Property Name="Value" Type="int" />
+          <Property Name="Value" Type="nchar" MaxLength="4" />
         </EntityType>
         <EntityType Name="studetns">
           <Key>
@@ -32,6 +32,13 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="SubjectName" Type="nchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="typeMark">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Type" Type="nchar" MaxLength="20" />
         </EntityType>
         <Association Name="MarkToStudent">
           <End Role="studetns" Type="Self.studetns" Multiplicity="0..1">
@@ -61,10 +68,25 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="MarkToType">
+          <End Role="typeMark" Type="Self.typeMark" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="marks" Type="Self.marks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="typeMark">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="marks">
+              <PropertyRef Name="TypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="Хранилище LogModelContainer">
           <EntitySet Name="marks" EntityType="Self.marks" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="studetns" EntityType="Self.studetns" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="subjects" EntityType="Self.subjects" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="typeMark" EntityType="Self.typeMark" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="MarkToStudent" Association="Self.MarkToStudent">
             <End Role="studetns" EntitySet="studetns" />
             <End Role="marks" EntitySet="marks" />
@@ -73,25 +95,16 @@
             <End Role="subjects" EntitySet="subjects" />
             <End Role="marks" EntitySet="marks" />
           </AssociationSet>
+          <AssociationSet Name="MarkToType" Association="Self.MarkToType">
+            <End Role="typeMark" EntitySet="typeMark" />
+            <End Role="marks" EntitySet="marks" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="LogModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="mark">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="StudentId" Type="String" MaxLength="25" FixedLength="true" Unicode="true" />
-          <Property Name="SubjectId" Type="Int32" />
-          <Property Name="Type" Type="String" MaxLength="25" FixedLength="true" Unicode="true" />
-          <Property Name="Month" Type="Int32" />
-          <Property Name="Value" Type="Int32" />
-          <NavigationProperty Name="studetn" Relationship="Self.MarkToStudent" FromRole="marks" ToRole="studetns" />
-          <NavigationProperty Name="subject" Relationship="Self.MarkToSubject" FromRole="marks" ToRole="subjects" />
-        </EntityType>
-        <EntityType Name="studetn">
+        <EntityType Name="student">
           <Key>
             <PropertyRef Name="PassportId" />
           </Key>
@@ -100,7 +113,7 @@
           <Property Name="GroupId" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="Birthday" Type="DateTime" Precision="3" />
           <Property Name="Phone" Type="String" MaxLength="14" FixedLength="true" Unicode="true" />
-          <NavigationProperty Name="marks" Relationship="Self.MarkToStudent" FromRole="studetns" ToRole="marks" />
+          <NavigationProperty Name="marks" Relationship="LogModel.MarkToStudent" FromRole="studetn" ToRole="mark" />
         </EntityType>
         <EntityType Name="subject">
           <Key>
@@ -108,69 +121,98 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="SubjectName" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
-          <NavigationProperty Name="marks" Relationship="Self.MarkToSubject" FromRole="subjects" ToRole="marks" />
+          <NavigationProperty Name="marks" Relationship="LogModel.MarkToSubject" FromRole="subject" ToRole="mark" />
+        </EntityType>
+        <EntityContainer Name="LogEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="students" EntityType="LogModel.student" />
+          <EntitySet Name="subjects" EntityType="Self.subject" />
+          <EntitySet Name="typeMarks" EntityType="LogModel.typeMark" />
+          <EntitySet Name="marks" EntityType="LogModel.mark" />
+          <AssociationSet Name="MarkToStudent" Association="LogModel.MarkToStudent">
+            <End Role="studetn" EntitySet="students" />
+            <End Role="mark" EntitySet="marks" />
+          </AssociationSet>
+          <AssociationSet Name="MarkToSubject" Association="LogModel.MarkToSubject">
+            <End Role="subject" EntitySet="subjects" />
+            <End Role="mark" EntitySet="marks" />
+          </AssociationSet>
+          <AssociationSet Name="MarkToType" Association="LogModel.MarkToType">
+            <End Role="typeMark" EntitySet="typeMarks" />
+            <End Role="mark" EntitySet="marks" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="typeMark">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Type" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="marks" Relationship="LogModel.MarkToType" FromRole="typeMark" ToRole="mark" />
+        </EntityType>
+        <EntityType Name="mark">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StudentId" Type="String" MaxLength="25" FixedLength="true" Unicode="true" />
+          <Property Name="SubjectId" Type="Int32" />
+          <Property Name="TypeId" Type="Int32" />
+          <Property Name="Month" Type="Int32" />
+          <Property Name="Value" Type="String" MaxLength="4" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="studetn" Relationship="LogModel.MarkToStudent" FromRole="mark" ToRole="studetn" />
+          <NavigationProperty Name="subject" Relationship="LogModel.MarkToSubject" FromRole="mark" ToRole="subject" />
+          <NavigationProperty Name="typeMark" Relationship="LogModel.MarkToType" FromRole="mark" ToRole="typeMark" />
         </EntityType>
         <Association Name="MarkToStudent">
-          <End Role="studetns" Type="Self.studetn" Multiplicity="0..1">
+          <End Type="LogModel.student" Role="studetn" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="marks" Type="Self.mark" Multiplicity="*" />
+          <End Type="LogModel.mark" Role="mark" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="studetns">
+            <Principal Role="studetn">
               <PropertyRef Name="PassportId" />
             </Principal>
-            <Dependent Role="marks">
+            <Dependent Role="mark">
               <PropertyRef Name="StudentId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="MarkToSubject">
-          <End Role="subjects" Type="Self.subject" Multiplicity="0..1">
+          <End Type="LogModel.subject" Role="subject" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="marks" Type="Self.mark" Multiplicity="*" />
+          <End Type="LogModel.mark" Role="mark" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="subjects">
+            <Principal Role="subject">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="marks">
+            <Dependent Role="mark">
               <PropertyRef Name="SubjectId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="LogEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="marks" EntityType="Self.mark" />
-          <EntitySet Name="studetns" EntityType="Self.studetn" />
-          <EntitySet Name="subjects" EntityType="Self.subject" />
-          <AssociationSet Name="MarkToStudent" Association="Self.MarkToStudent">
-            <End Role="studetns" EntitySet="studetns" />
-            <End Role="marks" EntitySet="marks" />
-          </AssociationSet>
-          <AssociationSet Name="MarkToSubject" Association="Self.MarkToSubject">
-            <End Role="subjects" EntitySet="subjects" />
-            <End Role="marks" EntitySet="marks" />
-          </AssociationSet>
-        </EntityContainer>
+        <Association Name="MarkToType">
+          <End Type="LogModel.typeMark" Role="typeMark" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="LogModel.mark" Role="mark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="typeMark">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="mark">
+              <PropertyRef Name="TypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="Хранилище LogModelContainer" CdmEntityContainer="LogEntities">
-          <EntitySetMapping Name="marks">
-            <EntityTypeMapping TypeName="LogModel.mark">
-              <MappingFragment StoreEntitySet="marks">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="StudentId" ColumnName="StudentId" />
-                <ScalarProperty Name="SubjectId" ColumnName="SubjectId" />
-                <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="Month" ColumnName="Month" />
-                <ScalarProperty Name="Value" ColumnName="Value" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="studetns">
-            <EntityTypeMapping TypeName="LogModel.studetn">
+          <EntitySetMapping Name="students">
+            <EntityTypeMapping TypeName="LogModel.student">
               <MappingFragment StoreEntitySet="studetns">
                 <ScalarProperty Name="PassportId" ColumnName="PassportId" />
                 <ScalarProperty Name="Fio" ColumnName="Fio" />
@@ -185,6 +227,26 @@
               <MappingFragment StoreEntitySet="subjects">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="SubjectName" ColumnName="SubjectName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="typeMarks">
+            <EntityTypeMapping TypeName="LogModel.typeMark">
+              <MappingFragment StoreEntitySet="typeMark">
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="marks">
+            <EntityTypeMapping TypeName="LogModel.mark">
+              <MappingFragment StoreEntitySet="marks">
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Month" ColumnName="Month" />
+                <ScalarProperty Name="TypeId" ColumnName="TypeId" />
+                <ScalarProperty Name="SubjectId" ColumnName="SubjectId" />
+                <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

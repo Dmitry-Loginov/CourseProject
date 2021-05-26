@@ -40,20 +40,23 @@ namespace Log
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ViewMarkForm));
             this.dataGridView = new System.Windows.Forms.DataGridView();
-            this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.studentIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.studetnBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.subjectIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.subjectBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.typeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.monthDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.valueDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.markBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.addBtn = new System.Windows.Forms.Button();
             this.deleteBtn = new System.Windows.Forms.Button();
+            this.addGroupBtn = new System.Windows.Forms.Button();
+            this.studentBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.subjectBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.typeMarkBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.markBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.studentIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.subjectIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.TypeId = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.monthDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.valueDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.studetnBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.studentBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.subjectBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.typeMarkBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.markBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -81,7 +84,7 @@ namespace Log
             this.idDataGridViewTextBoxColumn,
             this.studentIdDataGridViewTextBoxColumn,
             this.subjectIdDataGridViewTextBoxColumn,
-            this.typeDataGridViewTextBoxColumn,
+            this.TypeId,
             this.monthDataGridViewTextBoxColumn,
             this.valueDataGridViewTextBoxColumn});
             this.dataGridView.DataSource = this.markBindingSource;
@@ -100,6 +103,52 @@ namespace Log
             this.dataGridView.Size = new System.Drawing.Size(838, 467);
             this.dataGridView.TabIndex = 0;
             // 
+            // addBtn
+            // 
+            this.addBtn.Location = new System.Drawing.Point(12, 10);
+            this.addBtn.Name = "addBtn";
+            this.addBtn.Size = new System.Drawing.Size(112, 34);
+            this.addBtn.TabIndex = 2;
+            this.addBtn.Text = "Добавить";
+            this.addBtn.UseVisualStyleBackColor = true;
+            this.addBtn.Click += new System.EventHandler(this.addButton_Click);
+            // 
+            // deleteBtn
+            // 
+            this.deleteBtn.Location = new System.Drawing.Point(130, 10);
+            this.deleteBtn.Name = "deleteBtn";
+            this.deleteBtn.Size = new System.Drawing.Size(132, 34);
+            this.deleteBtn.TabIndex = 3;
+            this.deleteBtn.Text = "Удалить";
+            this.deleteBtn.UseVisualStyleBackColor = true;
+            this.deleteBtn.Click += new System.EventHandler(this.deleteButton_Click);
+            // 
+            // addGroupBtn
+            // 
+            this.addGroupBtn.Location = new System.Drawing.Point(269, 10);
+            this.addGroupBtn.Name = "addGroupBtn";
+            this.addGroupBtn.Size = new System.Drawing.Size(255, 34);
+            this.addGroupBtn.TabIndex = 4;
+            this.addGroupBtn.Text = "Добавить группу";
+            this.addGroupBtn.UseVisualStyleBackColor = true;
+            this.addGroupBtn.Click += new System.EventHandler(this.addGroupBtn_Click);
+            // 
+            // studentBindingSource
+            // 
+            this.studentBindingSource.DataSource = typeof(Log.student);
+            // 
+            // subjectBindingSource
+            // 
+            this.subjectBindingSource.DataSource = typeof(Log.subject);
+            // 
+            // typeMarkBindingSource
+            // 
+            this.typeMarkBindingSource.DataSource = typeof(Log.typeMark);
+            // 
+            // markBindingSource
+            // 
+            this.markBindingSource.DataSource = typeof(Log.mark);
+            // 
             // idDataGridViewTextBoxColumn
             // 
             this.idDataGridViewTextBoxColumn.DataPropertyName = "Id";
@@ -110,7 +159,7 @@ namespace Log
             // studentIdDataGridViewTextBoxColumn
             // 
             this.studentIdDataGridViewTextBoxColumn.DataPropertyName = "StudentId";
-            this.studentIdDataGridViewTextBoxColumn.DataSource = this.studetnBindingSource;
+            this.studentIdDataGridViewTextBoxColumn.DataSource = this.studentBindingSource;
             dataGridViewCellStyle3.BackColor = System.Drawing.Color.Lavender;
             this.studentIdDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle3;
             this.studentIdDataGridViewTextBoxColumn.DisplayMember = "Fio";
@@ -123,10 +172,6 @@ namespace Log
             this.studentIdDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.studentIdDataGridViewTextBoxColumn.ValueMember = "PassportId";
             this.studentIdDataGridViewTextBoxColumn.Width = 159;
-            // 
-            // studetnBindingSource
-            // 
-            this.studetnBindingSource.DataSource = typeof(Log.studetn);
             // 
             // subjectIdDataGridViewTextBoxColumn
             // 
@@ -145,19 +190,20 @@ namespace Log
             this.subjectIdDataGridViewTextBoxColumn.ValueMember = "Id";
             this.subjectIdDataGridViewTextBoxColumn.Width = 160;
             // 
-            // subjectBindingSource
+            // TypeId
             // 
-            this.subjectBindingSource.DataSource = typeof(Log.subject);
-            // 
-            // typeDataGridViewTextBoxColumn
-            // 
-            this.typeDataGridViewTextBoxColumn.DataPropertyName = "Type";
+            this.TypeId.DataPropertyName = "TypeId";
+            this.TypeId.DataSource = this.typeMarkBindingSource;
             dataGridViewCellStyle5.BackColor = System.Drawing.Color.Lavender;
-            this.typeDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle5;
-            this.typeDataGridViewTextBoxColumn.FillWeight = 93.27411F;
-            this.typeDataGridViewTextBoxColumn.HeaderText = "Тип";
-            this.typeDataGridViewTextBoxColumn.Name = "typeDataGridViewTextBoxColumn";
-            this.typeDataGridViewTextBoxColumn.Width = 159;
+            this.TypeId.DefaultCellStyle = dataGridViewCellStyle5;
+            this.TypeId.DisplayMember = "Type";
+            this.TypeId.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox;
+            this.TypeId.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.TypeId.HeaderText = "Тип";
+            this.TypeId.Name = "TypeId";
+            this.TypeId.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.TypeId.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.TypeId.ValueMember = "Id";
             // 
             // monthDataGridViewTextBoxColumn
             // 
@@ -179,36 +225,13 @@ namespace Log
             this.valueDataGridViewTextBoxColumn.Name = "valueDataGridViewTextBoxColumn";
             this.valueDataGridViewTextBoxColumn.Width = 160;
             // 
-            // markBindingSource
-            // 
-            this.markBindingSource.DataSource = typeof(Log.mark);
-            // 
-            // addBtn
-            // 
-            this.addBtn.Location = new System.Drawing.Point(12, 10);
-            this.addBtn.Name = "addBtn";
-            this.addBtn.Size = new System.Drawing.Size(112, 34);
-            this.addBtn.TabIndex = 2;
-            this.addBtn.Text = "Добавить";
-            this.addBtn.UseVisualStyleBackColor = true;
-            this.addBtn.Click += new System.EventHandler(this.addButton);
-            // 
-            // deleteBtn
-            // 
-            this.deleteBtn.Location = new System.Drawing.Point(130, 10);
-            this.deleteBtn.Name = "deleteBtn";
-            this.deleteBtn.Size = new System.Drawing.Size(132, 34);
-            this.deleteBtn.TabIndex = 3;
-            this.deleteBtn.Text = "Удалить";
-            this.deleteBtn.UseVisualStyleBackColor = true;
-            this.deleteBtn.Click += new System.EventHandler(this.deleteButton);
-            // 
             // ViewMarkForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(862, 529);
+            this.Controls.Add(this.addGroupBtn);
             this.Controls.Add(this.deleteBtn);
             this.Controls.Add(this.addBtn);
             this.Controls.Add(this.dataGridView);
@@ -222,8 +245,9 @@ namespace Log
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ViewMarkForm_FormClosed);
             this.Load += new System.EventHandler(this.ViewMarkForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.studetnBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.studentBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.subjectBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.typeMarkBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.markBindingSource)).EndInit();
             this.ResumeLayout(false);
 
@@ -233,15 +257,17 @@ namespace Log
 
         private System.Windows.Forms.DataGridView dataGridView;
         private System.Windows.Forms.BindingSource markBindingSource;
-        private System.Windows.Forms.BindingSource studetnBindingSource;
+        private System.Windows.Forms.BindingSource studentBindingSource;
         private System.Windows.Forms.BindingSource subjectBindingSource;
+        private System.Windows.Forms.Button addBtn;
+        private System.Windows.Forms.Button deleteBtn;
+        private System.Windows.Forms.Button addGroupBtn;
+        private System.Windows.Forms.BindingSource typeMarkBindingSource;
         private System.Windows.Forms.DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewComboBoxColumn studentIdDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewComboBoxColumn subjectIdDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn typeDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewComboBoxColumn TypeId;
         private System.Windows.Forms.DataGridViewTextBoxColumn monthDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn valueDataGridViewTextBoxColumn;
-        private System.Windows.Forms.Button addBtn;
-        private System.Windows.Forms.Button deleteBtn;
     }
 }

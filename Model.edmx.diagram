@@ -4,12 +4,14 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="cb6fddc773424adba4c2989fc3996fec" Name="Diagram1">
-        <EntityTypeShape EntityType="LogModel.mark" Width="1.5" PointX="3.25" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="LogModel.studetn" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="LogModel.subject" Width="1.5" PointX="0.75" PointY="5.5" IsExpanded="true" />
-        <AssociationConnector Association="LogModel.MarkToStudent" ManuallyRouted="false" />
-        <AssociationConnector Association="LogModel.MarkToSubject" ManuallyRouted="false" />
+      <Diagram DiagramId="cb6fddc773424adba4c2989fc3996fec" Name="Diagram1" ZoomLevel="71">
+        <EntityTypeShape EntityType="LogModel.student" Width="1.5" PointX="2.25" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="LogModel.subject" Width="1.5" PointX="2.125" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="LogModel.typeMark" Width="1.5" PointX="6.25" PointY="7.75" />
+        <EntityTypeShape EntityType="LogModel.mark" Width="1.5" PointX="7.375" PointY="1.75" />
+        <AssociationConnector Association="LogModel.MarkToStudent" />
+        <AssociationConnector Association="LogModel.MarkToSubject" />
+        <AssociationConnector Association="LogModel.MarkToType" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

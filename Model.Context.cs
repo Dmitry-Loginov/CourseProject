@@ -25,8 +25,9 @@ namespace Log
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<mark> marks { get; set; }
-        public virtual DbSet<studetn> studetns { get; set; }
+        public virtual DbSet<student> students { get; set; }
         public virtual DbSet<subject> subjects { get; set; }
+        public virtual DbSet<typeMark> typeMarks { get; set; }
+        public virtual DbSet<mark> marks { get; set; }
     }
 }
