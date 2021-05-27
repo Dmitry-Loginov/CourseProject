@@ -5,6 +5,12 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="Хранилище LogModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="groups">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nchar" MaxLength="10" Nullable="false" />
+        </EntityType>
         <EntityType Name="marks">
           <Key>
             <PropertyRef Name="Id" />
@@ -22,7 +28,7 @@
           </Key>
           <Property Name="PassportId" Type="nchar" MaxLength="25" Nullable="false" />
           <Property Name="Fio" Type="nchar" MaxLength="35" />
-          <Property Name="GroupId" Type="nchar" MaxLength="10" />
+          <Property Name="GroupId" Type="nchar" MaxLength="10" Nullable="false" />
           <Property Name="Birthday" Type="datetime" />
           <Property Name="Phone" Type="nchar" MaxLength="14" />
         </EntityType>
@@ -82,7 +88,22 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="StudentToGroup">
+          <End Role="groups" Type="Self.groups" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="studetns" Type="Self.studetns" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="groups">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="studetns">
+              <PropertyRef Name="GroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="Хранилище LogModelContainer">
+          <EntitySet Name="groups" EntityType="Self.groups" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="marks" EntityType="Self.marks" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="studetns" EntityType="Self.studetns" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="subjects" EntityType="Self.subjects" Schema="dbo" store:Type="Tables" />
@@ -99,6 +120,10 @@
             <End Role="typeMark" EntitySet="typeMark" />
             <End Role="marks" EntitySet="marks" />
           </AssociationSet>
+          <AssociationSet Name="StudentToGroup" Association="Self.StudentToGroup">
+            <End Role="groups" EntitySet="groups" />
+            <End Role="studetns" EntitySet="studetns" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -110,10 +135,11 @@
           </Key>
           <Property Name="PassportId" Type="String" MaxLength="25" FixedLength="true" Unicode="true" Nullable="false" />
           <Property Name="Fio" Type="String" MaxLength="35" FixedLength="true" Unicode="true" />
-          <Property Name="GroupId" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="GroupId" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
           <Property Name="Birthday" Type="DateTime" Precision="3" />
           <Property Name="Phone" Type="String" MaxLength="14" FixedLength="true" Unicode="true" />
           <NavigationProperty Name="marks" Relationship="LogModel.MarkToStudent" FromRole="studetn" ToRole="mark" />
+          <NavigationProperty Name="group" Relationship="LogModel.StudentToGroup" FromRole="student" ToRole="group" />
         </EntityType>
         <EntityType Name="subject">
           <Key>
@@ -139,6 +165,11 @@
           <AssociationSet Name="MarkToType" Association="LogModel.MarkToType">
             <End Role="typeMark" EntitySet="typeMarks" />
             <End Role="mark" EntitySet="marks" />
+          </AssociationSet>
+          <EntitySet Name="groups" EntityType="LogModel.group" />
+          <AssociationSet Name="StudentToGroup" Association="LogModel.StudentToGroup">
+            <End Role="group" EntitySet="groups" />
+            <End Role="student" EntitySet="students" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="typeMark">
@@ -205,6 +236,27 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="group">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="studetns" Relationship="LogModel.StudentToGroup" FromRole="group" ToRole="student" />
+        </EntityType>
+        <Association Name="StudentToGroup">
+          <End Type="LogModel.group" Role="group" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="LogModel.student" Role="student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="group">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="student">
+              <PropertyRef Name="GroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -246,6 +298,13 @@
                 <ScalarProperty Name="TypeId" ColumnName="TypeId" />
                 <ScalarProperty Name="SubjectId" ColumnName="SubjectId" />
                 <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="groups">
+            <EntityTypeMapping TypeName="LogModel.group">
+              <MappingFragment StoreEntitySet="groups">
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

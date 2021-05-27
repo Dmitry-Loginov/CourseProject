@@ -28,5 +28,6 @@ namespace Log
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<mark> marks { get; set; }
+        public virtual group group { get; set; }
     }
 }

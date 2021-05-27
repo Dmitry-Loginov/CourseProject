@@ -29,5 +29,6 @@ namespace Log
         public virtual DbSet<subject> subjects { get; set; }
         public virtual DbSet<typeMark> typeMarks { get; set; }
         public virtual DbSet<mark> marks { get; set; }
+        public virtual DbSet<group> groups { get; set; }
     }
 }
