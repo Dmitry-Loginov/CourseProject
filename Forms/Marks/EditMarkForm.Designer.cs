@@ -53,10 +53,11 @@ namespace Log
             this.addBtn = new System.Windows.Forms.Button();
             this.deleteBtn = new System.Windows.Forms.Button();
             this.addGroupBtn = new System.Windows.Forms.Button();
-            this.groupBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.groupComboBox = new System.Windows.Forms.ComboBox();
+            this.groupBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.groupCheckBox = new System.Windows.Forms.CheckBox();
             this.groupBox = new System.Windows.Forms.GroupBox();
+            this.bindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.studentBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.subjectBindingSource)).BeginInit();
@@ -64,10 +65,13 @@ namespace Log
             ((System.ComponentModel.ISupportInitialize)(this.markBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupBindingSource)).BeginInit();
             this.groupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridView
             // 
+            this.dataGridView.AllowUserToAddRows = false;
+            this.dataGridView.AllowUserToDeleteRows = false;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Info;
             this.dataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -105,9 +109,10 @@ namespace Log
             this.dataGridView.Location = new System.Drawing.Point(12, 109);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.RowTemplate.Height = 35;
-            this.dataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this.dataGridView.Size = new System.Drawing.Size(803, 452);
             this.dataGridView.TabIndex = 0;
+            this.dataGridView.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dataGridView_EditingControlShowing);
             // 
             // idDataGridViewTextBoxColumn
             // 
@@ -231,10 +236,6 @@ namespace Log
             this.addGroupBtn.UseVisualStyleBackColor = true;
             this.addGroupBtn.Click += new System.EventHandler(this.AddGroupBtn_Click);
             // 
-            // groupBindingSource
-            // 
-            this.groupBindingSource.DataSource = typeof(Log.group);
-            // 
             // groupComboBox
             // 
             this.groupComboBox.DataSource = this.groupBindingSource;
@@ -247,6 +248,10 @@ namespace Log
             this.groupComboBox.TabIndex = 4;
             this.groupComboBox.ValueMember = "Id";
             this.groupComboBox.SelectedIndexChanged += new System.EventHandler(this.groupComboBox_SelectedIndexChanged);
+            // 
+            // groupBindingSource
+            // 
+            this.groupBindingSource.DataSource = typeof(Log.group);
             // 
             // groupCheckBox
             // 
@@ -271,6 +276,10 @@ namespace Log
             this.groupBox.TabIndex = 6;
             this.groupBox.TabStop = false;
             this.groupBox.Text = "Группы";
+            // 
+            // bindingSource
+            // 
+            this.bindingSource.DataSource = typeof(Log.subject);
             // 
             // EditMarkForm
             // 
@@ -300,6 +309,7 @@ namespace Log
             ((System.ComponentModel.ISupportInitialize)(this.groupBindingSource)).EndInit();
             this.groupBox.ResumeLayout(false);
             this.groupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -324,5 +334,6 @@ namespace Log
         private System.Windows.Forms.ComboBox groupComboBox;
         private System.Windows.Forms.CheckBox groupCheckBox;
         private System.Windows.Forms.GroupBox groupBox;
+        private System.Windows.Forms.BindingSource bindingSource;
     }
 }

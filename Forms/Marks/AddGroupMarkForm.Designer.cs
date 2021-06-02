@@ -42,14 +42,22 @@ namespace Log
             this.typeMarkLabel = new System.Windows.Forms.Label();
             this.monthLabel = new System.Windows.Forms.Label();
             this.valueLabel = new System.Windows.Forms.Label();
-            this.valueListBox = new System.Windows.Forms.ListBox();
+            this.ballListBox = new System.Windows.Forms.ListBox();
             this.addButton = new System.Windows.Forms.Button();
             this.monthListBox = new System.Windows.Forms.ListBox();
-            this.countBox = new System.Windows.Forms.ListBox();
+            this.countListBox = new System.Windows.Forms.ListBox();
             this.labelCount = new System.Windows.Forms.Label();
+            this.bindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.studentCheckBoxVoid = new System.Windows.Forms.CheckBox();
+            this.subjectCheckBoxVoid = new System.Windows.Forms.CheckBox();
+            this.typeMarkCheckBoxVoid = new System.Windows.Forms.CheckBox();
+            this.monthCheckBoxVoid = new System.Windows.Forms.CheckBox();
+            this.ballCheckBoxVoid = new System.Windows.Forms.CheckBox();
+            this.countCheckBoxVoid = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.studentBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.subjectBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.typeMarkBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // studentBindingSource
@@ -67,6 +75,7 @@ namespace Log
             this.studetnComboBox.Size = new System.Drawing.Size(484, 32);
             this.studetnComboBox.TabIndex = 1;
             this.studetnComboBox.ValueMember = "PassportId";
+            this.studetnComboBox.SelectedIndexChanged += new System.EventHandler(this.studetnComboBox_SelectedIndexChanged);
             // 
             // studentLabel
             // 
@@ -148,11 +157,11 @@ namespace Log
             this.valueLabel.TabIndex = 2;
             this.valueLabel.Text = "Балл";
             // 
-            // valueListBox
+            // ballListBox
             // 
-            this.valueListBox.FormattingEnabled = true;
-            this.valueListBox.ItemHeight = 24;
-            this.valueListBox.Items.AddRange(new object[] {
+            this.ballListBox.FormattingEnabled = true;
+            this.ballListBox.ItemHeight = 24;
+            this.ballListBox.Items.AddRange(new object[] {
             "0",
             "1",
             "2",
@@ -164,14 +173,14 @@ namespace Log
             "8",
             "9",
             "10"});
-            this.valueListBox.Location = new System.Drawing.Point(202, 270);
-            this.valueListBox.Name = "valueListBox";
-            this.valueListBox.Size = new System.Drawing.Size(120, 148);
-            this.valueListBox.TabIndex = 6;
+            this.ballListBox.Location = new System.Drawing.Point(202, 270);
+            this.ballListBox.Name = "ballListBox";
+            this.ballListBox.Size = new System.Drawing.Size(120, 148);
+            this.ballListBox.TabIndex = 6;
             // 
             // addButton
             // 
-            this.addButton.Location = new System.Drawing.Point(20, 432);
+            this.addButton.Location = new System.Drawing.Point(24, 489);
             this.addButton.Name = "addButton";
             this.addButton.Size = new System.Drawing.Size(480, 45);
             this.addButton.TabIndex = 7;
@@ -201,11 +210,11 @@ namespace Log
             this.monthListBox.Size = new System.Drawing.Size(120, 148);
             this.monthListBox.TabIndex = 8;
             // 
-            // countBox
+            // countListBox
             // 
-            this.countBox.FormattingEnabled = true;
-            this.countBox.ItemHeight = 24;
-            this.countBox.Items.AddRange(new object[] {
+            this.countListBox.FormattingEnabled = true;
+            this.countListBox.ItemHeight = 24;
+            this.countListBox.Items.AddRange(new object[] {
             "1",
             "2",
             "3",
@@ -231,10 +240,10 @@ namespace Log
             "23",
             "24",
             "25"});
-            this.countBox.Location = new System.Drawing.Point(380, 270);
-            this.countBox.Name = "countBox";
-            this.countBox.Size = new System.Drawing.Size(120, 148);
-            this.countBox.TabIndex = 9;
+            this.countListBox.Location = new System.Drawing.Point(396, 270);
+            this.countListBox.Name = "countListBox";
+            this.countListBox.Size = new System.Drawing.Size(120, 148);
+            this.countListBox.TabIndex = 9;
             // 
             // labelCount
             // 
@@ -246,15 +255,100 @@ namespace Log
             this.labelCount.TabIndex = 2;
             this.labelCount.Text = "Количество";
             // 
+            // bindingSource
+            // 
+            this.bindingSource.DataSource = typeof(Log.subject);
+            // 
+            // studentCheckBoxVoid
+            // 
+            this.studentCheckBoxVoid.AutoSize = true;
+            this.studentCheckBoxVoid.BackColor = System.Drawing.Color.Transparent;
+            this.studentCheckBoxVoid.Location = new System.Drawing.Point(246, 29);
+            this.studentCheckBoxVoid.Name = "studentCheckBoxVoid";
+            this.studentCheckBoxVoid.Size = new System.Drawing.Size(188, 28);
+            this.studentCheckBoxVoid.TabIndex = 10;
+            this.studentCheckBoxVoid.Text = "Оставить пустым";
+            this.studentCheckBoxVoid.UseVisualStyleBackColor = false;
+            this.studentCheckBoxVoid.CheckedChanged += new System.EventHandler(this.studentCheckBoxVoid_CheckedChanged);
+            // 
+            // subjectCheckBoxVoid
+            // 
+            this.subjectCheckBoxVoid.AutoSize = true;
+            this.subjectCheckBoxVoid.BackColor = System.Drawing.Color.Transparent;
+            this.subjectCheckBoxVoid.Location = new System.Drawing.Point(246, 96);
+            this.subjectCheckBoxVoid.Name = "subjectCheckBoxVoid";
+            this.subjectCheckBoxVoid.Size = new System.Drawing.Size(188, 28);
+            this.subjectCheckBoxVoid.TabIndex = 10;
+            this.subjectCheckBoxVoid.Text = "Оставить пустым";
+            this.subjectCheckBoxVoid.UseVisualStyleBackColor = false;
+            this.subjectCheckBoxVoid.CheckedChanged += new System.EventHandler(this.subjectCheckBoxVoid_CheckedChanged);
+            // 
+            // typeMarkCheckBoxVoid
+            // 
+            this.typeMarkCheckBoxVoid.AutoSize = true;
+            this.typeMarkCheckBoxVoid.BackColor = System.Drawing.Color.Transparent;
+            this.typeMarkCheckBoxVoid.Location = new System.Drawing.Point(246, 166);
+            this.typeMarkCheckBoxVoid.Name = "typeMarkCheckBoxVoid";
+            this.typeMarkCheckBoxVoid.Size = new System.Drawing.Size(188, 28);
+            this.typeMarkCheckBoxVoid.TabIndex = 10;
+            this.typeMarkCheckBoxVoid.Text = "Оставить пустым";
+            this.typeMarkCheckBoxVoid.UseVisualStyleBackColor = false;
+            this.typeMarkCheckBoxVoid.CheckedChanged += new System.EventHandler(this.typeMarkCheckBoxVoid_CheckedChanged);
+            // 
+            // monthCheckBoxVoid
+            // 
+            this.monthCheckBoxVoid.AutoSize = true;
+            this.monthCheckBoxVoid.BackColor = System.Drawing.Color.Transparent;
+            this.monthCheckBoxVoid.Location = new System.Drawing.Point(19, 424);
+            this.monthCheckBoxVoid.Name = "monthCheckBoxVoid";
+            this.monthCheckBoxVoid.Size = new System.Drawing.Size(117, 28);
+            this.monthCheckBoxVoid.TabIndex = 10;
+            this.monthCheckBoxVoid.Text = "Оставить";
+            this.monthCheckBoxVoid.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+            this.monthCheckBoxVoid.UseVisualStyleBackColor = false;
+            this.monthCheckBoxVoid.CheckedChanged += new System.EventHandler(this.monthCheckBoxVoid_CheckedChanged);
+            // 
+            // ballCheckBoxVoid
+            // 
+            this.ballCheckBoxVoid.AutoSize = true;
+            this.ballCheckBoxVoid.BackColor = System.Drawing.Color.Transparent;
+            this.ballCheckBoxVoid.Location = new System.Drawing.Point(202, 424);
+            this.ballCheckBoxVoid.Name = "ballCheckBoxVoid";
+            this.ballCheckBoxVoid.Size = new System.Drawing.Size(117, 28);
+            this.ballCheckBoxVoid.TabIndex = 10;
+            this.ballCheckBoxVoid.Text = "Оставить";
+            this.ballCheckBoxVoid.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+            this.ballCheckBoxVoid.UseVisualStyleBackColor = false;
+            this.ballCheckBoxVoid.CheckedChanged += new System.EventHandler(this.ballCheckBoxVoid_CheckedChanged);
+            // 
+            // countCheckBoxVoid
+            // 
+            this.countCheckBoxVoid.AutoSize = true;
+            this.countCheckBoxVoid.BackColor = System.Drawing.Color.Transparent;
+            this.countCheckBoxVoid.Location = new System.Drawing.Point(396, 424);
+            this.countCheckBoxVoid.Name = "countCheckBoxVoid";
+            this.countCheckBoxVoid.Size = new System.Drawing.Size(117, 28);
+            this.countCheckBoxVoid.TabIndex = 10;
+            this.countCheckBoxVoid.Text = "Оставить";
+            this.countCheckBoxVoid.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+            this.countCheckBoxVoid.UseVisualStyleBackColor = false;
+            this.countCheckBoxVoid.CheckedChanged += new System.EventHandler(this.countCheckBoxVoid_CheckedChanged);
+            // 
             // AddGroupMarkForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(521, 504);
-            this.Controls.Add(this.countBox);
+            this.ClientSize = new System.Drawing.Size(539, 546);
+            this.Controls.Add(this.countCheckBoxVoid);
+            this.Controls.Add(this.ballCheckBoxVoid);
+            this.Controls.Add(this.monthCheckBoxVoid);
+            this.Controls.Add(this.typeMarkCheckBoxVoid);
+            this.Controls.Add(this.subjectCheckBoxVoid);
+            this.Controls.Add(this.studentCheckBoxVoid);
+            this.Controls.Add(this.countListBox);
             this.Controls.Add(this.monthListBox);
             this.Controls.Add(this.addButton);
-            this.Controls.Add(this.valueListBox);
+            this.Controls.Add(this.ballListBox);
             this.Controls.Add(this.typeMarkComboBox);
             this.Controls.Add(this.subjectComboBox);
             this.Controls.Add(this.labelCount);
@@ -269,9 +363,11 @@ namespace Log
             this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "AddGroupMarkForm";
             this.Text = "Добавить группу отметок";
+            this.Load += new System.EventHandler(this.AddGroupMarkForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.studentBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.subjectBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.typeMarkBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -290,10 +386,17 @@ namespace Log
         private System.Windows.Forms.Label typeMarkLabel;
         private System.Windows.Forms.Label monthLabel;
         private System.Windows.Forms.Label valueLabel;
-        private System.Windows.Forms.ListBox valueListBox;
+        private System.Windows.Forms.ListBox ballListBox;
         private System.Windows.Forms.Button addButton;
         private System.Windows.Forms.ListBox monthListBox;
-        private System.Windows.Forms.ListBox countBox;
+        private System.Windows.Forms.ListBox countListBox;
         private System.Windows.Forms.Label labelCount;
+        private System.Windows.Forms.BindingSource bindingSource;
+        private System.Windows.Forms.CheckBox studentCheckBoxVoid;
+        private System.Windows.Forms.CheckBox subjectCheckBoxVoid;
+        private System.Windows.Forms.CheckBox typeMarkCheckBoxVoid;
+        private System.Windows.Forms.CheckBox monthCheckBoxVoid;
+        private System.Windows.Forms.CheckBox ballCheckBoxVoid;
+        private System.Windows.Forms.CheckBox countCheckBoxVoid;
     }
 }
