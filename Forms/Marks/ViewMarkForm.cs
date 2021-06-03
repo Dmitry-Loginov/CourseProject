@@ -15,6 +15,16 @@ namespace Log
         public ViewMarkForm()
         {
             InitializeComponent();
+            log = LogEntities.GetInstance();
+            markBindingSource.DataSource = log.marks.ToList();
+            studentBindingSource.DataSource = log.students.ToList();
+            subjectBindingSource.DataSource = log.subjects.ToList();
+            typeMarkBindingSource.DataSource = log.typeMarks.ToList();
+
+            //Задаем размер по заполнению
+            dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
+
+        LogEntities log;
     }
 }

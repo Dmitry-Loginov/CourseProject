@@ -14,9 +14,9 @@ namespace Log
             fillGrid = FillData;
         }
 
-        public LogEntities log;
+        public LogEntities log = LogEntities.GetInstance();
         private FillDataGridView fillGrid;
-        private bool IsLogDisposed = false;
+        private bool IsClosed = false;
         bool IsSorted = false;
 
         private void ViewMarkForm_Load(object sender, EventArgs e)
@@ -30,8 +30,6 @@ namespace Log
         {
             if (!IsSorted)
             {
-                log?.Dispose();
-                log = new LogEntities();
                 markBindingSource.DataSource = log.marks.ToList();
                 studentBindingSource.DataSource = log.students.ToList();
                 subjectBindingSource.DataSource = log.subjects.ToList();
@@ -47,8 +45,7 @@ namespace Log
         private void ViewMarkForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             log.SaveChanges();
-            log.Dispose();
-            IsLogDisposed = true;
+            IsClosed = true;
         }
 
         private void DeleteButton_Click(object sender, EventArgs e)
@@ -100,7 +97,8 @@ namespace Log
 
         private void FillSorted()
         {
-            if(!IsLogDisposed)
+            if (!LogEntities.IsExistInstance) return;
+            if (!IsClosed)
             {
                 List<mark> marksGroup;
                 string id = groupComboBox.SelectedValue?.ToString();
@@ -135,6 +133,7 @@ namespace Log
 
         void EditingSubjectComboBox(DataGridViewEditingControlShowingEventArgs e)
         {
+            if (!LogEntities.IsExistInstance) return;
             if (e.Control as ComboBox != null)
             {
                 string passportId = GetPassportIdSelectedStudent();
@@ -152,7 +151,8 @@ namespace Log
 
         void EditingStudentComboBox(DataGridViewEditingControlShowingEventArgs e)
         {
-            if(e.Control as ComboBox != null)
+            if (!LogEntities.IsExistInstance) return;
+            if (e.Control as ComboBox != null)
             {
                 string groupId = (groupComboBox.SelectedItem as group).Id;
                 (e.Control as ComboBox).DataSource = studentBinding;

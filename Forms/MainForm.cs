@@ -11,62 +11,26 @@ namespace Log
 
         }
 
+        EditMarkForm EditMarkForm { get; set; }
         private void Button6_Click(object sender, EventArgs e)
         {
-            EditMarkForm view = new EditMarkForm();
-            view.Show();
+            if (EditMarkForm == null)
+                EditMarkForm = new EditMarkForm();
+            EditMarkForm.Show();
+            EditMarkForm.Select();
         }
 
-        private void MainForm_Load(object sender, EventArgs e)
+        private void button5_Click(object sender, EventArgs e)
         {
+            ViewMarkForm viewMarkForm = new ViewMarkForm();
+            viewMarkForm.Show();
+        }
 
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            LogEntities.DeleteInstance();
         }
     }
     public delegate void FillDataGridView();
-
-    class MarkBuilder
-    {
-        mark mark;
-        public MarkBuilder()
-        {
-            this.mark = new mark();
-        }
-
-        public MarkBuilder SetStudent(student student) 
-        {
-            mark.studetn = student;
-            return this;
-        }
-
-        public MarkBuilder SetSubject(subject subject)
-        {
-            mark.subject = subject;
-            return this;
-        }
-
-        public MarkBuilder SetTypeMark(typeMark typeMark)
-        {
-            mark.typeMark = typeMark;
-            return this;
-        }
-
-        public MarkBuilder SetMonth(int month)
-        {
-            mark.Month = month;
-            return this;
-        }
-
-        public MarkBuilder SetValue(string value)
-        {
-            mark.Value = value;
-            return this;
-        }
-
-        public mark GetMark()
-        {
-            return mark;
-        }
-
-    }
 
 }

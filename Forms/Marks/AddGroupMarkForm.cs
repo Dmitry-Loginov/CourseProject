@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Windows.Forms;
@@ -14,7 +13,7 @@ namespace Log
         public AddGroupMarkForm(ref FillDataGridView fillGrid)
         {
             InitializeComponent();
-            log = new LogEntities();
+            log = LogEntities.GetInstance();
             FillDataGridView = fillGrid;
             groupBindingSource.DataSource = log.groups.ToList();
             FillStudents();
@@ -85,6 +84,7 @@ namespace Log
 
         void FillSubjects()
         {
+            if (!LogEntities.IsExistInstance) return;
             if (studentCheckBoxVoid.Checked)
             {
                 if (groupCheckBox.Checked)
@@ -105,6 +105,7 @@ namespace Log
 
         void FillStudents()
         {
+            if (!LogEntities.IsExistInstance) return;
             if (groupCheckBox.Checked)
             {
                 studentBindingSource.DataSource = log.students.ToList();
