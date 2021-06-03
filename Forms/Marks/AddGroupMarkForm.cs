@@ -16,65 +16,40 @@ namespace Log
             InitializeComponent();
             log = new LogEntities();
             FillDataGridView = fillGrid;
-            studentBindingSource.DataSource = log.students.ToList();
-            FillSubjectsOfStudent();
+            groupBindingSource.DataSource = log.groups.ToList();
+            FillStudents();
             typeMarkBindingSource.DataSource = log.typeMarks.ToList();
         }
 
         private void AddButton_Click(object sender, System.EventArgs e)
         {
-            List<mark> marks = new List<mark>();
+            mark mark;
             int count = Convert.ToInt32(countListBox.SelectedItem.ToString());
             for (int i = 0; i < count; i++)
             {
-                marks.Add(new mark());
-                marks[i].studetn = (student)studetnComboBox.SelectedItem;
-                marks[i].subject = (subject)subjectComboBox.SelectedItem;
-                marks[i].typeMark = (typeMark)typeMarkComboBox.SelectedItem;
-                marks[i].Month = Convert.ToInt32(monthListBox.SelectedItem.ToString());
-                marks[i].Value = ballListBox.SelectedItem.ToString();
+                mark = new mark();
+                if(!studentCheckBoxVoid.Checked) mark.StudentId = ((student)studetnComboBox.SelectedItem).PassportId;
+                if(!subjectCheckBoxVoid.Checked) mark.SubjectId = ((subject)subjectComboBox.SelectedItem).Id;
+                if(!typeMarkCheckBoxVoid.Checked) mark.TypeId = ((typeMark)typeMarkComboBox.SelectedItem).Id;
+                if(monthListBox.SelectedIndex >= 0) mark.Month = Convert.ToInt32(monthListBox.SelectedItem.ToString());
+                if(ballListBox.SelectedIndex >= 0) mark.Value = ballListBox.SelectedItem.ToString();
+                log.marks.Add(mark);
+                log.SaveChanges();
+                FillDataGridView();
             }
-            log.marks.AddRange(marks);
-            log.SaveChanges();
-            FillDataGridView();
         }
 
 
         private void studetnComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            FillSubjectsOfStudent();
+            FillSubjects();
         }
 
-        void FillSubjectsOfStudent()
-        {
-            if(studetnComboBox.SelectedItem as student != null)
-            {
-                string passportId = (studetnComboBox.SelectedItem as student).PassportId;
-                SqlParameter parameter = new SqlParameter("@PASSPORT", passportId);
-                string sql = "" +
-                            "declare @groupId nchar(10);" +
-                            "select @groupId = studetns.GroupId from studetns where PassportId = @PASSPORT;" +
-                            "select * from subjects where Id in(" +
-                            "select subjects_to_groups.SubjectId from subjects_to_groups where GroupId in (@groupId)); ";
-                bindingSource.DataSource = log.Database.SqlQuery<subject>(sql, parameter).ToList();
-
-                subjectComboBox.DataSource = bindingSource;
-            }
-        }
-
-        private void AddGroupMarkForm_Load(object sender, EventArgs e)
-        {
-            monthCheckBoxVoid.Text = ballCheckBoxVoid.Text = countCheckBoxVoid.Text = "Оставить\nпустым";
-        }
-
-        private void monthCheckBoxVoid_CheckedChanged(object sender, EventArgs e)
-        {
-            monthListBox.Enabled = !monthCheckBoxVoid.Checked;
-        }
 
         private void studentCheckBoxVoid_CheckedChanged(object sender, EventArgs e)
         {
             studetnComboBox.Enabled = !studentCheckBoxVoid.Checked;
+            FillSubjects();
         }
 
         private void subjectCheckBoxVoid_CheckedChanged(object sender, EventArgs e)
@@ -87,14 +62,85 @@ namespace Log
             typeMarkComboBox.Enabled = !typeMarkCheckBoxVoid.Checked;
         }
 
-        private void ballCheckBoxVoid_CheckedChanged(object sender, EventArgs e)
+        private void groupCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            ballListBox.Enabled = !ballCheckBoxVoid.Checked;
+            groupComboBox.Enabled = !groupCheckBox.Checked;
+            if (!groupCheckBox.Checked)
+            {
+                studentCheckBoxVoid.Checked = false;
+                studentCheckBoxVoid.Enabled = false;
+            }
+            else
+            {
+                studentCheckBoxVoid.Enabled = true;
+            }
+            FillStudents();
+
         }
 
-        private void countCheckBoxVoid_CheckedChanged(object sender, EventArgs e)
+        private void groupComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            countListBox.Enabled = !countCheckBoxVoid.Checked;
+            FillStudents();
+        }
+
+        void FillSubjects()
+        {
+            if (studentCheckBoxVoid.Checked)
+            {
+                if (groupCheckBox.Checked)
+                {
+                    subjectBindingSource.DataSource = log.subjects.ToList();
+                    subjectComboBox.DataSource = subjectBindingSource;
+                }
+                else
+                {
+                    FillSortedSubject();
+                }
+            }
+            else
+            {
+                FillSortedSubject();
+            }
+        }
+
+        void FillStudents()
+        {
+            if (groupCheckBox.Checked)
+            {
+                studentBindingSource.DataSource = log.students.ToList();
+                studetnComboBox.DataSource = studentBindingSource;
+            }
+            else
+            {
+                if (studetnComboBox.SelectedItem as student != null && groupComboBox.SelectedItem as group != null)
+                {
+                    string groupId = (groupComboBox.SelectedItem as group).Id;
+
+                    SqlParameter sqlParameter = new SqlParameter("@GROUPID", groupId);
+                    string sql = "select * from studetns where GroupId = @GROUPID";
+
+                    studentBinding.DataSource = log.Database.SqlQuery<student>(sql, sqlParameter).ToList();
+                    studetnComboBox.DataSource = studentBinding;
+                }
+            }
+            FillSubjects();
+        }
+
+        void FillSortedSubject()
+        {
+            if (studetnComboBox.SelectedItem as student != null)
+            {
+                string passportId = (studetnComboBox.SelectedItem as student).PassportId;
+                SqlParameter parameter = new SqlParameter("@PASSPORT", passportId);
+                string sql = "" +
+                            "declare @groupId nchar(10);" +
+                            "select @groupId = studetns.GroupId from studetns where PassportId = @PASSPORT;" +
+                            "select * from subjects where Id in(" +
+                            "select subjects_to_groups.SubjectId from subjects_to_groups where GroupId in (@groupId)); ";
+                subjectBinding.DataSource = log.Database.SqlQuery<subject>(sql, parameter).ToList();
+
+                subjectComboBox.DataSource = subjectBinding;
+            }
         }
     }
 }

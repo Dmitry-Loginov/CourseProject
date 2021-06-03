@@ -122,23 +122,52 @@ namespace Log
 
         private void dataGridView_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
         {
+            if(dataGridView.SelectedCells[0].OwningColumn.Index == 1 && !groupCheckBox.Checked)
+            {
+                EditingStudentComboBox(e);
+            }
+            
             if(dataGridView.SelectedCells[0].OwningColumn.Index == 2)
             {
-                if (e.Control as ComboBox != null)
-                {
-                    int rowIndex = dataGridView.SelectedCells[0].RowIndex;
-                    string passportId = dataGridView.Rows[rowIndex].Cells[1].Value.ToString();
-                    (e.Control as ComboBox).DataSource = bindingSource;
-                    SqlParameter parameter = new SqlParameter("@PASSPORT", passportId);
-
-                    string sql = "" +
-                        "declare @groupId nchar(10);" +
-                        "select @groupId = studetns.GroupId from studetns where PassportId = @PASSPORT;" +
-                        "select * from subjects where Id in(" +
-                        "select subjects_to_groups.SubjectId from subjects_to_groups where GroupId in (@groupId)); ";
-                    bindingSource.DataSource = log.Database.SqlQuery<subject>(sql, parameter).ToList();
-                }
+                EditingSubjectComboBox(e);
             }
+        }
+
+        void EditingSubjectComboBox(DataGridViewEditingControlShowingEventArgs e)
+        {
+            if (e.Control as ComboBox != null)
+            {
+                string passportId = GetPassportIdSelectedStudent();
+                (e.Control as ComboBox).DataSource = subjectBinding;
+                SqlParameter parameter = new SqlParameter("@PASSPORT", passportId);
+
+                string sql = "" +
+                    "declare @groupId nchar(10);" +
+                    "select @groupId = studetns.GroupId from studetns where PassportId = @PASSPORT;" +
+                    "select * from subjects where Id in(" +
+                    "select subjects_to_groups.SubjectId from subjects_to_groups where GroupId in (@groupId)); ";
+                subjectBinding.DataSource = log.Database.SqlQuery<subject>(sql, parameter).ToList();
+            }
+        }
+
+        void EditingStudentComboBox(DataGridViewEditingControlShowingEventArgs e)
+        {
+            if(e.Control as ComboBox != null)
+            {
+                string groupId = (groupComboBox.SelectedItem as group).Id;
+                (e.Control as ComboBox).DataSource = studentBinding;
+                SqlParameter parameter = new SqlParameter("@GROUPID", groupId);
+
+                string sql = "select * from studetns where GroupId = @GROUPID";
+
+                studentBinding.DataSource = log.Database.SqlQuery<student>(sql, parameter).ToList();
+            }
+        }
+
+        string GetPassportIdSelectedStudent()
+        {
+            int rowIndex = dataGridView.SelectedCells[0].RowIndex;
+            return dataGridView.Rows[rowIndex].Cells[1].Value.ToString();
         }
     }
 }

@@ -57,7 +57,8 @@ namespace Log
             this.groupBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.groupCheckBox = new System.Windows.Forms.CheckBox();
             this.groupBox = new System.Windows.Forms.GroupBox();
-            this.bindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.subjectBinding = new System.Windows.Forms.BindingSource(this.components);
+            this.studentBinding = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.studentBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.subjectBindingSource)).BeginInit();
@@ -65,7 +66,8 @@ namespace Log
             ((System.ComponentModel.ISupportInitialize)(this.markBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupBindingSource)).BeginInit();
             this.groupBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.subjectBinding)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.studentBinding)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridView
@@ -277,9 +279,13 @@ namespace Log
             this.groupBox.TabStop = false;
             this.groupBox.Text = "Группы";
             // 
-            // bindingSource
+            // subjectBinding
             // 
-            this.bindingSource.DataSource = typeof(Log.subject);
+            this.subjectBinding.DataSource = typeof(Log.subject);
+            // 
+            // studentBinding
+            // 
+            this.studentBinding.DataSource = typeof(Log.student);
             // 
             // EditMarkForm
             // 
@@ -309,7 +315,8 @@ namespace Log
             ((System.ComponentModel.ISupportInitialize)(this.groupBindingSource)).EndInit();
             this.groupBox.ResumeLayout(false);
             this.groupBox.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.subjectBinding)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.studentBinding)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -334,6 +341,7 @@ namespace Log
         private System.Windows.Forms.ComboBox groupComboBox;
         private System.Windows.Forms.CheckBox groupCheckBox;
         private System.Windows.Forms.GroupBox groupBox;
-        private System.Windows.Forms.BindingSource bindingSource;
+        private System.Windows.Forms.BindingSource subjectBinding;
+        private System.Windows.Forms.BindingSource studentBinding;
     }
 }
