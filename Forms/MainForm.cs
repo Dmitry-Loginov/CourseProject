@@ -8,13 +8,12 @@ namespace Log
         public MainForm()
         {
             InitializeComponent();
-
         }
 
         EditMarkForm EditMarkForm { get; set; }
         private void Button6_Click(object sender, EventArgs e)
         {
-            if (EditMarkForm == null)
+            if (EditMarkForm == null || EditMarkForm.IsDisposed)
                 EditMarkForm = new EditMarkForm();
             EditMarkForm.Show();
             EditMarkForm.Select();

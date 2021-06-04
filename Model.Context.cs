@@ -56,6 +56,18 @@ namespace Log
             }
         }
 
+        public new int SaveChanges()
+        {
+            int countObject = 0;
+            try
+            { countObject = base.SaveChanges(); }
+            catch { }
+            _instance.Dispose();
+            _instance = new LogEntities();
+            return countObject;
+
+        }
+
         public static bool IsExistInstance { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

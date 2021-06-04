@@ -12,9 +12,10 @@ namespace Log
         {
             InitializeComponent();
             fillGrid = FillData;
+            log = LogEntities.GetInstance();
         }
 
-        public LogEntities log = LogEntities.GetInstance();
+        public LogEntities log;
         private FillDataGridView fillGrid;
         private bool IsClosed = false;
         bool IsSorted = false;
@@ -28,6 +29,7 @@ namespace Log
 
         private void FillData()
         {
+            log = LogEntities.GetInstance();
             if (!IsSorted)
             {
                 markBindingSource.DataSource = log.marks.ToList();
@@ -44,12 +46,12 @@ namespace Log
 
         private void ViewMarkForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            log.SaveChanges();
             IsClosed = true;
         }
 
         private void DeleteButton_Click(object sender, EventArgs e)
         {
+            log = LogEntities.GetInstance();
             int keySelectedIndex = Convert.ToInt32(GetSelectedId());
             mark mark = log.marks.Find(keySelectedIndex);
             log.marks.Remove(mark);
@@ -66,6 +68,7 @@ namespace Log
 
         private void AddButton_Click(object sender, EventArgs e)
         {
+            log = LogEntities.GetInstance();
             groupCheckBox.Checked = true;
             mark mark = new mark();
             log.marks.Add(mark);
@@ -81,9 +84,10 @@ namespace Log
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
+            log = LogEntities.GetInstance();
             if (groupCheckBox.Checked)
             {
-                IsSorted =false;
+                IsSorted = false;
                 groupComboBox.Enabled = false;
                 markBindingSource.DataSource = log.marks.ToList();
             }
@@ -97,9 +101,11 @@ namespace Log
 
         private void FillSorted()
         {
+            log.SaveChanges();
             if (!LogEntities.IsExistInstance) return;
             if (!IsClosed)
             {
+                log = LogEntities.GetInstance();
                 List<mark> marksGroup;
                 string id = groupComboBox.SelectedValue?.ToString();
                 SqlParameter parameter = new SqlParameter("@ID", id);
@@ -108,7 +114,7 @@ namespace Log
                     "select PassportId from studetns where GroupId in(" +
                     "select Id from groups where Id = @ID))";
 
-                marksGroup = log.Database.SqlQuery<mark>(sql, parameter).ToList();
+                marksGroup = log.marks.SqlQuery(sql, parameter).ToList();
                 markBindingSource.DataSource = marksGroup;
             }
         }
@@ -120,14 +126,17 @@ namespace Log
 
         private void dataGridView_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
         {
+            log = LogEntities.GetInstance();
             if(dataGridView.SelectedCells[0].OwningColumn.Index == 1 && !groupCheckBox.Checked)
             {
                 EditingStudentComboBox(e);
+                log.SaveChanges();
             }
             
             if(dataGridView.SelectedCells[0].OwningColumn.Index == 2)
             {
                 EditingSubjectComboBox(e);
+                log.SaveChanges();
             }
         }
 
@@ -136,6 +145,7 @@ namespace Log
             if (!LogEntities.IsExistInstance) return;
             if (e.Control as ComboBox != null)
             {
+                log = LogEntities.GetInstance();
                 string passportId = GetPassportIdSelectedStudent();
                 (e.Control as ComboBox).DataSource = subjectBinding;
                 SqlParameter parameter = new SqlParameter("@PASSPORT", passportId);
@@ -154,6 +164,7 @@ namespace Log
             if (!LogEntities.IsExistInstance) return;
             if (e.Control as ComboBox != null)
             {
+                log = LogEntities.GetInstance();
                 string groupId = (groupComboBox.SelectedItem as group).Id;
                 (e.Control as ComboBox).DataSource = studentBinding;
                 SqlParameter parameter = new SqlParameter("@GROUPID", groupId);

@@ -22,7 +22,8 @@ namespace Log
             typeMarkBindingSource.DataSource = log.typeMarks.ToList();
 
             //Задаем размер по заполнению
-            dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            raw.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            bigList.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
         LogEntities log;
