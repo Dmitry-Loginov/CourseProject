@@ -32,11 +32,11 @@ namespace Log
             log = LogEntities.GetInstance();
             if (!IsSorted)
             {
+                groupBindingSource.DataSource = log.groups.ToList();
                 markBindingSource.DataSource = log.marks.ToList();
                 studentBindingSource.DataSource = log.students.ToList();
                 subjectBindingSource.DataSource = log.subjects.ToList();
                 typeMarkBindingSource.DataSource = log.typeMarks.ToList();
-                groupBindingSource.DataSource = log.groups.ToList();
             }
             else
             {
@@ -69,8 +69,11 @@ namespace Log
         private void AddButton_Click(object sender, EventArgs e)
         {
             log = LogEntities.GetInstance();
-            groupCheckBox.Checked = true;
             mark mark = new mark();
+            if (!groupCheckBox.Checked)
+            {
+                mark.studetn = log.students.Where(s => s.GroupId == groupComboBox.SelectedValue).FirstOrDefault();
+            }
             log.marks.Add(mark);
             log.SaveChanges();
             fillGrid();
@@ -78,12 +81,13 @@ namespace Log
 
         private void AddGroupBtn_Click(object sender, EventArgs e)
         {
-            AddGroupMarkForm addGroupMarkForm = new AddGroupMarkForm(ref fillGrid);
+            AddGroupMarkForm addGroupMarkForm = new AddGroupMarkForm(ref fillGrid, this);
             addGroupMarkForm.Show();
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
+            log.SaveChanges();
             log = LogEntities.GetInstance();
             if (groupCheckBox.Checked)
             {
@@ -136,16 +140,15 @@ namespace Log
             if(dataGridView.SelectedCells[0].OwningColumn.Index == 2)
             {
                 EditingSubjectComboBox(e);
-                log.SaveChanges();
             }
         }
 
         void EditingSubjectComboBox(DataGridViewEditingControlShowingEventArgs e)
         {
+            log = LogEntities.GetInstance();
             if (!LogEntities.IsExistInstance) return;
             if (e.Control as ComboBox != null)
             {
-                log = LogEntities.GetInstance();
                 string passportId = GetPassportIdSelectedStudent();
                 (e.Control as ComboBox).DataSource = subjectBinding;
                 SqlParameter parameter = new SqlParameter("@PASSPORT", passportId);

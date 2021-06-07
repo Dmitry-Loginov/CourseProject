@@ -50,19 +50,19 @@ namespace Log
             this.typeMarkCheckBoxVoid = new System.Windows.Forms.CheckBox();
             this.groupBox = new System.Windows.Forms.GroupBox();
             this.groupComboBox = new System.Windows.Forms.ComboBox();
+            this.groupBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.groupCheckBox = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.studentBinding = new System.Windows.Forms.BindingSource(this.components);
-            this.groupBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.studentBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.subjectBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.typeMarkBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.subjectBinding)).BeginInit();
             this.groupBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.studentBinding)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.studentBinding)).BeginInit();
             this.SuspendLayout();
             // 
             // studentBindingSource
@@ -219,6 +219,7 @@ namespace Log
             this.countListBox.Name = "countListBox";
             this.countListBox.Size = new System.Drawing.Size(120, 148);
             this.countListBox.TabIndex = 9;
+            this.countListBox.Tag = "";
             // 
             // labelCount
             // 
@@ -294,6 +295,10 @@ namespace Log
             this.groupComboBox.ValueMember = "Id";
             this.groupComboBox.SelectedIndexChanged += new System.EventHandler(this.groupComboBox_SelectedIndexChanged);
             // 
+            // groupBindingSource
+            // 
+            this.groupBindingSource.DataSource = typeof(Log.group);
+            // 
             // groupCheckBox
             // 
             this.groupCheckBox.AutoSize = true;
@@ -341,10 +346,6 @@ namespace Log
             // 
             this.studentBinding.DataSource = typeof(Log.student);
             // 
-            // groupBindingSource
-            // 
-            this.groupBindingSource.DataSource = typeof(Log.group);
-            // 
             // AddGroupMarkForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
@@ -372,14 +373,15 @@ namespace Log
             this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "AddGroupMarkForm";
             this.Text = "Добавить группу отметок";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AddGroupMarkForm_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.studentBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.subjectBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.typeMarkBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.subjectBinding)).EndInit();
             this.groupBox.ResumeLayout(false);
             this.groupBox.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.studentBinding)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.studentBinding)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

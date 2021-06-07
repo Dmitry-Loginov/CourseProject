@@ -9,8 +9,9 @@ namespace Log
     {
         LogEntities log;
         FillDataGridView FillDataGridView;
+        EditMarkForm editMarkForm;
 
-        public AddGroupMarkForm(ref FillDataGridView fillGrid)
+        public AddGroupMarkForm(ref FillDataGridView fillGrid, EditMarkForm editMarkForm)
         {
             InitializeComponent();
             log = LogEntities.GetInstance();
@@ -18,6 +19,8 @@ namespace Log
             groupBindingSource.DataSource = log.groups.ToList();
             FillStudents();
             typeMarkBindingSource.DataSource = log.typeMarks.ToList();
+            countListBox.SelectedIndex = 0;
+            this.editMarkForm = editMarkForm;
         }
 
         private void AddButton_Click(object sender, System.EventArgs e)
@@ -34,6 +37,7 @@ namespace Log
                 if(ballListBox.SelectedIndex >= 0) mark.Value = ballListBox.SelectedItem.ToString();
                 log.marks.Add(mark);
                 log.SaveChanges();
+                log = LogEntities.GetInstance();
                 FillDataGridView();
             }
         }
@@ -142,6 +146,11 @@ namespace Log
 
                 subjectComboBox.DataSource = subjectBinding;
             }
+        }
+
+        private void AddGroupMarkForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            editMarkForm.Close();
         }
     }
 }

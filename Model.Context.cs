@@ -62,10 +62,8 @@ namespace Log
             try
             { countObject = base.SaveChanges(); }
             catch { }
-            _instance.Dispose();
-            _instance = new LogEntities();
+            _instance = null;
             return countObject;
-
         }
 
         public static bool IsExistInstance { get; set; }
