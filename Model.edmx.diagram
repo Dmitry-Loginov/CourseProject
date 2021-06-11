@@ -4,17 +4,20 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="cb6fddc773424adba4c2989fc3996fec" Name="Diagram1" ZoomLevel="44">
-        <EntityTypeShape EntityType="LogModel.student" Width="1.5" PointX="5.625" PointY="6" IsExpanded="true" />
+      <Diagram DiagramId="cb6fddc773424adba4c2989fc3996fec" Name="Diagram1" ZoomLevel="65">
+        <EntityTypeShape EntityType="LogModel.student" Width="1.5" PointX="5.875" PointY="7.5" IsExpanded="true" />
         <EntityTypeShape EntityType="LogModel.subject" Width="1.5" PointX="11.75" PointY="12.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="LogModel.typeMark" Width="1.5" PointX="7.75" PointY="12.375" />
-        <EntityTypeShape EntityType="LogModel.mark" Width="1.5" PointX="9.5" PointY="6.75" />
+        <EntityTypeShape EntityType="LogModel.typeMark" Width="1.5" PointX="7.125" PointY="4.125" />
+        <EntityTypeShape EntityType="LogModel.mark" Width="1.5" PointX="10.5" PointY="5.875" />
         <AssociationConnector Association="LogModel.MarkToStudent" />
         <AssociationConnector Association="LogModel.MarkToSubject" />
         <AssociationConnector Association="LogModel.MarkToType" />
         <EntityTypeShape EntityType="LogModel.group" Width="1.5" PointX="2.625" PointY="6.5" />
         <AssociationConnector Association="LogModel.StudentToGroup" />
-      </Diagram>
+        <EntityTypeShape EntityType="LogModel.subjects_to_groups" Width="1.5" PointX="8.5" PointY="10.25" />
+        <AssociationConnector Association="LogModel.ThisToGroup" />
+        <AssociationConnector Association="LogModel.ThisToSubject" />
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

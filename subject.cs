@@ -18,6 +18,7 @@ namespace Log
         public subject()
         {
             this.marks = new HashSet<mark>();
+            this.subjects_to_groups = new HashSet<subjects_to_groups>();
         }
     
         public int Id { get; set; }
@@ -25,5 +26,7 @@ namespace Log
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<mark> marks { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<subjects_to_groups> subjects_to_groups { get; set; }
     }
 }

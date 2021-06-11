@@ -67,7 +67,7 @@ namespace Log
         }
 
         public static bool IsExistInstance { get; set; }
-
+    
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();
@@ -77,6 +77,8 @@ namespace Log
         public virtual DbSet<subject> subjects { get; set; }
         public virtual DbSet<typeMark> typeMarks { get; set; }
         public virtual DbSet<mark> marks { get; set; }
+
         public virtual DbSet<group> groups { get; set; }
+        public virtual DbSet<subjects_to_groups> subjects_to_groups { get; set; }
     }
 }

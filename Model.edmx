@@ -39,6 +39,14 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="SubjectName" Type="nchar" MaxLength="30" />
         </EntityType>
+        <EntityType Name="subjects_to_groups">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GroupId" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="SubjectId" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="typeMark">
           <Key>
             <PropertyRef Name="Id" />
@@ -102,11 +110,40 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="ThisToGroup">
+          <End Role="groups" Type="Self.groups" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="subjects_to_groups" Type="Self.subjects_to_groups" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="groups">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="subjects_to_groups">
+              <PropertyRef Name="GroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ThisToSubject">
+          <End Role="subjects" Type="Self.subjects" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="subjects_to_groups" Type="Self.subjects_to_groups" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="subjects">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="subjects_to_groups">
+              <PropertyRef Name="SubjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="Хранилище LogModelContainer">
           <EntitySet Name="groups" EntityType="Self.groups" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="marks" EntityType="Self.marks" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="studetns" EntityType="Self.studetns" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="subjects" EntityType="Self.subjects" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="subjects_to_groups" EntityType="Self.subjects_to_groups" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="typeMark" EntityType="Self.typeMark" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="MarkToStudent" Association="Self.MarkToStudent">
             <End Role="studetns" EntitySet="studetns" />
@@ -123,6 +160,14 @@
           <AssociationSet Name="StudentToGroup" Association="Self.StudentToGroup">
             <End Role="groups" EntitySet="groups" />
             <End Role="studetns" EntitySet="studetns" />
+          </AssociationSet>
+          <AssociationSet Name="ThisToGroup" Association="Self.ThisToGroup">
+            <End Role="groups" EntitySet="groups" />
+            <End Role="subjects_to_groups" EntitySet="subjects_to_groups" />
+          </AssociationSet>
+          <AssociationSet Name="ThisToSubject" Association="Self.ThisToSubject">
+            <End Role="subjects" EntitySet="subjects" />
+            <End Role="subjects_to_groups" EntitySet="subjects_to_groups" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -148,6 +193,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="SubjectName" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
           <NavigationProperty Name="marks" Relationship="LogModel.MarkToSubject" FromRole="subject" ToRole="mark" />
+          <NavigationProperty Name="subjects_to_groups" Relationship="LogModel.ThisToSubject" FromRole="subject" ToRole="subjects_to_groups" />
         </EntityType>
         <EntityContainer Name="LogEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="students" EntityType="LogModel.student" />
@@ -171,7 +217,16 @@
             <End Role="group" EntitySet="groups" />
             <End Role="student" EntitySet="students" />
           </AssociationSet>
-        </EntityContainer>
+          <EntitySet Name="subjects_to_groups" EntityType="LogModel.subjects_to_groups" />
+          <AssociationSet Name="ThisToGroup" Association="LogModel.ThisToGroup">
+            <End Role="group" EntitySet="groups" />
+            <End Role="subjects_to_groups" EntitySet="subjects_to_groups" />
+          </AssociationSet>
+          <AssociationSet Name="ThisToSubject" Association="LogModel.ThisToSubject">
+            <End Role="subject" EntitySet="subjects" />
+            <End Role="subjects_to_groups" EntitySet="subjects_to_groups" />
+          </AssociationSet>
+          </EntityContainer>
         <EntityType Name="typeMark">
           <Key>
             <PropertyRef Name="Id" />
@@ -242,6 +297,7 @@
           </Key>
           <Property Name="Id" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
           <NavigationProperty Name="studetns" Relationship="LogModel.StudentToGroup" FromRole="group" ToRole="student" />
+          <NavigationProperty Name="subjects_to_groups" Relationship="LogModel.ThisToGroup" FromRole="group" ToRole="subjects_to_groups" />
         </EntityType>
         <Association Name="StudentToGroup">
           <End Type="LogModel.group" Role="group" Multiplicity="1">
@@ -257,7 +313,45 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        <EntityType Name="subjects_to_groups">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GroupId" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="SubjectId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="group" Relationship="LogModel.ThisToGroup" FromRole="subjects_to_groups" ToRole="group" />
+          <NavigationProperty Name="subject" Relationship="LogModel.ThisToSubject" FromRole="subjects_to_groups" ToRole="subject" />
+        </EntityType>
+        <Association Name="ThisToGroup">
+          <End Type="LogModel.group" Role="group" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="LogModel.subjects_to_groups" Role="subjects_to_groups" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="group">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="subjects_to_groups">
+              <PropertyRef Name="GroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ThisToSubject">
+          <End Type="LogModel.subject" Role="subject" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="LogModel.subjects_to_groups" Role="subjects_to_groups" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="subject">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="subjects_to_groups">
+              <PropertyRef Name="SubjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -305,6 +399,15 @@
           <EntitySetMapping Name="groups">
             <EntityTypeMapping TypeName="LogModel.group">
               <MappingFragment StoreEntitySet="groups">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="subjects_to_groups">
+            <EntityTypeMapping TypeName="LogModel.subjects_to_groups">
+              <MappingFragment StoreEntitySet="subjects_to_groups">
+                <ScalarProperty Name="SubjectId" ColumnName="SubjectId" />
+                <ScalarProperty Name="GroupId" ColumnName="GroupId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

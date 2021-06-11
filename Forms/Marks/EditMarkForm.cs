@@ -14,7 +14,7 @@ namespace Log
             fillGrid = FillData;
             log = LogEntities.GetInstance();
         }
-
+        
         public LogEntities log;
         private FillDataGridView fillGrid;
         private bool IsClosed = false;
@@ -72,7 +72,7 @@ namespace Log
             mark mark = new mark();
             if (!groupCheckBox.Checked)
             {
-                mark.studetn = log.students.Where(s => s.GroupId == groupComboBox.SelectedValue).FirstOrDefault();
+                mark.studetn = log.students.Where(s => s.GroupId == groupComboBox.SelectedValue.ToString()).FirstOrDefault();
             }
             log.marks.Add(mark);
             log.SaveChanges();

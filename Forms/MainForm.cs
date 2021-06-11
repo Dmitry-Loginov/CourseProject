@@ -21,8 +21,8 @@ namespace Log
 
         private void button5_Click(object sender, EventArgs e)
         {
-            ViewMarkForm viewMarkForm = new ViewMarkForm();
-            viewMarkForm.Show();
+            ViewForm viewForm = new ViewForm();
+            viewForm.Show();
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)

@@ -18,11 +18,14 @@ namespace Log
         public group()
         {
             this.studetns = new HashSet<student>();
+            this.subjects_to_groups = new HashSet<subjects_to_groups>();
         }
     
         public string Id { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<student> studetns { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<subjects_to_groups> subjects_to_groups { get; set; }
     }
 }
