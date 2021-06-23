@@ -29,6 +29,30 @@ namespace Log
         {
             LogEntities.DeleteInstance();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            SubjectsForm subjectsForm = new SubjectsForm();
+            subjectsForm.Show();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            StudentsForm studentsForm = new StudentsForm();
+            studentsForm.Show();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            GroupsForm groupsForm = new GroupsForm();
+            groupsForm.Show();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            SubjectToGroupForm subjectToGroupForm = new SubjectToGroupForm();
+            subjectToGroupForm.Show();
+        }
     }
     public delegate void FillDataGridView();
 

@@ -75,6 +75,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddStudentForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddStudentForm.Designer.cs">
+      <DependentUpon>AddStudentForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Marks\AddGroupMarkForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -87,8 +93,19 @@
     <Compile Include="Forms\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Directories\GroupsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Directories\GroupsForm.Designer.cs">
+      <DependentUpon>GroupsForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="group.cs">
       <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LogDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LogDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="mark.cs">
       <DependentUpon>Model.tt</DependentUpon>
@@ -122,6 +139,24 @@
     <Compile Include="Forms\Marks\ViewForm.Designer.cs">
       <DependentUpon>ViewForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Directories\StudentsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Directories\StudentsForm.Designer.cs">
+      <DependentUpon>StudentsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Directories\SubjectsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Directories\SubjectsForm.Designer.cs">
+      <DependentUpon>SubjectsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Directories\SubjectToGroupForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Directories\SubjectToGroupForm.Designer.cs">
+      <DependentUpon>SubjectToGroupForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="student.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -134,6 +169,9 @@
     <Compile Include="typeMark.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="AddStudentForm.resx">
+      <DependentUpon>AddStudentForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Marks\AddGroupMarkForm.resx">
       <DependentUpon>AddGroupMarkForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -142,6 +180,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Marks\ViewForm.resx">
       <DependentUpon>ViewForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Directories\GroupsForm.resx">
+      <DependentUpon>GroupsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -155,19 +196,34 @@
     <EmbeddedResource Include="Forms\Marks\EditMarkForm.resx">
       <DependentUpon>EditMarkForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Directories\StudentsForm.resx">
+      <DependentUpon>StudentsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Directories\SubjectsForm.resx">
+      <DependentUpon>SubjectsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Directories\SubjectToGroupForm.resx">
+      <DependentUpon>SubjectToGroupForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EntityDeploy Include="Model.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <None Include="LogDataSet.xsc">
+      <DependentUpon>LogDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="LogDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>LogDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="LogDataSet.xss">
+      <DependentUpon>LogDataSet.xsd</DependentUpon>
+    </None>
     <None Include="Model.edmx.diagram">
       <DependentUpon>Model.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
-    <None Include="Properties\DataSources\group.datasource" />
-    <None Include="Properties\DataSources\mark.datasource" />
-    <None Include="Properties\DataSources\student.datasource" />
-    <None Include="Properties\DataSources\subject.datasource" />
-    <None Include="Properties\DataSources\typeMark.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -216,7 +272,7 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Forms\Directories\" />
+    <Folder Include="Properties\DataSources\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

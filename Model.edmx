@@ -44,8 +44,8 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="GroupId" Type="nchar" MaxLength="10" Nullable="false" />
-          <Property Name="SubjectId" Type="int" Nullable="false" />
+          <Property Name="GroupId" Type="nchar" MaxLength="10" />
+          <Property Name="SubjectId" Type="int" />
         </EntityType>
         <EntityType Name="typeMark">
           <Key>
@@ -111,7 +111,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="ThisToGroup">
-          <End Role="groups" Type="Self.groups" Multiplicity="1">
+          <End Role="groups" Type="Self.groups" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="subjects_to_groups" Type="Self.subjects_to_groups" Multiplicity="*" />
@@ -125,7 +125,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="ThisToSubject">
-          <End Role="subjects" Type="Self.subjects" Multiplicity="1">
+          <End Role="subjects" Type="Self.subjects" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="subjects_to_groups" Type="Self.subjects_to_groups" Multiplicity="*" />

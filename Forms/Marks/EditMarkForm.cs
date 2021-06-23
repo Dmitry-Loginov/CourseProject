@@ -81,7 +81,7 @@ namespace Log
 
         private void AddGroupBtn_Click(object sender, EventArgs e)
         {
-            AddGroupMarkForm addGroupMarkForm = new AddGroupMarkForm(ref fillGrid, this);
+            AddGroupMarkForm addGroupMarkForm = new AddGroupMarkForm(ref fillGrid);
             addGroupMarkForm.Show();
         }
 

@@ -373,7 +373,6 @@ namespace Log
             this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "AddGroupMarkForm";
             this.Text = "Добавить группу отметок";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AddGroupMarkForm_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.studentBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.subjectBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.typeMarkBindingSource)).EndInit();

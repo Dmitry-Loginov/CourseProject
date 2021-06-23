@@ -59,20 +59,20 @@ namespace Log
         public new int SaveChanges()
         {
             int countObject = 0;
-            try
-            { countObject = base.SaveChanges(); }
-            catch { }
+            //try
+             countObject = base.SaveChanges(); 
+            //catch { }
             _instance = null;
             return countObject;
         }
 
         public static bool IsExistInstance { get; set; }
-    
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();
         }
-    
+
         public virtual DbSet<student> students { get; set; }
         public virtual DbSet<subject> subjects { get; set; }
         public virtual DbSet<typeMark> typeMarks { get; set; }
