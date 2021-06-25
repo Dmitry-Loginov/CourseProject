@@ -7,16 +7,23 @@ namespace Log
     public partial class StudentsForm : Form
     {
         LogEntities LogEntities;
+        FillStudentsGrid FillStudentsGridDelegate { get; set; }
         public StudentsForm()
         {
             InitializeComponent();
             LogEntities = LogEntities.GetInstance();
+            FillStudentsGridDelegate += FillStudents;
+        }
+
+        void FillStudents()
+        {
+            studentBindingSource.DataSource = LogEntities.students.ToList();
+            groupBindingSource.DataSource = LogEntities.groups.ToList();
         }
 
         private void StudentsForm_Load(object sender, EventArgs e)
         {
-            studentBindingSource.DataSource = LogEntities.students.ToList();
-            groupBindingSource.DataSource = LogEntities.groups.ToList();
+            FillStudentsGridDelegate();
         }
 
         private void StudentsForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -26,13 +33,7 @@ namespace Log
 
         private void добавитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //student student = new student();
-            //student.PassportId = "passportid";
-            //LogEntities.students.Add(student);
-            //LogEntities.SaveChanges();
-            //studentBindingSource.DataSource = LogEntities.students.ToList();
-            //groupBindingSource.DataSource = LogEntities.groups.ToList();
-            AddStudentForm addStudentForm = new AddStudentForm();
+            AddStudentForm addStudentForm = new AddStudentForm(FillStudentsGridDelegate);
             addStudentForm.Show();
         }
 

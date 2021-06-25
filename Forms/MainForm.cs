@@ -55,5 +55,7 @@ namespace Log
         }
     }
     public delegate void FillDataGridView();
+    public delegate void FillStudentsGrid();
+    public delegate void FillSubjectToGroupGrid();
 
 }

@@ -36,14 +36,14 @@ namespace Log
             this.subjects_to_groupsTableAdapter = new Log.LogDataSetTableAdapters.subjects_to_groupsTableAdapter();
             this.tableAdapterManager = new Log.LogDataSetTableAdapters.TableAdapterManager();
             this.subjects_to_groupsDataGridView = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.SubjectId = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.subjectBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.добавитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.удалитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.SubjectId = new System.Windows.Forms.DataGridViewComboBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.logDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.subjects_to_groupsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.subjects_to_groupsDataGridView)).BeginInit();
@@ -94,38 +94,6 @@ namespace Log
             this.subjects_to_groupsDataGridView.Size = new System.Drawing.Size(582, 268);
             this.subjects_to_groupsDataGridView.TabIndex = 1;
             // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.DataPropertyName = "Id";
-            this.dataGridViewTextBoxColumn1.HeaderText = "Id";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.ReadOnly = true;
-            this.dataGridViewTextBoxColumn1.Visible = false;
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.DataPropertyName = "GroupId";
-            this.dataGridViewTextBoxColumn2.DataSource = this.subjects_to_groupsBindingSource;
-            this.dataGridViewTextBoxColumn2.DisplayMember = "GroupId";
-            this.dataGridViewTextBoxColumn2.HeaderText = "Группа";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewTextBoxColumn2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.dataGridViewTextBoxColumn2.ValueMember = "GroupId";
-            this.dataGridViewTextBoxColumn2.Width = 120;
-            // 
-            // SubjectId
-            // 
-            this.SubjectId.DataPropertyName = "SubjectId";
-            this.SubjectId.DataSource = this.subjectBindingSource;
-            this.SubjectId.DisplayMember = "SubjectName";
-            this.SubjectId.HeaderText = "Предмет";
-            this.SubjectId.Name = "SubjectId";
-            this.SubjectId.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.SubjectId.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.SubjectId.ValueMember = "Id";
-            this.SubjectId.Width = 150;
-            // 
             // subjectBindingSource
             // 
             this.subjectBindingSource.DataSource = typeof(Log.subject);
@@ -162,6 +130,37 @@ namespace Log
             this.dataGridViewTextBoxColumn3.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridViewTextBoxColumn3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.DataPropertyName = "Id";
+            this.dataGridViewTextBoxColumn1.HeaderText = "Id";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.DataPropertyName = "GroupId";
+            this.dataGridViewTextBoxColumn2.DataSource = this.subjects_to_groupsBindingSource;
+            this.dataGridViewTextBoxColumn2.DisplayMember = "GroupId";
+            this.dataGridViewTextBoxColumn2.HeaderText = "Группа";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewTextBoxColumn2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.dataGridViewTextBoxColumn2.ValueMember = "GroupId";
+            this.dataGridViewTextBoxColumn2.Width = 120;
+            // 
+            // SubjectId
+            // 
+            this.SubjectId.DataPropertyName = "SubjectId";
+            this.SubjectId.DataSource = this.subjectBindingSource;
+            this.SubjectId.DisplayMember = "SubjectName";
+            this.SubjectId.HeaderText = "Предмет";
+            this.SubjectId.Name = "SubjectId";
+            this.SubjectId.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.SubjectId.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.SubjectId.ValueMember = "Id";
+            this.SubjectId.Width = 150;
+            // 
             // SubjectToGroupForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
@@ -193,11 +192,11 @@ namespace Log
         private System.Windows.Forms.DataGridView subjects_to_groupsDataGridView;
         private System.Windows.Forms.BindingSource subjectBindingSource;
         private System.Windows.Forms.DataGridViewComboBoxColumn dataGridViewTextBoxColumn3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewComboBoxColumn dataGridViewTextBoxColumn2;
-        private System.Windows.Forms.DataGridViewComboBoxColumn SubjectId;
         private System.Windows.Forms.ContextMenuStrip contextMenu;
         private System.Windows.Forms.ToolStripMenuItem добавитьToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem удалитьToolStripMenuItem;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewComboBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewComboBoxColumn SubjectId;
     }
 }
