@@ -56,7 +56,21 @@ namespace Log
             this.groupComboBox = new System.Windows.Forms.ComboBox();
             this.groupBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.groupCheckBox = new System.Windows.Forms.CheckBox();
-            this.groupBox = new System.Windows.Forms.GroupBox();
+            this.sortedBox = new System.Windows.Forms.GroupBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.markTo = new System.Windows.Forms.ComboBox();
+            this.markFrom = new System.Windows.Forms.ComboBox();
+            this.markCheckBox = new System.Windows.Forms.CheckBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.monthTo = new System.Windows.Forms.ComboBox();
+            this.monthFrom = new System.Windows.Forms.ComboBox();
+            this.monthCheckBox = new System.Windows.Forms.CheckBox();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.typeCheckBox = new System.Windows.Forms.CheckBox();
+            this.subjectCheckBox = new System.Windows.Forms.CheckBox();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.subjectBinding = new System.Windows.Forms.BindingSource(this.components);
             this.studentBinding = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
@@ -65,7 +79,7 @@ namespace Log
             ((System.ComponentModel.ISupportInitialize)(this.typeMarkBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.markBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupBindingSource)).BeginInit();
-            this.groupBox.SuspendLayout();
+            this.sortedBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.subjectBinding)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.studentBinding)).BeginInit();
             this.SuspendLayout();
@@ -108,12 +122,12 @@ namespace Log
             dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridView.DefaultCellStyle = dataGridViewCellStyle8;
-            this.dataGridView.Location = new System.Drawing.Point(12, 109);
+            this.dataGridView.Location = new System.Drawing.Point(304, 15);
             this.dataGridView.MultiSelect = false;
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.RowTemplate.Height = 35;
             this.dataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.dataGridView.Size = new System.Drawing.Size(803, 452);
+            this.dataGridView.Size = new System.Drawing.Size(784, 780);
             this.dataGridView.TabIndex = 0;
             this.dataGridView.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dataGridView_EditingControlShowing);
             // 
@@ -211,9 +225,9 @@ namespace Log
             // 
             // addBtn
             // 
-            this.addBtn.Location = new System.Drawing.Point(276, 7);
+            this.addBtn.Location = new System.Drawing.Point(8, 644);
             this.addBtn.Name = "addBtn";
-            this.addBtn.Size = new System.Drawing.Size(132, 43);
+            this.addBtn.Size = new System.Drawing.Size(277, 43);
             this.addBtn.TabIndex = 2;
             this.addBtn.Text = "Добавить";
             this.addBtn.UseVisualStyleBackColor = true;
@@ -221,9 +235,9 @@ namespace Log
             // 
             // deleteBtn
             // 
-            this.deleteBtn.Location = new System.Drawing.Point(276, 56);
+            this.deleteBtn.Location = new System.Drawing.Point(8, 693);
             this.deleteBtn.Name = "deleteBtn";
-            this.deleteBtn.Size = new System.Drawing.Size(132, 43);
+            this.deleteBtn.Size = new System.Drawing.Size(277, 43);
             this.deleteBtn.TabIndex = 3;
             this.deleteBtn.Text = "Удалить";
             this.deleteBtn.UseVisualStyleBackColor = true;
@@ -231,9 +245,9 @@ namespace Log
             // 
             // addGroupBtn
             // 
-            this.addGroupBtn.Location = new System.Drawing.Point(414, 6);
+            this.addGroupBtn.Location = new System.Drawing.Point(8, 742);
             this.addGroupBtn.Name = "addGroupBtn";
-            this.addGroupBtn.Size = new System.Drawing.Size(255, 93);
+            this.addGroupBtn.Size = new System.Drawing.Size(277, 43);
             this.addGroupBtn.TabIndex = 4;
             this.addGroupBtn.Text = "Добавить группу отметок";
             this.addGroupBtn.UseVisualStyleBackColor = true;
@@ -245,9 +259,9 @@ namespace Log
             this.groupComboBox.DisplayMember = "Id";
             this.groupComboBox.Enabled = false;
             this.groupComboBox.FormattingEnabled = true;
-            this.groupComboBox.Location = new System.Drawing.Point(17, 61);
+            this.groupComboBox.Location = new System.Drawing.Point(7, 53);
             this.groupComboBox.Name = "groupComboBox";
-            this.groupComboBox.Size = new System.Drawing.Size(207, 32);
+            this.groupComboBox.Size = new System.Drawing.Size(277, 32);
             this.groupComboBox.TabIndex = 4;
             this.groupComboBox.ValueMember = "Id";
             this.groupComboBox.SelectedIndexChanged += new System.EventHandler(this.groupComboBox_SelectedIndexChanged);
@@ -261,7 +275,7 @@ namespace Log
             this.groupCheckBox.AutoSize = true;
             this.groupCheckBox.Checked = true;
             this.groupCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.groupCheckBox.Location = new System.Drawing.Point(17, 26);
+            this.groupCheckBox.Location = new System.Drawing.Point(9, 25);
             this.groupCheckBox.Name = "groupCheckBox";
             this.groupCheckBox.Size = new System.Drawing.Size(131, 28);
             this.groupCheckBox.TabIndex = 5;
@@ -269,16 +283,223 @@ namespace Log
             this.groupCheckBox.UseVisualStyleBackColor = true;
             this.groupCheckBox.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
-            // groupBox
+            // sortedBox
             // 
-            this.groupBox.Controls.Add(this.groupComboBox);
-            this.groupBox.Controls.Add(this.groupCheckBox);
-            this.groupBox.Location = new System.Drawing.Point(4, -4);
-            this.groupBox.Name = "groupBox";
-            this.groupBox.Size = new System.Drawing.Size(266, 106);
-            this.groupBox.TabIndex = 6;
-            this.groupBox.TabStop = false;
-            this.groupBox.Text = "Группы";
+            this.sortedBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.sortedBox.Controls.Add(this.label3);
+            this.sortedBox.Controls.Add(this.label4);
+            this.sortedBox.Controls.Add(this.markTo);
+            this.sortedBox.Controls.Add(this.markFrom);
+            this.sortedBox.Controls.Add(this.markCheckBox);
+            this.sortedBox.Controls.Add(this.label2);
+            this.sortedBox.Controls.Add(this.label1);
+            this.sortedBox.Controls.Add(this.monthTo);
+            this.sortedBox.Controls.Add(this.monthFrom);
+            this.sortedBox.Controls.Add(this.monthCheckBox);
+            this.sortedBox.Controls.Add(this.comboBox2);
+            this.sortedBox.Controls.Add(this.addGroupBtn);
+            this.sortedBox.Controls.Add(this.deleteBtn);
+            this.sortedBox.Controls.Add(this.typeCheckBox);
+            this.sortedBox.Controls.Add(this.addBtn);
+            this.sortedBox.Controls.Add(this.subjectCheckBox);
+            this.sortedBox.Controls.Add(this.comboBox1);
+            this.sortedBox.Controls.Add(this.groupComboBox);
+            this.sortedBox.Controls.Add(this.groupCheckBox);
+            this.sortedBox.Location = new System.Drawing.Point(4, 3);
+            this.sortedBox.Name = "sortedBox";
+            this.sortedBox.Size = new System.Drawing.Size(294, 799);
+            this.sortedBox.TabIndex = 6;
+            this.sortedBox.TabStop = false;
+            this.sortedBox.Text = "Сортировка";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(9, 531);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(35, 24);
+            this.label3.TabIndex = 16;
+            this.label3.Text = "До";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(9, 458);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(35, 24);
+            this.label4.TabIndex = 17;
+            this.label4.Text = "От";
+            // 
+            // markTo
+            // 
+            this.markTo.FormattingEnabled = true;
+            this.markTo.Items.AddRange(new object[] {
+            "0",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10"});
+            this.markTo.Location = new System.Drawing.Point(7, 561);
+            this.markTo.Name = "markTo";
+            this.markTo.Size = new System.Drawing.Size(277, 32);
+            this.markTo.TabIndex = 14;
+            // 
+            // markFrom
+            // 
+            this.markFrom.FormattingEnabled = true;
+            this.markFrom.Items.AddRange(new object[] {
+            "0",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10"});
+            this.markFrom.Location = new System.Drawing.Point(7, 489);
+            this.markFrom.Name = "markFrom";
+            this.markFrom.Size = new System.Drawing.Size(277, 32);
+            this.markFrom.TabIndex = 15;
+            // 
+            // markCheckBox
+            // 
+            this.markCheckBox.AutoSize = true;
+            this.markCheckBox.Checked = true;
+            this.markCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.markCheckBox.Location = new System.Drawing.Point(9, 424);
+            this.markCheckBox.Name = "markCheckBox";
+            this.markCheckBox.Size = new System.Drawing.Size(142, 28);
+            this.markCheckBox.TabIndex = 13;
+            this.markCheckBox.Text = "Все отметки";
+            this.markCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(9, 355);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(35, 24);
+            this.label2.TabIndex = 12;
+            this.label2.Text = "До";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(9, 281);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(35, 24);
+            this.label1.TabIndex = 12;
+            this.label1.Text = "От";
+            // 
+            // monthTo
+            // 
+            this.monthTo.FormattingEnabled = true;
+            this.monthTo.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10",
+            "11",
+            "12"});
+            this.monthTo.Location = new System.Drawing.Point(7, 379);
+            this.monthTo.Name = "monthTo";
+            this.monthTo.Size = new System.Drawing.Size(277, 32);
+            this.monthTo.TabIndex = 11;
+            // 
+            // monthFrom
+            // 
+            this.monthFrom.FormattingEnabled = true;
+            this.monthFrom.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10",
+            "11",
+            "12"});
+            this.monthFrom.Location = new System.Drawing.Point(7, 314);
+            this.monthFrom.Name = "monthFrom";
+            this.monthFrom.Size = new System.Drawing.Size(277, 32);
+            this.monthFrom.TabIndex = 11;
+            // 
+            // monthCheckBox
+            // 
+            this.monthCheckBox.AutoSize = true;
+            this.monthCheckBox.Checked = true;
+            this.monthCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.monthCheckBox.Location = new System.Drawing.Point(9, 256);
+            this.monthCheckBox.Name = "monthCheckBox";
+            this.monthCheckBox.Size = new System.Drawing.Size(135, 28);
+            this.monthCheckBox.TabIndex = 10;
+            this.monthCheckBox.Text = "Все месяцы";
+            this.monthCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // comboBox2
+            // 
+            this.comboBox2.DataSource = this.typeMarkBindingSource;
+            this.comboBox2.DisplayMember = "Type";
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Location = new System.Drawing.Point(7, 212);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(277, 32);
+            this.comboBox2.TabIndex = 9;
+            this.comboBox2.ValueMember = "Id";
+            // 
+            // typeCheckBox
+            // 
+            this.typeCheckBox.AutoSize = true;
+            this.typeCheckBox.Checked = true;
+            this.typeCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.typeCheckBox.Location = new System.Drawing.Point(9, 183);
+            this.typeCheckBox.Name = "typeCheckBox";
+            this.typeCheckBox.Size = new System.Drawing.Size(143, 28);
+            this.typeCheckBox.TabIndex = 8;
+            this.typeCheckBox.Text = "Тип отметки";
+            this.typeCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // subjectCheckBox
+            // 
+            this.subjectCheckBox.AutoSize = true;
+            this.subjectCheckBox.Checked = true;
+            this.subjectCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.subjectCheckBox.Location = new System.Drawing.Point(9, 97);
+            this.subjectCheckBox.Name = "subjectCheckBox";
+            this.subjectCheckBox.Size = new System.Drawing.Size(159, 28);
+            this.subjectCheckBox.TabIndex = 7;
+            this.subjectCheckBox.Text = "Все предметы";
+            this.subjectCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.DataSource = this.subjectBindingSource;
+            this.comboBox1.DisplayMember = "SubjectName";
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(7, 131);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(277, 32);
+            this.comboBox1.TabIndex = 6;
+            this.comboBox1.ValueMember = "Id";
             // 
             // subjectBinding
             // 
@@ -293,11 +514,8 @@ namespace Log
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(827, 571);
-            this.Controls.Add(this.groupBox);
-            this.Controls.Add(this.addGroupBtn);
-            this.Controls.Add(this.deleteBtn);
-            this.Controls.Add(this.addBtn);
+            this.ClientSize = new System.Drawing.Size(1100, 805);
+            this.Controls.Add(this.sortedBox);
             this.Controls.Add(this.dataGridView);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -314,8 +532,8 @@ namespace Log
             ((System.ComponentModel.ISupportInitialize)(this.typeMarkBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.markBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupBindingSource)).EndInit();
-            this.groupBox.ResumeLayout(false);
-            this.groupBox.PerformLayout();
+            this.sortedBox.ResumeLayout(false);
+            this.sortedBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.subjectBinding)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.studentBinding)).EndInit();
             this.ResumeLayout(false);
@@ -341,8 +559,22 @@ namespace Log
         private System.Windows.Forms.BindingSource groupBindingSource;
         private System.Windows.Forms.ComboBox groupComboBox;
         private System.Windows.Forms.CheckBox groupCheckBox;
-        private System.Windows.Forms.GroupBox groupBox;
+        private System.Windows.Forms.GroupBox sortedBox;
         private System.Windows.Forms.BindingSource subjectBinding;
         private System.Windows.Forms.BindingSource studentBinding;
+        private System.Windows.Forms.CheckBox subjectCheckBox;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.CheckBox typeCheckBox;
+        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.ComboBox monthFrom;
+        private System.Windows.Forms.CheckBox monthCheckBox;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox monthTo;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ComboBox markTo;
+        private System.Windows.Forms.ComboBox markFrom;
+        private System.Windows.Forms.CheckBox markCheckBox;
     }
 }

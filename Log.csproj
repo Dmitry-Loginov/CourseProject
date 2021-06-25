@@ -139,12 +139,6 @@
     <Compile Include="Forms\Marks\EditMarkForm.Designer.cs">
       <DependentUpon>EditMarkForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Marks\ViewForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\Marks\ViewForm.Designer.cs">
-      <DependentUpon>ViewForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\Directories\StudentsForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -186,9 +180,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Marks\ViewForm.resx">
-      <DependentUpon>ViewForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Directories\GroupsForm.resx">
       <DependentUpon>GroupsForm.cs</DependentUpon>

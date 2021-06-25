@@ -19,12 +19,6 @@ namespace Log
             EditMarkForm.Select();
         }
 
-        private void button5_Click(object sender, EventArgs e)
-        {
-            ViewForm viewForm = new ViewForm();
-            viewForm.Show();
-        }
-
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             LogEntities.DeleteInstance();

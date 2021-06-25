@@ -37,7 +37,6 @@ namespace Log
             this.button1 = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.button6 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -100,33 +99,22 @@ namespace Log
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.button6);
-            this.groupBox2.Controls.Add(this.button5);
             this.groupBox2.Location = new System.Drawing.Point(375, 15);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(223, 276);
+            this.groupBox2.Size = new System.Drawing.Size(223, 112);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Работа с отметками";
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(23, 165);
+            this.button6.Location = new System.Drawing.Point(22, 28);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(172, 75);
             this.button6.TabIndex = 1;
             this.button6.Text = "Режим редактирования";
             this.button6.UseVisualStyleBackColor = true;
             this.button6.Click += new System.EventHandler(this.Button6_Click);
-            // 
-            // button5
-            // 
-            this.button5.Location = new System.Drawing.Point(23, 54);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(172, 75);
-            this.button5.TabIndex = 0;
-            this.button5.Text = "Режим просмотра";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // MainForm
             // 
@@ -158,7 +146,6 @@ namespace Log
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.Button button5;
     }
 }
 
