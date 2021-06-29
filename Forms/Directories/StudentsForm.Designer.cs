@@ -32,10 +32,10 @@ namespace Log
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StudentsForm));
             this.studentDataGridView = new System.Windows.Forms.DataGridView();
+            this.groupBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.добавитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.удалитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.groupBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.studentBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -43,8 +43,8 @@ namespace Log
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.studentDataGridView)).BeginInit();
-            this.contextMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupBindingSource)).BeginInit();
+            this.contextMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.studentBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -73,6 +73,10 @@ namespace Log
             this.studentDataGridView.Size = new System.Drawing.Size(795, 353);
             this.studentDataGridView.TabIndex = 1;
             // 
+            // groupBindingSource
+            // 
+            this.groupBindingSource.DataSource = typeof(Log.group);
+            // 
             // contextMenu
             // 
             this.contextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -95,10 +99,6 @@ namespace Log
             this.удалитьToolStripMenuItem.Text = "Удалить";
             this.удалитьToolStripMenuItem.Click += new System.EventHandler(this.удалитьToolStripMenuItem_Click);
             // 
-            // groupBindingSource
-            // 
-            this.groupBindingSource.DataSource = typeof(Log.group);
-            // 
             // studentBindingSource
             // 
             this.studentBindingSource.DataSource = typeof(Log.student);
@@ -107,6 +107,7 @@ namespace Log
             // 
             this.dataGridViewTextBoxColumn1.DataPropertyName = "PassportId";
             this.dataGridViewTextBoxColumn1.HeaderText = "Номер паспорта";
+            this.dataGridViewTextBoxColumn1.MaxInputLength = 20;
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
             this.dataGridViewTextBoxColumn1.Width = 150;
             // 
@@ -114,6 +115,7 @@ namespace Log
             // 
             this.dataGridViewTextBoxColumn2.DataPropertyName = "Fio";
             this.dataGridViewTextBoxColumn2.HeaderText = "ФИО";
+            this.dataGridViewTextBoxColumn2.MaxInputLength = 50;
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             this.dataGridViewTextBoxColumn2.Width = 200;
             // 
@@ -140,6 +142,7 @@ namespace Log
             // 
             this.dataGridViewTextBoxColumn5.DataPropertyName = "Phone";
             this.dataGridViewTextBoxColumn5.HeaderText = "Телефон";
+            this.dataGridViewTextBoxColumn5.MaxInputLength = 15;
             this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
             this.dataGridViewTextBoxColumn5.Width = 120;
             // 
@@ -157,8 +160,8 @@ namespace Log
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.StudentsForm_FormClosing);
             this.Load += new System.EventHandler(this.StudentsForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.studentDataGridView)).EndInit();
-            this.contextMenu.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.groupBindingSource)).EndInit();
+            this.contextMenu.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.studentBindingSource)).EndInit();
             this.ResumeLayout(false);
 

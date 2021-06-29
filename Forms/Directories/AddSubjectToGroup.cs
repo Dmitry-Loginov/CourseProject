@@ -22,11 +22,19 @@ namespace Log
 
         private void add_Click(object sender, EventArgs e)
         {
+
             subjects_to_groups sg = new subjects_to_groups()
             {
                 GroupId = groupIdComboBox.SelectedValue.ToString(),
                 SubjectId = Convert.ToInt32(subjectIdListBox.SelectedValue)
             };
+
+            subjects_to_groups checkSubject = LogEntities.subjects_to_groups.Where(s => s.GroupId == sg.GroupId && s.SubjectId == sg.SubjectId).FirstOrDefault();
+            if(checkSubject != default)
+            {
+                MessageBox.Show("Такая связь уже существует!");
+                return;
+            }
             LogEntities.subjects_to_groups.Add(sg);
             LogEntities.SaveChanges();
             FillSubjectToGroup();

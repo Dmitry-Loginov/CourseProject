@@ -11,6 +11,7 @@ namespace Log
         {
             InitializeComponent();
             fillGrid = FillData;
+            fillGridSorted = FillSorted;
             log = LogEntities.GetInstance();
 
             Marks = log.marks.ToList();
@@ -27,7 +28,9 @@ namespace Log
         }
         
         public LogEntities log;
-        private FillDataGridView fillGrid;
+        public FillDataGridView fillGrid;
+        public FillDataGridView fillGridSorted;
+        //public
         private bool IsClosed = false;
         bool IsSorted = false;
 
@@ -88,7 +91,7 @@ namespace Log
             return true;
         }
 
-        List<mark> NewMarks { get; set; }
+        List<mark> NewMarks;
 
         private void AddButton_Click(object sender, EventArgs e)
         {
@@ -111,19 +114,17 @@ namespace Log
             log.SaveChanges();
             //вывести данные на форму
             FillSorted();
-            //fillGrid();
         }
 
         private void AddGroupBtn_Click(object sender, EventArgs e)
         {
-            AddGroupMarkForm addGroupMarkForm = new AddGroupMarkForm(ref fillGrid);
+            AddGroupMarkForm addGroupMarkForm = new AddGroupMarkForm(ref fillGridSorted, ref NewMarks);
             addGroupMarkForm.Show();
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-                ChangeCheckBox(groupCheckBox, groupComboBox);
-            
+            ChangeCheckBox(groupCheckBox, groupComboBox);
         }
 
         private void groupComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -159,6 +160,7 @@ namespace Log
 
         private void subjectCheckBox_CheckedChanged(object sender, EventArgs e)
         {
+            
             ChangeCheckBox(subjectCheckBox, subjectComboBox1);
         }
 
@@ -169,51 +171,27 @@ namespace Log
 
         void ChangeCheckBox(CheckBox checkBox, ComboBox comboBox1)
         {
-            if (CheckFillMark())
+
+            if (checkBox.Checked)
             {
-                if (checkBox.Checked)
-                {
-                    IsSorted = false;
-                    comboBox1.Enabled = false;
-                    FillSorted();
-                }
-                else
-                {
-                    IsSorted = true;
-                    comboBox1.Enabled = true;
-                    FillSorted();
-                }
+                IsSorted = false;
+                comboBox1.Enabled = false;
+                FillSorted();
             }
             else
-                MessageBox.Show("Сначала заполните данные!", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
-        void ChangeCheckBox(CheckBox checkBox, ComboBox comboBox1, ComboBox comboBox2)
-        {
-            if (CheckFillMark())
             {
-                if (checkBox.Checked)
-                {
-                    IsSorted = false;
-                    comboBox1.Enabled = false;
-                    markBindingSource.DataSource = log.marks.ToList();
-                }
-                else
-                {
-                    IsSorted = true;
-                    comboBox1.Enabled = true;
-                    comboBox2.Enabled = true;
-                    FillSorted();
-                }
+                IsSorted = true;
+                comboBox1.Enabled = true;
+                FillSorted();
             }
-            else 
-                MessageBox.Show("Сначала заполните данные!", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
         }
 
         private void FillData()
         {
             if (!IsSorted)
             {
+                log = LogEntities.GetInstance();
                 groupBindingSource.DataSource = log.groups.ToList();
                 studentBindingSource.DataSource = log.students.ToList();
                 subjectBindingSource.DataSource = log.subjects.ToList();
@@ -395,7 +373,51 @@ namespace Log
 
         private void dataGridView_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
         {
+            if(e.ColumnIndex == 4 || e.ColumnIndex == 5)
+            try
+            {
+                Convert.ToInt32(e.FormattedValue);
+                    
+            }
+            catch
+            {
+                MessageBox.Show("Это поле может содержать только числа!", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                e.Cancel = true;
+            }
+        }
 
+        private void subjectCheckBox_Click(object sender, EventArgs e)
+        {
+            if (!IsClosed)
+                if (!CheckFillMark())
+                {
+                    MessageBox.Show("Сначала заполните данные!", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    if (((CheckBox)sender).Checked == false)
+                        ((CheckBox)sender).Checked = true;
+                    else
+                        ((CheckBox)sender).Checked = false;
+                }
+        }
+
+        private void update_Click(object sender, EventArgs e)
+        {
+            fillGrid = FillData;
+            fillGridSorted = FillSorted;
+            log = LogEntities.GetInstance();
+
+            Marks = log.marks.ToList();
+
+            SortedGroupMarks = log.marks.ToList();
+            SortedSubjectMarks = log.marks.ToList();
+            subjectBindingSourceMenu.DataSource = log.subjects.ToList();
+            groupBindingSourceMenu.DataSource = log.groups.ToList();
+
+            FillSortedMarks();
+
+            NewMarks = new List<mark>();
         }
     }
 }

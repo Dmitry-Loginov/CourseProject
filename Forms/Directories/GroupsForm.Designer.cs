@@ -66,6 +66,7 @@ namespace Log
             this.groupDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this.groupDataGridView.Size = new System.Drawing.Size(242, 424);
             this.groupDataGridView.TabIndex = 1;
+            this.groupDataGridView.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.groupDataGridView_CellValidating);
             // 
             // contextMenu
             // 
@@ -73,19 +74,19 @@ namespace Log
             this.addMenu,
             this.delMenu});
             this.contextMenu.Name = "contextMenu";
-            this.contextMenu.Size = new System.Drawing.Size(181, 74);
+            this.contextMenu.Size = new System.Drawing.Size(140, 52);
             // 
             // addMenu
             // 
             this.addMenu.Name = "addMenu";
-            this.addMenu.Size = new System.Drawing.Size(180, 24);
+            this.addMenu.Size = new System.Drawing.Size(139, 24);
             this.addMenu.Text = "Добавить";
             this.addMenu.Click += new System.EventHandler(this.addMenu_Click);
             // 
             // delMenu
             // 
             this.delMenu.Name = "delMenu";
-            this.delMenu.Size = new System.Drawing.Size(180, 24);
+            this.delMenu.Size = new System.Drawing.Size(139, 24);
             this.delMenu.Text = "Удалить";
             this.delMenu.Click += new System.EventHandler(this.delMenu_Click);
             // 
@@ -93,6 +94,7 @@ namespace Log
             // 
             this.dataGridViewTextBoxColumn1.DataPropertyName = "Id";
             this.dataGridViewTextBoxColumn1.HeaderText = "Номер";
+            this.dataGridViewTextBoxColumn1.MaxInputLength = 15;
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
             this.dataGridViewTextBoxColumn1.Width = 120;
             // 
@@ -138,11 +140,11 @@ namespace Log
 
         private System.Windows.Forms.BindingSource groupBindingSource;
         private System.Windows.Forms.DataGridView groupDataGridView;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private System.Windows.Forms.ContextMenuStrip contextMenu;
         private System.Windows.Forms.ToolStripMenuItem addMenu;
         private System.Windows.Forms.ToolStripMenuItem delMenu;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
     }
 }

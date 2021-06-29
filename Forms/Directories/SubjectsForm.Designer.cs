@@ -35,11 +35,11 @@ namespace Log
             this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.addMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.delMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.subjectBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.subjectBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.subjectDataGridView)).BeginInit();
             this.contextMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.subjectBindingSource)).BeginInit();
@@ -91,6 +91,10 @@ namespace Log
             this.delMenu.Text = "Удалить";
             this.delMenu.Click += new System.EventHandler(this.delMenu_Click);
             // 
+            // subjectBindingSource
+            // 
+            this.subjectBindingSource.DataSource = typeof(Log.subject);
+            // 
             // dataGridViewTextBoxColumn1
             // 
             this.dataGridViewTextBoxColumn1.DataPropertyName = "Id";
@@ -102,6 +106,7 @@ namespace Log
             // 
             this.dataGridViewTextBoxColumn2.DataPropertyName = "SubjectName";
             this.dataGridViewTextBoxColumn2.HeaderText = "Название предмета";
+            this.dataGridViewTextBoxColumn2.MaxInputLength = 300;
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             this.dataGridViewTextBoxColumn2.Width = 300;
             // 
@@ -118,10 +123,6 @@ namespace Log
             this.dataGridViewTextBoxColumn4.HeaderText = "subjects_to_groups";
             this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
             this.dataGridViewTextBoxColumn4.Visible = false;
-            // 
-            // subjectBindingSource
-            // 
-            this.subjectBindingSource.DataSource = typeof(Log.subject);
             // 
             // SubjectsForm
             // 
@@ -146,12 +147,12 @@ namespace Log
 
         private System.Windows.Forms.BindingSource subjectBindingSource;
         private System.Windows.Forms.DataGridView subjectDataGridView;
+        private System.Windows.Forms.ContextMenuStrip contextMenu;
+        private System.Windows.Forms.ToolStripMenuItem addMenu;
+        private System.Windows.Forms.ToolStripMenuItem delMenu;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
-        private System.Windows.Forms.ContextMenuStrip contextMenu;
-        private System.Windows.Forms.ToolStripMenuItem addMenu;
-        private System.Windows.Forms.ToolStripMenuItem delMenu;
     }
 }

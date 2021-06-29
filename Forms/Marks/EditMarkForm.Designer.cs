@@ -60,6 +60,7 @@ namespace Log
             this.groupBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.subjectBindingGridView = new System.Windows.Forms.BindingSource(this.components);
             this.studentBindingGridView = new System.Windows.Forms.BindingSource(this.components);
+            this.update = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.studentBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.subjectBindingSource)).BeginInit();
@@ -247,6 +248,7 @@ namespace Log
             // 
             // groupCheckBox
             // 
+            this.groupCheckBox.AutoCheck = false;
             this.groupCheckBox.AutoSize = true;
             this.groupCheckBox.Checked = true;
             this.groupCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
@@ -257,11 +259,13 @@ namespace Log
             this.groupCheckBox.Text = "Все группы";
             this.groupCheckBox.UseVisualStyleBackColor = true;
             this.groupCheckBox.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            this.groupCheckBox.Click += new System.EventHandler(this.subjectCheckBox_Click);
             // 
             // sortedBox
             // 
             this.sortedBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
+            this.sortedBox.Controls.Add(this.update);
             this.sortedBox.Controls.Add(this.averageLabel);
             this.sortedBox.Controls.Add(this.label5);
             this.sortedBox.Controls.Add(this.addGroupBtn);
@@ -298,6 +302,7 @@ namespace Log
             // 
             // subjectCheckBox
             // 
+            this.subjectCheckBox.AutoCheck = false;
             this.subjectCheckBox.AutoSize = true;
             this.subjectCheckBox.Checked = true;
             this.subjectCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
@@ -308,6 +313,7 @@ namespace Log
             this.subjectCheckBox.Text = "Все предметы";
             this.subjectCheckBox.UseVisualStyleBackColor = true;
             this.subjectCheckBox.CheckedChanged += new System.EventHandler(this.subjectCheckBox_CheckedChanged);
+            this.subjectCheckBox.Click += new System.EventHandler(this.subjectCheckBox_Click);
             // 
             // subjectComboBox1
             // 
@@ -329,6 +335,16 @@ namespace Log
             // groupBindingSource
             // 
             this.groupBindingSource.DataSource = typeof(Log.group);
+            // 
+            // update
+            // 
+            this.update.Location = new System.Drawing.Point(11, 361);
+            this.update.Name = "update";
+            this.update.Size = new System.Drawing.Size(277, 40);
+            this.update.TabIndex = 20;
+            this.update.Text = "Обновить";
+            this.update.UseVisualStyleBackColor = true;
+            this.update.Click += new System.EventHandler(this.update_Click);
             // 
             // EditMarkForm
             // 
@@ -392,5 +408,6 @@ namespace Log
         private System.Windows.Forms.DataGridViewComboBoxColumn TypeId;
         private System.Windows.Forms.DataGridViewTextBoxColumn monthDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn valueDataGridViewTextBoxColumn;
+        private System.Windows.Forms.Button update;
     }
 }

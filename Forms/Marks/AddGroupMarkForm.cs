@@ -2,19 +2,22 @@
 using System.Data.SqlClient;
 using System.Linq;
 using System.Windows.Forms;
+using System.Collections.Generic;
 
 namespace Log
 {
     public partial class AddGroupMarkForm : Form
     {
         LogEntities log;
-        FillDataGridView FillDataGridView;
+        FillDataGridView FillSorted;
+        List<mark> newMarks;
 
-        public AddGroupMarkForm(ref FillDataGridView fillGrid)
+        public AddGroupMarkForm(ref FillDataGridView fillGridSorted, ref System.Collections.Generic.List<mark> newMarks)
         {
             InitializeComponent();
             log = LogEntities.GetInstance();
-            FillDataGridView = fillGrid;
+            FillSorted = fillGridSorted;
+            this.newMarks = newMarks;
             groupBindingSource.DataSource = log.groups.ToList();
             FillStudents();
             typeMarkBindingSource.DataSource = log.typeMarks.ToList();
@@ -34,10 +37,12 @@ namespace Log
                 if(monthListBox.SelectedIndex >= 0) mark.Month = Convert.ToInt32(monthListBox.SelectedItem.ToString());
                 if(ballListBox.SelectedIndex >= 0) mark.Value = ballListBox.SelectedItem.ToString();
                 log.marks.Add(mark);
-                log.SaveChanges();
-                log = LogEntities.GetInstance();
-                FillDataGridView();
+                newMarks.Add(mark);
+               
             }
+            log.SaveChanges();
+            log = LogEntities.GetInstance();
+            FillSorted();
         }
 
 

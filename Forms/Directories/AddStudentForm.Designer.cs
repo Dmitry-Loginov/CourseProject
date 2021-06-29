@@ -111,7 +111,7 @@ namespace Log
             // 
             this.birthdayDateTimePicker.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.studentBindingSource, "Birthday", true));
             this.birthdayDateTimePicker.Location = new System.Drawing.Point(200, 15);
-            this.birthdayDateTimePicker.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.birthdayDateTimePicker.Margin = new System.Windows.Forms.Padding(6);
             this.birthdayDateTimePicker.Name = "birthdayDateTimePicker";
             this.birthdayDateTimePicker.Size = new System.Drawing.Size(363, 29);
             this.birthdayDateTimePicker.TabIndex = 2;
@@ -120,7 +120,8 @@ namespace Log
             // 
             this.fioTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.studentBindingSource, "Fio", true));
             this.fioTextBox.Location = new System.Drawing.Point(200, 63);
-            this.fioTextBox.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.fioTextBox.Margin = new System.Windows.Forms.Padding(6);
+            this.fioTextBox.MaxLength = 50;
             this.fioTextBox.Name = "fioTextBox";
             this.fioTextBox.Size = new System.Drawing.Size(363, 29);
             this.fioTextBox.TabIndex = 4;
@@ -132,7 +133,7 @@ namespace Log
             this.groupIdComboBox.DisplayMember = "Id";
             this.groupIdComboBox.FormattingEnabled = true;
             this.groupIdComboBox.Location = new System.Drawing.Point(200, 111);
-            this.groupIdComboBox.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.groupIdComboBox.Margin = new System.Windows.Forms.Padding(6);
             this.groupIdComboBox.Name = "groupIdComboBox";
             this.groupIdComboBox.Size = new System.Drawing.Size(363, 32);
             this.groupIdComboBox.TabIndex = 6;
@@ -146,7 +147,8 @@ namespace Log
             // 
             this.passportIdTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.studentBindingSource, "PassportId", true));
             this.passportIdTextBox.Location = new System.Drawing.Point(200, 161);
-            this.passportIdTextBox.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.passportIdTextBox.Margin = new System.Windows.Forms.Padding(6);
+            this.passportIdTextBox.MaxLength = 20;
             this.passportIdTextBox.Name = "passportIdTextBox";
             this.passportIdTextBox.Size = new System.Drawing.Size(363, 29);
             this.passportIdTextBox.TabIndex = 8;
@@ -155,7 +157,8 @@ namespace Log
             // 
             this.phoneTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.studentBindingSource, "Phone", true));
             this.phoneTextBox.Location = new System.Drawing.Point(200, 209);
-            this.phoneTextBox.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.phoneTextBox.Margin = new System.Windows.Forms.Padding(6);
+            this.phoneTextBox.MaxLength = 15;
             this.phoneTextBox.Name = "phoneTextBox";
             this.phoneTextBox.Size = new System.Drawing.Size(363, 29);
             this.phoneTextBox.TabIndex = 10;
@@ -163,7 +166,7 @@ namespace Log
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(19, 254);
-            this.button1.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.button1.Margin = new System.Windows.Forms.Padding(6);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(138, 42);
             this.button1.TabIndex = 11;
@@ -189,7 +192,7 @@ namespace Log
             this.Controls.Add(this.phoneTextBox);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "AddStudentForm";
             this.Text = "Добавить учащегося";
             ((System.ComponentModel.ISupportInitialize)(this.studentBindingSource)).EndInit();
