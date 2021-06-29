@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -13,6 +12,18 @@ namespace Log
             InitializeComponent();
             fillGrid = FillData;
             log = LogEntities.GetInstance();
+
+            Marks = log.marks.ToList();
+
+            SortedGroupMarks = log.marks.ToList();
+            SortedSubjectMarks = log.marks.ToList();
+            subjectBindingSourceMenu.DataSource = log.subjects.ToList();
+            groupBindingSourceMenu.DataSource = log.groups.ToList();
+            
+            FillSortedMarks();
+
+            NewMarks = new List<mark>();
+
         }
         
         public LogEntities log;
@@ -20,37 +31,32 @@ namespace Log
         private bool IsClosed = false;
         bool IsSorted = false;
 
+        public List<mark> SortedGroupMarks { get; set; }
+        public List<mark> SortedSubjectMarks { get; set; }
+        public List<mark> Marks { get; set; }
+        public List<mark> SortedMarks { get; set; }
+
         private void ViewMarkForm_Load(object sender, EventArgs e)
         {
             fillGrid();
             //Задаем размер по заполнению
             dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-        }
-
-        private void FillData()
-        {
-            log = LogEntities.GetInstance();
-            if (!IsSorted)
-            {
-                groupBindingSource.DataSource = log.groups.ToList();
-                markBindingSource.DataSource = log.marks.ToList();
-                studentBindingSource.DataSource = log.students.ToList();
-                subjectBindingSource.DataSource = log.subjects.ToList();
-                typeMarkBindingSource.DataSource = log.typeMarks.ToList();
-            }
-            else
-            {
-                FillSorted();
-            }
+            dataGridView.Columns[0].Visible = false;
         }
 
         private void ViewMarkForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             IsClosed = true;
+            log.SaveChanges();
         }
 
         private void DeleteButton_Click(object sender, EventArgs e)
         {
+            if(dataGridView.SelectedCells.Count == 0)
+            {
+                MessageBox.Show("Не выбрано ни одного элемента!", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             log = LogEntities.GetInstance();
             int keySelectedIndex = Convert.ToInt32(GetSelectedId());
             mark mark = log.marks.Find(keySelectedIndex);
@@ -60,23 +66,52 @@ namespace Log
             log.SaveChanges();
         }
 
-        string GetSelectedId()
+        public mark newMark { get; set; }
+
+        bool CheckFillMark()
         {
-            int rowIndex = dataGridView.SelectedCells[0].RowIndex;
-            return dataGridView.Rows[rowIndex].Cells[0].Value.ToString();
+            if (NewMarks.Count == 0) return true;
+            foreach(mark checkMark in NewMarks)
+            {
+                mark mark = log.marks.Where(m => m.Id == checkMark.Id).FirstOrDefault();
+                if (mark == null) continue;
+                if (mark.Month == null) return false;
+                if (mark.StudentId == null) return false;
+                if (mark.studetn == null) return false;
+                if (mark.subject == null) return false;
+                if (mark.SubjectId == null) return false;
+                if (mark.TypeId == null) return false;
+                if (mark.typeMark == null) return false;
+                if (mark.Value == null) return false;
+            }
+            
+            return true;
         }
+
+        List<mark> NewMarks { get; set; }
 
         private void AddButton_Click(object sender, EventArgs e)
         {
+            //надо выполнить, так как выполнили сохранение
+            log.SaveChanges();
             log = LogEntities.GetInstance();
-            mark mark = new mark();
+            newMark = new mark();
+            //добавляем в массив новых отметок
+            NewMarks.Add(newMark);
             if (!groupCheckBox.Checked)
             {
-                mark.studetn = log.students.Where(s => s.GroupId == groupComboBox.SelectedValue.ToString()).FirstOrDefault();
+                newMark.studetn = log.students.Where(s => s.GroupId == groupComboBox.SelectedValue.ToString()).FirstOrDefault();
             }
-            log.marks.Add(mark);
+            if (!subjectCheckBox.Checked)
+            {
+                newMark.subject = log.subjects.Where(subj => subj.Id == Convert.ToInt32(subjectComboBox1.SelectedValue)).FirstOrDefault();
+            }
+            log.marks.Add(newMark);
+            //чтобы данные записались, надо сохранить
             log.SaveChanges();
-            fillGrid();
+            //вывести данные на форму
+            FillSorted();
+            //fillGrid();
         }
 
         private void AddGroupBtn_Click(object sender, EventArgs e)
@@ -87,78 +122,183 @@ namespace Log
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            log.SaveChanges();
-            log = LogEntities.GetInstance();
-            if (groupCheckBox.Checked)
-            {
-                IsSorted = false;
-                groupComboBox.Enabled = false;
-                markBindingSource.DataSource = log.marks.ToList();
-            }
-            else 
-            {
-                IsSorted = true;
-                groupComboBox.Enabled = true;
-                FillSorted();
-            }
-        }
-
-        private void FillSorted()
-        {
-            log.SaveChanges();
-            if (!LogEntities.IsExistInstance) return;
-            if (!IsClosed)
-            {
-                log = LogEntities.GetInstance();
-                List<mark> marksGroup;
-                string id = groupComboBox.SelectedValue?.ToString();
-                SqlParameter parameter = new SqlParameter("@ID", id);
-
-                string sql = "select * from marks where StudentId in (" +
-                    "select PassportId from studetns where GroupId in(" +
-                    "select Id from groups where Id = @ID))";
-
-                marksGroup = log.marks.SqlQuery(sql, parameter).ToList();
-                markBindingSource.DataSource = marksGroup;
-            }
+                ChangeCheckBox(groupCheckBox, groupComboBox);
+            
         }
 
         private void groupComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            FillSorted();
+            if (!IsClosed)
+            {
+                if (CheckFillMark())
+                {
+                    FillSortedGroupMarks();
+                    FillSortedMarks();
+                }
+                else
+                    MessageBox.Show("Сначала заполните данные!", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
         private void dataGridView_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
         {
-            log = LogEntities.GetInstance();
-            if(dataGridView.SelectedCells[0].OwningColumn.Index == 1 && !groupCheckBox.Checked)
+            try
             {
-                EditingStudentComboBox(e);
-                log.SaveChanges();
+                if (dataGridView.SelectedCells[0].OwningColumn.Index == 1 && !groupCheckBox.Checked)
+                {
+                    EditingStudentComboBox(e);
+                }
+
+                if (dataGridView.SelectedCells[0].OwningColumn.Index == 2)
+                {
+                    EditingSubjectComboBox(e);
+                }
             }
+            catch { }
+        }
+
+        private void subjectCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            ChangeCheckBox(subjectCheckBox, subjectComboBox1);
+        }
+
+        private void typeComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (!IsClosed) { }
+        }
+
+        void ChangeCheckBox(CheckBox checkBox, ComboBox comboBox1)
+        {
+            if (CheckFillMark())
+            {
+                if (checkBox.Checked)
+                {
+                    IsSorted = false;
+                    comboBox1.Enabled = false;
+                    FillSorted();
+                }
+                else
+                {
+                    IsSorted = true;
+                    comboBox1.Enabled = true;
+                    FillSorted();
+                }
+            }
+            else
+                MessageBox.Show("Сначала заполните данные!", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        void ChangeCheckBox(CheckBox checkBox, ComboBox comboBox1, ComboBox comboBox2)
+        {
+            if (CheckFillMark())
+            {
+                if (checkBox.Checked)
+                {
+                    IsSorted = false;
+                    comboBox1.Enabled = false;
+                    markBindingSource.DataSource = log.marks.ToList();
+                }
+                else
+                {
+                    IsSorted = true;
+                    comboBox1.Enabled = true;
+                    comboBox2.Enabled = true;
+                    FillSorted();
+                }
+            }
+            else 
+                MessageBox.Show("Сначала заполните данные!", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void FillData()
+        {
+            if (!IsSorted)
+            {
+                groupBindingSource.DataSource = log.groups.ToList();
+                studentBindingSource.DataSource = log.students.ToList();
+                subjectBindingSource.DataSource = log.subjects.ToList();
+                typeMarkBindingSource.DataSource = log.typeMarks.ToList();
+
+                markBindingSource.DataSource = SortedMarks;
+            }
+            else
+            {
+                FillSorted();
+            }
+        }
+
+        string GetSelectedId()
+        {
+            int rowIndex = dataGridView.SelectedCells[0].RowIndex;
+            return dataGridView.Rows[rowIndex].Cells[0].Value.ToString();
+        }
+
+        private void FillSorted()
+        {
+            if (!LogEntities.IsExistInstance) return;
+            if (!IsClosed)
+            {
+                log = LogEntities.GetInstance();
+                //так как первоначально берем данные отсюда, то его надо обновить
+                Marks = log.marks.ToList();
+
+                if (!groupCheckBox.Checked)
+                    FillSortedGroupMarks();
+                else
+                    SortedGroupMarks = log.marks.ToList();//!!!!!!!!!!!!!!!
+
+                if (!subjectCheckBox.Checked)
+                    FillSortedSubjectMarks();
+                else
+                    SortedSubjectMarks = log.marks.ToList();
+
+                FillSortedMarks();
+            }
+        }
+
+        void FillSortedMarks()
+        {
+            SortedMarks = SortedSubjectMarks.Intersect(SortedGroupMarks).ToList();
+            markBindingSource.DataSource = SortedMarks;
+            if (SortedMarks.Count != 0)
+            {
+                double average = SortedMarks.Average(m => Convert.ToInt32(m.Value));
+                average = Math.Round(average, 2);
+                averageLabel.Text = average.ToString();
+            }
+            else
+                averageLabel.Text = "0";
             
-            if(dataGridView.SelectedCells[0].OwningColumn.Index == 2)
-            {
-                EditingSubjectComboBox(e);
-            }
+        }
+
+        List<mark> FillSortedGroupMarks()
+        {
+            string id = groupComboBox.SelectedValue?.ToString();
+            SortedGroupMarks = Marks.Where(m => new[] { id }.Contains(m.studetn?.GroupId)).ToList();
+            return SortedGroupMarks; 
+        }
+
+        List<mark> FillSortedSubjectMarks()
+        {
+            int id = Convert.ToInt32(subjectComboBox1?.SelectedValue);//здесь не стоит вопрос
+            SortedSubjectMarks = Marks.Where(m => new[] { id }.Contains((int)m.subject?.Id)).ToList();
+            return SortedSubjectMarks;
         }
 
         void EditingSubjectComboBox(DataGridViewEditingControlShowingEventArgs e)
         {
-            log = LogEntities.GetInstance();
             if (!LogEntities.IsExistInstance) return;
             if (e.Control as ComboBox != null)
             {
                 string passportId = GetPassportIdSelectedStudent();
-                (e.Control as ComboBox).DataSource = subjectBinding;
-                SqlParameter parameter = new SqlParameter("@PASSPORT", passportId);
 
-                string sql = "" +
-                    "declare @groupId nchar(10);" +
-                    "select @groupId = studetns.GroupId from studetns where PassportId = @PASSPORT;" +
-                    "select * from subjects where Id in(" +
-                    "select subjects_to_groups.SubjectId from subjects_to_groups where GroupId in (@groupId)); ";
-                subjectBinding.DataSource = log.Database.SqlQuery<subject>(sql, parameter).ToList();
+                string groupId = log.students.Where(s => s.PassportId == passportId).First().GroupId;
+                List<subjects_to_groups> subjects_To_Groups = log.subjects_to_groups.Where(sub => sub.GroupId == groupId).ToList();
+                var subjectsId = subjects_To_Groups.Select(s => s.SubjectId).ToList();
+                List<subject> subjects = log.subjects.Where(sb => subjectsId.Contains(sb.Id)).ToList();
+
+                subjectBindingGridView.DataSource = subjects;
+                (e.Control as ComboBox).DataSource = subjectBindingGridView;
             }
         }
 
@@ -167,14 +307,9 @@ namespace Log
             if (!LogEntities.IsExistInstance) return;
             if (e.Control as ComboBox != null)
             {
-                log = LogEntities.GetInstance();
                 string groupId = (groupComboBox.SelectedItem as group).Id;
-                (e.Control as ComboBox).DataSource = studentBinding;
-                SqlParameter parameter = new SqlParameter("@GROUPID", groupId);
-
-                string sql = "select * from studetns where GroupId = @GROUPID";
-
-                studentBinding.DataSource = log.Database.SqlQuery<student>(sql, parameter).ToList();
+                studentBindingGridView.DataSource = log.students.Where(s => s.GroupId == groupId).ToList();
+                (e.Control as ComboBox).DataSource = studentBindingGridView;
             }
         }
 
@@ -182,6 +317,85 @@ namespace Log
         {
             int rowIndex = dataGridView.SelectedCells[0].RowIndex;
             return dataGridView.Rows[rowIndex].Cells[1].Value.ToString();
+        }
+
+        private void subjectComboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(!IsClosed)
+            {
+                if (CheckFillMark())
+                {
+                    FillSortedSubjectMarks();
+                    FillSortedMarks();
+                }
+                else
+                    MessageBox.Show("Сначала заполните данные!", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void EditMarkForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (CheckFillMark())
+            {
+                IsClosed = true;
+            }
+            else
+            {
+                var res =  MessageBox.Show("Есть несохраненные данные. При выходе они будут удалены.\nПродолжить?", "Предупреждение", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                if (res == DialogResult.Yes)
+                {
+                    foreach(mark delMark in NewMarks)
+                    {
+                        mark mark = log.marks.Find(delMark.Id);
+                        if(!CheckMark(mark))
+                            log.marks.Remove(mark);
+                    }
+                    log.SaveChanges();
+                    IsClosed = true;
+                }
+                else
+                    e.Cancel = true;
+            }
+        }
+
+        bool CheckMark(mark mark)
+        {
+            if (mark.Month == null) return false;
+            if (mark.StudentId == null) return false;
+            if (mark.studetn == null) return false;
+            if (mark.subject == null) return false;
+            if (mark.SubjectId == null) return false;
+            if (mark.TypeId == null) return false;
+            if (mark.typeMark == null) return false;
+            if (mark.Value == null) return false;
+            return true;
+        }
+
+        private void dataGridView_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                log.SaveChanges();
+                groupBindingSource.DataSource = log.groups.ToList();
+                studentBindingSource.DataSource = log.students.ToList();
+                subjectBindingSource.DataSource = log.subjects.ToList();
+                typeMarkBindingSource.DataSource = log.typeMarks.ToList();
+                if (SortedMarks.Count != 0)
+                {
+                    double average = SortedMarks.Average(m => Convert.ToInt32(m.Value));
+                    average = Math.Round(average, 2);
+                    averageLabel.Text = average.ToString();
+                }
+                else
+                    averageLabel.Text = "0";
+                FillSorted();
+            }
+            catch { }
+        }
+
+        private void dataGridView_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
+        {
+
         }
     }
 }

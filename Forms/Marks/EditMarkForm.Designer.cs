@@ -32,15 +32,10 @@ namespace Log
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditMarkForm));
             this.dataGridView = new System.Windows.Forms.DataGridView();
-            this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.studentIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.studentBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.subjectIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
@@ -54,34 +49,28 @@ namespace Log
             this.deleteBtn = new System.Windows.Forms.Button();
             this.addGroupBtn = new System.Windows.Forms.Button();
             this.groupComboBox = new System.Windows.Forms.ComboBox();
-            this.groupBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.groupBindingSourceMenu = new System.Windows.Forms.BindingSource(this.components);
             this.groupCheckBox = new System.Windows.Forms.CheckBox();
             this.sortedBox = new System.Windows.Forms.GroupBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.markTo = new System.Windows.Forms.ComboBox();
-            this.markFrom = new System.Windows.Forms.ComboBox();
-            this.markCheckBox = new System.Windows.Forms.CheckBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.monthTo = new System.Windows.Forms.ComboBox();
-            this.monthFrom = new System.Windows.Forms.ComboBox();
-            this.monthCheckBox = new System.Windows.Forms.CheckBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.typeCheckBox = new System.Windows.Forms.CheckBox();
+            this.averageLabel = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.subjectCheckBox = new System.Windows.Forms.CheckBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.subjectBinding = new System.Windows.Forms.BindingSource(this.components);
-            this.studentBinding = new System.Windows.Forms.BindingSource(this.components);
+            this.subjectComboBox1 = new System.Windows.Forms.ComboBox();
+            this.subjectBindingSourceMenu = new System.Windows.Forms.BindingSource(this.components);
+            this.groupBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.subjectBindingGridView = new System.Windows.Forms.BindingSource(this.components);
+            this.studentBindingGridView = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.studentBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.subjectBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.typeMarkBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.markBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.groupBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.groupBindingSourceMenu)).BeginInit();
             this.sortedBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.subjectBinding)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.studentBinding)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.subjectBindingSourceMenu)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.groupBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.subjectBindingGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.studentBindingGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridView
@@ -107,53 +96,51 @@ namespace Log
             this.dataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.idDataGridViewTextBoxColumn,
+            this.Column1,
             this.studentIdDataGridViewTextBoxColumn,
             this.subjectIdDataGridViewTextBoxColumn,
             this.TypeId,
             this.monthDataGridViewTextBoxColumn,
             this.valueDataGridViewTextBoxColumn});
             this.dataGridView.DataSource = this.markBindingSource;
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.Chocolate;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.Chocolate;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView.DefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridView.Location = new System.Drawing.Point(304, 15);
             this.dataGridView.MultiSelect = false;
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.RowTemplate.Height = 35;
             this.dataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.dataGridView.Size = new System.Drawing.Size(784, 780);
+            this.dataGridView.Size = new System.Drawing.Size(784, 560);
             this.dataGridView.TabIndex = 0;
+            this.dataGridView.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.dataGridView_CellValidating);
+            this.dataGridView.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_CellValueChanged);
             this.dataGridView.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dataGridView_EditingControlShowing);
             // 
-            // idDataGridViewTextBoxColumn
+            // Column1
             // 
-            this.idDataGridViewTextBoxColumn.DataPropertyName = "Id";
-            this.idDataGridViewTextBoxColumn.HeaderText = "Id";
-            this.idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
-            this.idDataGridViewTextBoxColumn.Visible = false;
+            this.Column1.DataPropertyName = "Id";
+            this.Column1.HeaderText = "Id";
+            this.Column1.Name = "Column1";
+            this.Column1.Visible = false;
             // 
             // studentIdDataGridViewTextBoxColumn
             // 
             this.studentIdDataGridViewTextBoxColumn.DataPropertyName = "StudentId";
             this.studentIdDataGridViewTextBoxColumn.DataSource = this.studentBindingSource;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.Lavender;
-            this.studentIdDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle3;
             this.studentIdDataGridViewTextBoxColumn.DisplayMember = "Fio";
             this.studentIdDataGridViewTextBoxColumn.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox;
-            this.studentIdDataGridViewTextBoxColumn.FillWeight = 93.27411F;
             this.studentIdDataGridViewTextBoxColumn.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.studentIdDataGridViewTextBoxColumn.HeaderText = "Учащийся";
             this.studentIdDataGridViewTextBoxColumn.Name = "studentIdDataGridViewTextBoxColumn";
             this.studentIdDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.studentIdDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.studentIdDataGridViewTextBoxColumn.ValueMember = "PassportId";
-            this.studentIdDataGridViewTextBoxColumn.Width = 159;
             // 
             // studentBindingSource
             // 
@@ -163,18 +150,14 @@ namespace Log
             // 
             this.subjectIdDataGridViewTextBoxColumn.DataPropertyName = "SubjectId";
             this.subjectIdDataGridViewTextBoxColumn.DataSource = this.subjectBindingSource;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.Lavender;
-            this.subjectIdDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle4;
             this.subjectIdDataGridViewTextBoxColumn.DisplayMember = "SubjectName";
             this.subjectIdDataGridViewTextBoxColumn.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox;
-            this.subjectIdDataGridViewTextBoxColumn.FillWeight = 93.27411F;
             this.subjectIdDataGridViewTextBoxColumn.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.subjectIdDataGridViewTextBoxColumn.HeaderText = "Предмет";
             this.subjectIdDataGridViewTextBoxColumn.Name = "subjectIdDataGridViewTextBoxColumn";
             this.subjectIdDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.subjectIdDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.subjectIdDataGridViewTextBoxColumn.ValueMember = "Id";
-            this.subjectIdDataGridViewTextBoxColumn.Width = 160;
             // 
             // subjectBindingSource
             // 
@@ -184,8 +167,6 @@ namespace Log
             // 
             this.TypeId.DataPropertyName = "TypeId";
             this.TypeId.DataSource = this.typeMarkBindingSource;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.Lavender;
-            this.TypeId.DefaultCellStyle = dataGridViewCellStyle5;
             this.TypeId.DisplayMember = "Type";
             this.TypeId.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox;
             this.TypeId.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
@@ -202,22 +183,16 @@ namespace Log
             // monthDataGridViewTextBoxColumn
             // 
             this.monthDataGridViewTextBoxColumn.DataPropertyName = "Month";
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.Lavender;
-            this.monthDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle6;
-            this.monthDataGridViewTextBoxColumn.FillWeight = 126.9036F;
-            this.monthDataGridViewTextBoxColumn.HeaderText = "Мес";
+            this.monthDataGridViewTextBoxColumn.HeaderText = "Месяц";
+            this.monthDataGridViewTextBoxColumn.MaxInputLength = 2;
             this.monthDataGridViewTextBoxColumn.Name = "monthDataGridViewTextBoxColumn";
-            this.monthDataGridViewTextBoxColumn.Width = 159;
             // 
             // valueDataGridViewTextBoxColumn
             // 
             this.valueDataGridViewTextBoxColumn.DataPropertyName = "Value";
-            dataGridViewCellStyle7.BackColor = System.Drawing.Color.Lavender;
-            this.valueDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle7;
-            this.valueDataGridViewTextBoxColumn.FillWeight = 93.27411F;
-            this.valueDataGridViewTextBoxColumn.HeaderText = "Знач";
+            this.valueDataGridViewTextBoxColumn.HeaderText = "Значение";
+            this.valueDataGridViewTextBoxColumn.MaxInputLength = 2;
             this.valueDataGridViewTextBoxColumn.Name = "valueDataGridViewTextBoxColumn";
-            this.valueDataGridViewTextBoxColumn.Width = 160;
             // 
             // markBindingSource
             // 
@@ -225,7 +200,7 @@ namespace Log
             // 
             // addBtn
             // 
-            this.addBtn.Location = new System.Drawing.Point(8, 644);
+            this.addBtn.Location = new System.Drawing.Point(11, 214);
             this.addBtn.Name = "addBtn";
             this.addBtn.Size = new System.Drawing.Size(277, 43);
             this.addBtn.TabIndex = 2;
@@ -235,7 +210,7 @@ namespace Log
             // 
             // deleteBtn
             // 
-            this.deleteBtn.Location = new System.Drawing.Point(8, 693);
+            this.deleteBtn.Location = new System.Drawing.Point(11, 263);
             this.deleteBtn.Name = "deleteBtn";
             this.deleteBtn.Size = new System.Drawing.Size(277, 43);
             this.deleteBtn.TabIndex = 3;
@@ -245,7 +220,7 @@ namespace Log
             // 
             // addGroupBtn
             // 
-            this.addGroupBtn.Location = new System.Drawing.Point(8, 742);
+            this.addGroupBtn.Location = new System.Drawing.Point(11, 312);
             this.addGroupBtn.Name = "addGroupBtn";
             this.addGroupBtn.Size = new System.Drawing.Size(277, 43);
             this.addGroupBtn.TabIndex = 4;
@@ -255,7 +230,7 @@ namespace Log
             // 
             // groupComboBox
             // 
-            this.groupComboBox.DataSource = this.groupBindingSource;
+            this.groupComboBox.DataSource = this.groupBindingSourceMenu;
             this.groupComboBox.DisplayMember = "Id";
             this.groupComboBox.Enabled = false;
             this.groupComboBox.FormattingEnabled = true;
@@ -266,9 +241,9 @@ namespace Log
             this.groupComboBox.ValueMember = "Id";
             this.groupComboBox.SelectedIndexChanged += new System.EventHandler(this.groupComboBox_SelectedIndexChanged);
             // 
-            // groupBindingSource
+            // groupBindingSourceMenu
             // 
-            this.groupBindingSource.DataSource = typeof(Log.group);
+            this.groupBindingSourceMenu.DataSource = typeof(Log.group);
             // 
             // groupCheckBox
             // 
@@ -287,196 +262,39 @@ namespace Log
             // 
             this.sortedBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.sortedBox.Controls.Add(this.label3);
-            this.sortedBox.Controls.Add(this.label4);
-            this.sortedBox.Controls.Add(this.markTo);
-            this.sortedBox.Controls.Add(this.markFrom);
-            this.sortedBox.Controls.Add(this.markCheckBox);
-            this.sortedBox.Controls.Add(this.label2);
-            this.sortedBox.Controls.Add(this.label1);
-            this.sortedBox.Controls.Add(this.monthTo);
-            this.sortedBox.Controls.Add(this.monthFrom);
-            this.sortedBox.Controls.Add(this.monthCheckBox);
-            this.sortedBox.Controls.Add(this.comboBox2);
+            this.sortedBox.Controls.Add(this.averageLabel);
+            this.sortedBox.Controls.Add(this.label5);
             this.sortedBox.Controls.Add(this.addGroupBtn);
             this.sortedBox.Controls.Add(this.deleteBtn);
-            this.sortedBox.Controls.Add(this.typeCheckBox);
             this.sortedBox.Controls.Add(this.addBtn);
             this.sortedBox.Controls.Add(this.subjectCheckBox);
-            this.sortedBox.Controls.Add(this.comboBox1);
+            this.sortedBox.Controls.Add(this.subjectComboBox1);
             this.sortedBox.Controls.Add(this.groupComboBox);
             this.sortedBox.Controls.Add(this.groupCheckBox);
             this.sortedBox.Location = new System.Drawing.Point(4, 3);
             this.sortedBox.Name = "sortedBox";
-            this.sortedBox.Size = new System.Drawing.Size(294, 799);
+            this.sortedBox.Size = new System.Drawing.Size(294, 579);
             this.sortedBox.TabIndex = 6;
             this.sortedBox.TabStop = false;
             this.sortedBox.Text = "Сортировка";
             // 
-            // label3
+            // averageLabel
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(9, 531);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(35, 24);
-            this.label3.TabIndex = 16;
-            this.label3.Text = "До";
+            this.averageLabel.AutoSize = true;
+            this.averageLabel.Location = new System.Drawing.Point(111, 178);
+            this.averageLabel.Name = "averageLabel";
+            this.averageLabel.Size = new System.Drawing.Size(60, 24);
+            this.averageLabel.TabIndex = 19;
+            this.averageLabel.Text = "label6";
             // 
-            // label4
+            // label5
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(9, 458);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(35, 24);
-            this.label4.TabIndex = 17;
-            this.label4.Text = "От";
-            // 
-            // markTo
-            // 
-            this.markTo.FormattingEnabled = true;
-            this.markTo.Items.AddRange(new object[] {
-            "0",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9",
-            "10"});
-            this.markTo.Location = new System.Drawing.Point(7, 561);
-            this.markTo.Name = "markTo";
-            this.markTo.Size = new System.Drawing.Size(277, 32);
-            this.markTo.TabIndex = 14;
-            // 
-            // markFrom
-            // 
-            this.markFrom.FormattingEnabled = true;
-            this.markFrom.Items.AddRange(new object[] {
-            "0",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9",
-            "10"});
-            this.markFrom.Location = new System.Drawing.Point(7, 489);
-            this.markFrom.Name = "markFrom";
-            this.markFrom.Size = new System.Drawing.Size(277, 32);
-            this.markFrom.TabIndex = 15;
-            // 
-            // markCheckBox
-            // 
-            this.markCheckBox.AutoSize = true;
-            this.markCheckBox.Checked = true;
-            this.markCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.markCheckBox.Location = new System.Drawing.Point(9, 424);
-            this.markCheckBox.Name = "markCheckBox";
-            this.markCheckBox.Size = new System.Drawing.Size(142, 28);
-            this.markCheckBox.TabIndex = 13;
-            this.markCheckBox.Text = "Все отметки";
-            this.markCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(9, 355);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(35, 24);
-            this.label2.TabIndex = 12;
-            this.label2.Text = "До";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 281);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 24);
-            this.label1.TabIndex = 12;
-            this.label1.Text = "От";
-            // 
-            // monthTo
-            // 
-            this.monthTo.FormattingEnabled = true;
-            this.monthTo.Items.AddRange(new object[] {
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9",
-            "10",
-            "11",
-            "12"});
-            this.monthTo.Location = new System.Drawing.Point(7, 379);
-            this.monthTo.Name = "monthTo";
-            this.monthTo.Size = new System.Drawing.Size(277, 32);
-            this.monthTo.TabIndex = 11;
-            // 
-            // monthFrom
-            // 
-            this.monthFrom.FormattingEnabled = true;
-            this.monthFrom.Items.AddRange(new object[] {
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9",
-            "10",
-            "11",
-            "12"});
-            this.monthFrom.Location = new System.Drawing.Point(7, 314);
-            this.monthFrom.Name = "monthFrom";
-            this.monthFrom.Size = new System.Drawing.Size(277, 32);
-            this.monthFrom.TabIndex = 11;
-            // 
-            // monthCheckBox
-            // 
-            this.monthCheckBox.AutoSize = true;
-            this.monthCheckBox.Checked = true;
-            this.monthCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.monthCheckBox.Location = new System.Drawing.Point(9, 256);
-            this.monthCheckBox.Name = "monthCheckBox";
-            this.monthCheckBox.Size = new System.Drawing.Size(135, 28);
-            this.monthCheckBox.TabIndex = 10;
-            this.monthCheckBox.Text = "Все месяцы";
-            this.monthCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // comboBox2
-            // 
-            this.comboBox2.DataSource = this.typeMarkBindingSource;
-            this.comboBox2.DisplayMember = "Type";
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(7, 212);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(277, 32);
-            this.comboBox2.TabIndex = 9;
-            this.comboBox2.ValueMember = "Id";
-            // 
-            // typeCheckBox
-            // 
-            this.typeCheckBox.AutoSize = true;
-            this.typeCheckBox.Checked = true;
-            this.typeCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.typeCheckBox.Location = new System.Drawing.Point(9, 183);
-            this.typeCheckBox.Name = "typeCheckBox";
-            this.typeCheckBox.Size = new System.Drawing.Size(143, 28);
-            this.typeCheckBox.TabIndex = 8;
-            this.typeCheckBox.Text = "Тип отметки";
-            this.typeCheckBox.UseVisualStyleBackColor = true;
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(6, 178);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(85, 24);
+            this.label5.TabIndex = 18;
+            this.label5.Text = "Ср. балл";
             // 
             // subjectCheckBox
             // 
@@ -489,32 +307,35 @@ namespace Log
             this.subjectCheckBox.TabIndex = 7;
             this.subjectCheckBox.Text = "Все предметы";
             this.subjectCheckBox.UseVisualStyleBackColor = true;
+            this.subjectCheckBox.CheckedChanged += new System.EventHandler(this.subjectCheckBox_CheckedChanged);
             // 
-            // comboBox1
+            // subjectComboBox1
             // 
-            this.comboBox1.DataSource = this.subjectBindingSource;
-            this.comboBox1.DisplayMember = "SubjectName";
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(7, 131);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(277, 32);
-            this.comboBox1.TabIndex = 6;
-            this.comboBox1.ValueMember = "Id";
+            this.subjectComboBox1.DataSource = this.subjectBindingSourceMenu;
+            this.subjectComboBox1.DisplayMember = "SubjectName";
+            this.subjectComboBox1.Enabled = false;
+            this.subjectComboBox1.FormattingEnabled = true;
+            this.subjectComboBox1.Location = new System.Drawing.Point(7, 131);
+            this.subjectComboBox1.Name = "subjectComboBox1";
+            this.subjectComboBox1.Size = new System.Drawing.Size(277, 32);
+            this.subjectComboBox1.TabIndex = 6;
+            this.subjectComboBox1.ValueMember = "Id";
+            this.subjectComboBox1.SelectedIndexChanged += new System.EventHandler(this.subjectComboBox1_SelectedIndexChanged);
             // 
-            // subjectBinding
+            // subjectBindingSourceMenu
             // 
-            this.subjectBinding.DataSource = typeof(Log.subject);
+            this.subjectBindingSourceMenu.DataSource = typeof(Log.subject);
             // 
-            // studentBinding
+            // groupBindingSource
             // 
-            this.studentBinding.DataSource = typeof(Log.student);
+            this.groupBindingSource.DataSource = typeof(Log.group);
             // 
             // EditMarkForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1100, 805);
+            this.ClientSize = new System.Drawing.Size(1100, 585);
             this.Controls.Add(this.sortedBox);
             this.Controls.Add(this.dataGridView);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -524,6 +345,7 @@ namespace Log
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Изменение отметок";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.EditMarkForm_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ViewMarkForm_FormClosed);
             this.Load += new System.EventHandler(this.ViewMarkForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
@@ -531,11 +353,13 @@ namespace Log
             ((System.ComponentModel.ISupportInitialize)(this.subjectBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.typeMarkBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.markBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.groupBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.groupBindingSourceMenu)).EndInit();
             this.sortedBox.ResumeLayout(false);
             this.sortedBox.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.subjectBinding)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.studentBinding)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.subjectBindingSourceMenu)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.groupBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.subjectBindingGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.studentBindingGridView)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -550,31 +374,23 @@ namespace Log
         private System.Windows.Forms.Button deleteBtn;
         private System.Windows.Forms.Button addGroupBtn;
         private System.Windows.Forms.BindingSource typeMarkBindingSource;
-        private System.Windows.Forms.DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
+        private System.Windows.Forms.ComboBox groupComboBox;
+        private System.Windows.Forms.CheckBox groupCheckBox;
+        private System.Windows.Forms.GroupBox sortedBox;
+        private System.Windows.Forms.CheckBox subjectCheckBox;
+        private System.Windows.Forms.ComboBox subjectComboBox1;
+        private System.Windows.Forms.Label averageLabel;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.BindingSource subjectBindingSourceMenu;
+        private System.Windows.Forms.BindingSource groupBindingSourceMenu;
+        private System.Windows.Forms.BindingSource groupBindingSource;
+        private System.Windows.Forms.BindingSource subjectBindingGridView;
+        private System.Windows.Forms.BindingSource studentBindingGridView;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewComboBoxColumn studentIdDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewComboBoxColumn subjectIdDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewComboBoxColumn TypeId;
         private System.Windows.Forms.DataGridViewTextBoxColumn monthDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn valueDataGridViewTextBoxColumn;
-        private System.Windows.Forms.BindingSource groupBindingSource;
-        private System.Windows.Forms.ComboBox groupComboBox;
-        private System.Windows.Forms.CheckBox groupCheckBox;
-        private System.Windows.Forms.GroupBox sortedBox;
-        private System.Windows.Forms.BindingSource subjectBinding;
-        private System.Windows.Forms.BindingSource studentBinding;
-        private System.Windows.Forms.CheckBox subjectCheckBox;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.CheckBox typeCheckBox;
-        private System.Windows.Forms.ComboBox comboBox2;
-        private System.Windows.Forms.ComboBox monthFrom;
-        private System.Windows.Forms.CheckBox monthCheckBox;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox monthTo;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.ComboBox markTo;
-        private System.Windows.Forms.ComboBox markFrom;
-        private System.Windows.Forms.CheckBox markCheckBox;
     }
 }
