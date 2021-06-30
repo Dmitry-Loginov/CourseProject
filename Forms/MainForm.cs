@@ -10,13 +10,13 @@ namespace Log
             InitializeComponent();
         }
 
-        EditMarkForm EditMarkForm { get; set; }
+        EditMarkForm editMarkForm;
         private void Button6_Click(object sender, EventArgs e)
         {
-            if (EditMarkForm == null || EditMarkForm.IsDisposed)
-                EditMarkForm = new EditMarkForm();
-            EditMarkForm.Show();
-            EditMarkForm.Select();
+            if (editMarkForm == null || editMarkForm.IsDisposed)
+                editMarkForm = new EditMarkForm();
+            editMarkForm.Show();
+            editMarkForm.Select();
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -24,28 +24,44 @@ namespace Log
             LogEntities.DeleteInstance();
         }
 
+        SubjectsForm subjectsForm;
+
         private void button1_Click(object sender, EventArgs e)
         {
-            SubjectsForm subjectsForm = new SubjectsForm();
+            if (subjectsForm == null || subjectsForm.IsDisposed)
+                subjectsForm = new SubjectsForm();
             subjectsForm.Show();
+            subjectsForm.Select();
         }
+
+        StudentsForm studentsForm;
 
         private void button2_Click(object sender, EventArgs e)
         {
-            StudentsForm studentsForm = new StudentsForm();
+           if (studentsForm == null || studentsForm.IsDisposed)
+                studentsForm = new StudentsForm();
             studentsForm.Show();
+            studentsForm.Select();
         }
+
+        GroupsForm groupsForm;
 
         private void button3_Click(object sender, EventArgs e)
         {
-            GroupsForm groupsForm = new GroupsForm();
+            if (groupsForm == null || groupsForm.IsDisposed)
+                groupsForm = new GroupsForm();
             groupsForm.Show();
+            groupsForm.Select();
         }
+
+        SubjectToGroupForm subjectToGroupForm;
 
         private void button4_Click(object sender, EventArgs e)
         {
-            SubjectToGroupForm subjectToGroupForm = new SubjectToGroupForm();
+            if (subjectToGroupForm == null || subjectToGroupForm.IsDisposed)
+                subjectToGroupForm = new SubjectToGroupForm();
             subjectToGroupForm.Show();
+            subjectToGroupForm.Select();
         }
     }
     public delegate void FillDataGridView();

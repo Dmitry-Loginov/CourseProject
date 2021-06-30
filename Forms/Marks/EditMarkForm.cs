@@ -164,11 +164,6 @@ namespace Log
             ChangeCheckBox(subjectCheckBox, subjectComboBox1);
         }
 
-        private void typeComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (!IsClosed) { }
-        }
-
         void ChangeCheckBox(CheckBox checkBox, ComboBox comboBox1)
         {
 

@@ -38,8 +38,8 @@ namespace Log
             this.subjects_to_groupsTableAdapter = new Log.LogDataSetTableAdapters.subjects_to_groupsTableAdapter();
             this.tableAdapterManager = new Log.LogDataSetTableAdapters.TableAdapterManager();
             this.groupIdComboBox = new System.Windows.Forms.ComboBox();
-            this.subjectIdListBox = new System.Windows.Forms.ListBox();
             this.groupBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.subjectIdListBox = new System.Windows.Forms.ListBox();
             this.subjectBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.add = new System.Windows.Forms.Button();
             groupIdLabel = new System.Windows.Forms.Label();
@@ -49,6 +49,24 @@ namespace Log
             ((System.ComponentModel.ISupportInitialize)(this.groupBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.subjectBindingSource)).BeginInit();
             this.SuspendLayout();
+            // 
+            // groupIdLabel
+            // 
+            groupIdLabel.AutoSize = true;
+            groupIdLabel.Location = new System.Drawing.Point(11, 10);
+            groupIdLabel.Name = "groupIdLabel";
+            groupIdLabel.Size = new System.Drawing.Size(73, 24);
+            groupIdLabel.TabIndex = 1;
+            groupIdLabel.Text = "Группа";
+            // 
+            // subjectIdLabel
+            // 
+            subjectIdLabel.AutoSize = true;
+            subjectIdLabel.Location = new System.Drawing.Point(8, 77);
+            subjectIdLabel.Name = "subjectIdLabel";
+            subjectIdLabel.Size = new System.Drawing.Size(91, 24);
+            subjectIdLabel.TabIndex = 3;
+            subjectIdLabel.Text = "Предмет";
             // 
             // logDataSet
             // 
@@ -70,15 +88,6 @@ namespace Log
             this.tableAdapterManager.subjects_to_groupsTableAdapter = this.subjects_to_groupsTableAdapter;
             this.tableAdapterManager.UpdateOrder = Log.LogDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
             // 
-            // groupIdLabel
-            // 
-            groupIdLabel.AutoSize = true;
-            groupIdLabel.Location = new System.Drawing.Point(11, 10);
-            groupIdLabel.Name = "groupIdLabel";
-            groupIdLabel.Size = new System.Drawing.Size(73, 24);
-            groupIdLabel.TabIndex = 1;
-            groupIdLabel.Text = "Группа";
-            // 
             // groupIdComboBox
             // 
             this.groupIdComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.subjects_to_groupsBindingSource, "GroupId", true));
@@ -91,14 +100,9 @@ namespace Log
             this.groupIdComboBox.TabIndex = 2;
             this.groupIdComboBox.ValueMember = "Id";
             // 
-            // subjectIdLabel
+            // groupBindingSource
             // 
-            subjectIdLabel.AutoSize = true;
-            subjectIdLabel.Location = new System.Drawing.Point(8, 77);
-            subjectIdLabel.Name = "subjectIdLabel";
-            subjectIdLabel.Size = new System.Drawing.Size(91, 24);
-            subjectIdLabel.TabIndex = 3;
-            subjectIdLabel.Text = "Предмет";
+            this.groupBindingSource.DataSource = typeof(Log.group);
             // 
             // subjectIdListBox
             // 
@@ -112,10 +116,6 @@ namespace Log
             this.subjectIdListBox.Size = new System.Drawing.Size(343, 244);
             this.subjectIdListBox.TabIndex = 4;
             this.subjectIdListBox.ValueMember = "Id";
-            // 
-            // groupBindingSource
-            // 
-            this.groupBindingSource.DataSource = typeof(Log.group);
             // 
             // subjectBindingSource
             // 

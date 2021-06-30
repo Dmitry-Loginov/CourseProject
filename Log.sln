@@ -5,6 +5,10 @@ VisualStudioVersion = 16.0.31105.61
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Log", "Log.csproj", "{24624224-61F0-4410-85DD-90FC8C21164A}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "e-magazineSetup", "..\e-magazineSetup\e-magazineSetup.vdproj", "{FDA9B5D8-7F9F-4587-B21E-987C760892C7}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "SetupApp", "..\..\..\..\Desktop\SetupApp\SetupApp.vdproj", "{215FEA5E-7883-46A6-9E27-C4FC6D368394}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,10 @@ Global
 		{24624224-61F0-4410-85DD-90FC8C21164A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{24624224-61F0-4410-85DD-90FC8C21164A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{24624224-61F0-4410-85DD-90FC8C21164A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FDA9B5D8-7F9F-4587-B21E-987C760892C7}.Debug|Any CPU.ActiveCfg = Debug
+		{FDA9B5D8-7F9F-4587-B21E-987C760892C7}.Release|Any CPU.ActiveCfg = Release
+		{215FEA5E-7883-46A6-9E27-C4FC6D368394}.Debug|Any CPU.ActiveCfg = Debug
+		{215FEA5E-7883-46A6-9E27-C4FC6D368394}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
