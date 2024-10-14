@@ -1,0 +1,193 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="Log.AddStudentForm" Collapsed="true">
+    <Position X="7.75" Y="5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAACACACAASAAACAAAgCAIAIggAAQEAAAAAAAAA=</HashCode>
+      <FileName>Forms\Directories\AddStudentForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Log.AddSubjectToGroup" Collapsed="true">
+    <Position X="10.75" Y="5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAgAASAAAAABAICAAAgCAAgAggAIAAAAAAQKgAA=</HashCode>
+      <FileName>Forms\Directories\AddSubjectToGroup.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Log.GroupsForm" Collapsed="true">
+    <Position X="8" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CCAACAAAgLAQCACAAACFAgACABAAgAAAAAAAAAAAAQQ=</HashCode>
+      <FileName>Forms\Directories\GroupsForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Log.StudentsForm" Collapsed="true">
+    <Position X="13.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACBACBAAALEIAECBAACAAAgCEAAAgABAQAAACAAAAAQ=</HashCode>
+      <FileName>Forms\Directories\StudentsForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Log.SubjectsForm" Collapsed="true">
+    <Position X="13" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAACAAAADAICACBAACFAAACAAACgAAAAAAACAAAAAQ=</HashCode>
+      <FileName>Forms\Directories\SubjectsForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Log.SubjectToGroupForm" Collapsed="true">
+    <Position X="8" Y="7.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>ACAACAAAETAAAEKBAICAABgCEAAAgAABwAAACAQAAAQ=</HashCode>
+      <FileName>Forms\Directories\SubjectToGroupForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Log.MainForm" Collapsed="true">
+    <Position X="10.75" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAEACAACAQAAAAAACAAAACAEA5CAIAAHAMAAAAQAA=</HashCode>
+      <FileName>Forms\MainForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Log.AddGroupMarkForm" Collapsed="true">
+    <Position X="12.75" Y="6.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AKAAQAAkEKBQCDEBAACIiIgGAQEAiKAAgCAEAAAgCAQ=</HashCode>
+      <FileName>Forms\Marks\AddGroupMarkForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Log.EditMarkForm" Collapsed="true">
+    <Position X="8.25" Y="6.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>ZTQAAVBIEjEYkFERogCIDC4GAIEwGuEgCIwGAIAEkCU=</HashCode>
+      <FileName>Forms\Marks\EditMarkForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Log.LogDataSet" Collapsed="true">
+    <Position X="17.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAA4AAAAJABAABQAAAAAgCQBgAAAAACAEABBA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Log.LogEntities" Collapsed="true">
+    <Position X="15.25" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>wAAEAQAAAAAAAAAgAAAAAAAAFAAABAEAAAAACAACAEA=</HashCode>
+      <FileName>Model.Context.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Log.group" Collapsed="true">
+    <Position X="10.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAIA=</HashCode>
+      <FileName>group.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Log.mark" Collapsed="true">
+    <Position X="8.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAQAAEAABAAAAAAAAAACAAAAAAAAkAAAgAAACAAA=</HashCode>
+      <FileName>mark.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Log.student" Collapsed="true">
+    <Position X="10.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAEAAAAAACAAAAAAAAAAAAIBAAAAAAAIAAAAQA=</HashCode>
+      <FileName>student.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Log.subject" Collapsed="true">
+    <Position X="12.25" Y="3" Width="1.5" />
+    <InheritanceLine Type="System.Object" ManuallyRouted="true" FixedToPoint="true">
+      <Path>
+        <Point X="12" Y="1.346" />
+        <Point X="12" Y="2.76" />
+        <Point X="12.875" Y="2.76" />
+        <Point X="12.875" Y="3" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAACCAAAAA=</HashCode>
+      <FileName>subject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Log.subjects_to_groups" Collapsed="true">
+    <Position X="8.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAACAAAEEAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>subjects_to_groups.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Log.typeMark" Collapsed="true">
+    <Position X="12.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAABAAAAQAAAAAAAAA=</HashCode>
+      <FileName>typeMark.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Log.Program" Collapsed="true">
+    <Position X="10.25" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Log.LogDataSetTableAdapters.subjects_to_groupsTableAdapter" Collapsed="true">
+    <Position X="18.75" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EASAAGAAEAAAAAcAIAAAAAAAACEICAAAAAAAAAAABBA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Log.LogDataSetTableAdapters.TableAdapterManager" Collapsed="true">
+    <Position X="16.25" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAACAAAABABAEBAAAAMAggAAACgAAAAAQAAAAABAQ=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="System.ComponentModel.Component" Collapsed="true">
+    <Position X="17.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="System.Object" Collapsed="true">
+    <Position X="11.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="System.Windows.Forms.Form" Collapsed="true">
+    <Position X="10.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="System.Data.Entity.DbContext" Collapsed="true">
+    <Position X="15.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="System.Data.DataSet" Collapsed="true">
+    <Position X="19.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Delegate Name="Log.FillDataGridView" Collapsed="true">
+    <Position X="15.75" Y="7.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Forms\MainForm.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="Log.FillStudentsGrid" Collapsed="true">
+    <Position X="15.75" Y="8" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Forms\MainForm.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="Log.FillSubjectToGroupGrid" Collapsed="true">
+    <Position X="15.75" Y="8.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Forms\MainForm.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Font Name="Segoe UI" Size="10" />
+</ClassDiagram>

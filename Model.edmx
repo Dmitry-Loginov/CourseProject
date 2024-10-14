@@ -1,0 +1,438 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище LogModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="groups">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="marks">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StudentId" Type="nchar" MaxLength="25" />
+          <Property Name="SubjectId" Type="int" />
+          <Property Name="TypeId" Type="int" />
+          <Property Name="Month" Type="int" />
+          <Property Name="Value" Type="nchar" MaxLength="4" />
+        </EntityType>
+        <EntityType Name="studetns">
+          <Key>
+            <PropertyRef Name="PassportId" />
+          </Key>
+          <Property Name="PassportId" Type="nchar" MaxLength="25" Nullable="false" />
+          <Property Name="Fio" Type="nchar" MaxLength="35" />
+          <Property Name="GroupId" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Birthday" Type="datetime" />
+          <Property Name="Phone" Type="nchar" MaxLength="14" />
+        </EntityType>
+        <EntityType Name="subjects">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SubjectName" Type="nchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="subjects_to_groups">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GroupId" Type="nchar" MaxLength="10" />
+          <Property Name="SubjectId" Type="int" />
+        </EntityType>
+        <EntityType Name="typeMark">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Type" Type="nchar" MaxLength="20" />
+        </EntityType>
+        <Association Name="MarkToStudent">
+          <End Role="studetns" Type="Self.studetns" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="marks" Type="Self.marks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="studetns">
+              <PropertyRef Name="PassportId" />
+            </Principal>
+            <Dependent Role="marks">
+              <PropertyRef Name="StudentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MarkToSubject">
+          <End Role="subjects" Type="Self.subjects" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="marks" Type="Self.marks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="subjects">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="marks">
+              <PropertyRef Name="SubjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MarkToType">
+          <End Role="typeMark" Type="Self.typeMark" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="marks" Type="Self.marks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="typeMark">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="marks">
+              <PropertyRef Name="TypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="StudentToGroup">
+          <End Role="groups" Type="Self.groups" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="studetns" Type="Self.studetns" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="groups">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="studetns">
+              <PropertyRef Name="GroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ThisToGroup">
+          <End Role="groups" Type="Self.groups" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="subjects_to_groups" Type="Self.subjects_to_groups" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="groups">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="subjects_to_groups">
+              <PropertyRef Name="GroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ThisToSubject">
+          <End Role="subjects" Type="Self.subjects" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="subjects_to_groups" Type="Self.subjects_to_groups" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="subjects">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="subjects_to_groups">
+              <PropertyRef Name="SubjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище LogModelContainer">
+          <EntitySet Name="groups" EntityType="Self.groups" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="marks" EntityType="Self.marks" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="studetns" EntityType="Self.studetns" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="subjects" EntityType="Self.subjects" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="subjects_to_groups" EntityType="Self.subjects_to_groups" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="typeMark" EntityType="Self.typeMark" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="MarkToStudent" Association="Self.MarkToStudent">
+            <End Role="studetns" EntitySet="studetns" />
+            <End Role="marks" EntitySet="marks" />
+          </AssociationSet>
+          <AssociationSet Name="MarkToSubject" Association="Self.MarkToSubject">
+            <End Role="subjects" EntitySet="subjects" />
+            <End Role="marks" EntitySet="marks" />
+          </AssociationSet>
+          <AssociationSet Name="MarkToType" Association="Self.MarkToType">
+            <End Role="typeMark" EntitySet="typeMark" />
+            <End Role="marks" EntitySet="marks" />
+          </AssociationSet>
+          <AssociationSet Name="StudentToGroup" Association="Self.StudentToGroup">
+            <End Role="groups" EntitySet="groups" />
+            <End Role="studetns" EntitySet="studetns" />
+          </AssociationSet>
+          <AssociationSet Name="ThisToGroup" Association="Self.ThisToGroup">
+            <End Role="groups" EntitySet="groups" />
+            <End Role="subjects_to_groups" EntitySet="subjects_to_groups" />
+          </AssociationSet>
+          <AssociationSet Name="ThisToSubject" Association="Self.ThisToSubject">
+            <End Role="subjects" EntitySet="subjects" />
+            <End Role="subjects_to_groups" EntitySet="subjects_to_groups" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="LogModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="student">
+          <Key>
+            <PropertyRef Name="PassportId" />
+          </Key>
+          <Property Name="PassportId" Type="String" MaxLength="25" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Fio" Type="String" MaxLength="35" FixedLength="true" Unicode="true" />
+          <Property Name="GroupId" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Birthday" Type="DateTime" Precision="3" />
+          <Property Name="Phone" Type="String" MaxLength="14" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="marks" Relationship="LogModel.MarkToStudent" FromRole="studetn" ToRole="mark" />
+          <NavigationProperty Name="group" Relationship="LogModel.StudentToGroup" FromRole="student" ToRole="group" />
+        </EntityType>
+        <EntityType Name="subject">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SubjectName" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="marks" Relationship="LogModel.MarkToSubject" FromRole="subject" ToRole="mark" />
+          <NavigationProperty Name="subjects_to_groups" Relationship="LogModel.ThisToSubject" FromRole="subject" ToRole="subjects_to_groups" />
+        </EntityType>
+        <EntityContainer Name="LogEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="students" EntityType="LogModel.student" />
+          <EntitySet Name="subjects" EntityType="Self.subject" />
+          <EntitySet Name="typeMarks" EntityType="LogModel.typeMark" />
+          <EntitySet Name="marks" EntityType="LogModel.mark" />
+          <AssociationSet Name="MarkToStudent" Association="LogModel.MarkToStudent">
+            <End Role="studetn" EntitySet="students" />
+            <End Role="mark" EntitySet="marks" />
+          </AssociationSet>
+          <AssociationSet Name="MarkToSubject" Association="LogModel.MarkToSubject">
+            <End Role="subject" EntitySet="subjects" />
+            <End Role="mark" EntitySet="marks" />
+          </AssociationSet>
+          <AssociationSet Name="MarkToType" Association="LogModel.MarkToType">
+            <End Role="typeMark" EntitySet="typeMarks" />
+            <End Role="mark" EntitySet="marks" />
+          </AssociationSet>
+          <EntitySet Name="groups" EntityType="LogModel.group" />
+          <AssociationSet Name="StudentToGroup" Association="LogModel.StudentToGroup">
+            <End Role="group" EntitySet="groups" />
+            <End Role="student" EntitySet="students" />
+          </AssociationSet>
+          <EntitySet Name="subjects_to_groups" EntityType="LogModel.subjects_to_groups" />
+          <AssociationSet Name="ThisToGroup" Association="LogModel.ThisToGroup">
+            <End Role="group" EntitySet="groups" />
+            <End Role="subjects_to_groups" EntitySet="subjects_to_groups" />
+          </AssociationSet>
+          <AssociationSet Name="ThisToSubject" Association="LogModel.ThisToSubject">
+            <End Role="subject" EntitySet="subjects" />
+            <End Role="subjects_to_groups" EntitySet="subjects_to_groups" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="typeMark">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Type" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="marks" Relationship="LogModel.MarkToType" FromRole="typeMark" ToRole="mark" />
+        </EntityType>
+        <EntityType Name="mark">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StudentId" Type="String" MaxLength="25" FixedLength="true" Unicode="true" />
+          <Property Name="SubjectId" Type="Int32" />
+          <Property Name="TypeId" Type="Int32" />
+          <Property Name="Month" Type="Int32" />
+          <Property Name="Value" Type="String" MaxLength="4" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="studetn" Relationship="LogModel.MarkToStudent" FromRole="mark" ToRole="studetn" />
+          <NavigationProperty Name="subject" Relationship="LogModel.MarkToSubject" FromRole="mark" ToRole="subject" />
+          <NavigationProperty Name="typeMark" Relationship="LogModel.MarkToType" FromRole="mark" ToRole="typeMark" />
+        </EntityType>
+        <Association Name="MarkToStudent">
+          <End Type="LogModel.student" Role="studetn" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="LogModel.mark" Role="mark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="studetn">
+              <PropertyRef Name="PassportId" />
+            </Principal>
+            <Dependent Role="mark">
+              <PropertyRef Name="StudentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MarkToSubject">
+          <End Type="LogModel.subject" Role="subject" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="LogModel.mark" Role="mark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="subject">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="mark">
+              <PropertyRef Name="SubjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MarkToType">
+          <End Type="LogModel.typeMark" Role="typeMark" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="LogModel.mark" Role="mark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="typeMark">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="mark">
+              <PropertyRef Name="TypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="group">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="studetns" Relationship="LogModel.StudentToGroup" FromRole="group" ToRole="student" />
+          <NavigationProperty Name="subjects_to_groups" Relationship="LogModel.ThisToGroup" FromRole="group" ToRole="subjects_to_groups" />
+        </EntityType>
+        <Association Name="StudentToGroup">
+          <End Type="LogModel.group" Role="group" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="LogModel.student" Role="student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="group">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="student">
+              <PropertyRef Name="GroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="subjects_to_groups">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GroupId" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="SubjectId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="group" Relationship="LogModel.ThisToGroup" FromRole="subjects_to_groups" ToRole="group" />
+          <NavigationProperty Name="subject" Relationship="LogModel.ThisToSubject" FromRole="subjects_to_groups" ToRole="subject" />
+        </EntityType>
+        <Association Name="ThisToGroup">
+          <End Type="LogModel.group" Role="group" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="LogModel.subjects_to_groups" Role="subjects_to_groups" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="group">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="subjects_to_groups">
+              <PropertyRef Name="GroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ThisToSubject">
+          <End Type="LogModel.subject" Role="subject" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="LogModel.subjects_to_groups" Role="subjects_to_groups" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="subject">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="subjects_to_groups">
+              <PropertyRef Name="SubjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище LogModelContainer" CdmEntityContainer="LogEntities">
+          <EntitySetMapping Name="students">
+            <EntityTypeMapping TypeName="LogModel.student">
+              <MappingFragment StoreEntitySet="studetns">
+                <ScalarProperty Name="PassportId" ColumnName="PassportId" />
+                <ScalarProperty Name="Fio" ColumnName="Fio" />
+                <ScalarProperty Name="GroupId" ColumnName="GroupId" />
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="subjects">
+            <EntityTypeMapping TypeName="LogModel.subject">
+              <MappingFragment StoreEntitySet="subjects">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="SubjectName" ColumnName="SubjectName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="typeMarks">
+            <EntityTypeMapping TypeName="LogModel.typeMark">
+              <MappingFragment StoreEntitySet="typeMark">
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="marks">
+            <EntityTypeMapping TypeName="LogModel.mark">
+              <MappingFragment StoreEntitySet="marks">
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Month" ColumnName="Month" />
+                <ScalarProperty Name="TypeId" ColumnName="TypeId" />
+                <ScalarProperty Name="SubjectId" ColumnName="SubjectId" />
+                <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="groups">
+            <EntityTypeMapping TypeName="LogModel.group">
+              <MappingFragment StoreEntitySet="groups">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="subjects_to_groups">
+            <EntityTypeMapping TypeName="LogModel.subjects_to_groups">
+              <MappingFragment StoreEntitySet="subjects_to_groups">
+                <ScalarProperty Name="SubjectId" ColumnName="SubjectId" />
+                <ScalarProperty Name="GroupId" ColumnName="GroupId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
