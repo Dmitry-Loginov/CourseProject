@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows.Forms;
 
 namespace Log
@@ -46,6 +47,11 @@ namespace Log
         {
             SubjectToGroupForm subjectToGroupForm = new SubjectToGroupForm();
             subjectToGroupForm.Show();
+        }
+
+        private void справкаToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start("Help.html");
         }
     }
     public delegate void FillDataGridView();

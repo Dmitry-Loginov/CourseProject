@@ -353,20 +353,24 @@ namespace Log
         {
             try
             {
-                log.SaveChanges();
-                groupBindingSource.DataSource = log.groups.ToList();
-                studentBindingSource.DataSource = log.students.ToList();
-                subjectBindingSource.DataSource = log.subjects.ToList();
-                typeMarkBindingSource.DataSource = log.typeMarks.ToList();
-                if (SortedMarks.Count != 0)
+                if(log != null)
                 {
-                    double average = SortedMarks.Average(m => Convert.ToInt32(m.Value));
-                    average = Math.Round(average, 2);
-                    averageLabel.Text = average.ToString();
+                    log.SaveChanges();
+                    groupBindingSource.DataSource = log.groups.ToList();
+                    studentBindingSource.DataSource = log.students.ToList();
+                    subjectBindingSource.DataSource = log.subjects.ToList();
+                    typeMarkBindingSource.DataSource = log.typeMarks.ToList();
+                    if (SortedMarks.Count != 0)
+                    {
+                        double average = SortedMarks.Average(m => Convert.ToInt32(m.Value));
+                        average = Math.Round(average, 2);
+                        averageLabel.Text = average.ToString();
+                    }
+                    else
+                        averageLabel.Text = "0";
+                    FillSorted();
                 }
-                else
-                    averageLabel.Text = "0";
-                FillSorted();
+                
             }
             catch { }
         }
