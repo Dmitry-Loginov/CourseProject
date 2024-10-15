@@ -12,6 +12,7 @@
 *.mdf
 *.ldf
 DataBase/Log.mdf
+Log.mdf
 
 
 # User-specific files (MonoDevelop/Xamarin Studio)
@@ -22,6 +23,7 @@ mono_crash.*
 
 # Build results
 [Dd]ebug/
+DataBase/
 [Dd]ebugPublic/
 [Rr]elease/
 [Rr]eleases/
