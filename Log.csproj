@@ -116,6 +116,9 @@
     <Compile Include="mark.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="marks_comments.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -157,6 +160,9 @@
     <Compile Include="Forms\Directories\SubjectToGroupForm.Designer.cs">
       <DependentUpon>SubjectToGroupForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Role.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="student.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -166,7 +172,16 @@
     <Compile Include="subjects_to_groups.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="subjects_to_teachers.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="teacher.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="typeMark.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="user.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Forms\Directories\AddSubjectToGroup.resx">

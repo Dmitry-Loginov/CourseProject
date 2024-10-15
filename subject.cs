@@ -19,6 +19,7 @@ namespace Log
         {
             this.marks = new HashSet<mark>();
             this.subjects_to_groups = new HashSet<subjects_to_groups>();
+            this.subjects_to_teachers = new HashSet<subjects_to_teachers>();
         }
     
         public int Id { get; set; }
@@ -28,5 +29,7 @@ namespace Log
         public virtual ICollection<mark> marks { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<subjects_to_groups> subjects_to_groups { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<subjects_to_teachers> subjects_to_teachers { get; set; }
     }
 }

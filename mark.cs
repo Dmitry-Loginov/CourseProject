@@ -14,6 +14,12 @@ namespace Log
     
     public partial class mark
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public mark()
+        {
+            this.marks_comments = new HashSet<marks_comments>();
+        }
+    
         public int Id { get; set; }
         public string StudentId { get; set; }
         public Nullable<int> SubjectId { get; set; }
@@ -24,5 +30,7 @@ namespace Log
         public virtual student studetn { get; set; }
         public virtual subject subject { get; set; }
         public virtual typeMark typeMark { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<marks_comments> marks_comments { get; set; }
     }
 }

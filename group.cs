@@ -22,6 +22,8 @@ namespace Log
         }
     
         public string Id { get; set; }
+        public Nullable<double> AvgMark { get; set; }
+        public Nullable<int> SubjectCount { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<student> studetns { get; set; }

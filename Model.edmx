@@ -10,6 +10,8 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="AvgMark" Type="float" />
+          <Property Name="SubjectCount" Type="int" />
         </EntityType>
         <EntityType Name="marks">
           <Key>
@@ -21,6 +23,21 @@
           <Property Name="TypeId" Type="int" />
           <Property Name="Month" Type="int" />
           <Property Name="Value" Type="nchar" MaxLength="4" />
+        </EntityType>
+        <EntityType Name="marks_comments">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MarkId" Type="int" Nullable="false" />
+          <Property Name="CommentText" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleName" Type="nchar" MaxLength="10" Nullable="false" />
         </EntityType>
         <EntityType Name="studetns">
           <Key>
@@ -44,8 +61,24 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="GroupId" Type="nchar" MaxLength="10" />
-          <Property Name="SubjectId" Type="int" />
+          <Property Name="GroupId" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="SubjectId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="subjects_to_teachers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TeacherId" Type="int" Nullable="false" />
+          <Property Name="SubjectId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="teachers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Fio" Type="nchar" MaxLength="30" Nullable="false" />
+          <Property Name="AvgTeacherMark" Type="float" />
         </EntityType>
         <EntityType Name="typeMark">
           <Key>
@@ -54,6 +87,70 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Type" Type="nchar" MaxLength="20" />
         </EntityType>
+        <EntityType Name="users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="nchar" MaxLength="20" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_marks_comments_MarkId">
+          <End Role="marks" Type="Self.marks" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="marks_comments" Type="Self.marks_comments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="marks">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="marks_comments">
+              <PropertyRef Name="MarkId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_subject">
+          <End Role="subjects" Type="Self.subjects" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="subjects_to_teachers" Type="Self.subjects_to_teachers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="subjects">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="subjects_to_teachers">
+              <PropertyRef Name="SubjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_teachers">
+          <End Role="teachers" Type="Self.teachers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="subjects_to_teachers" Type="Self.subjects_to_teachers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="teachers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="subjects_to_teachers">
+              <PropertyRef Name="TeacherId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_users_Roles">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="users" Type="Self.users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="users">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="MarkToStudent">
           <End Role="studetns" Type="Self.studetns" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
@@ -111,7 +208,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="ThisToGroup">
-          <End Role="groups" Type="Self.groups" Multiplicity="0..1">
+          <End Role="groups" Type="Self.groups" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="subjects_to_groups" Type="Self.subjects_to_groups" Multiplicity="*" />
@@ -125,7 +222,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="ThisToSubject">
-          <End Role="subjects" Type="Self.subjects" Multiplicity="0..1">
+          <End Role="subjects" Type="Self.subjects" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="subjects_to_groups" Type="Self.subjects_to_groups" Multiplicity="*" />
@@ -141,10 +238,31 @@
         <EntityContainer Name="Хранилище LogModelContainer">
           <EntitySet Name="groups" EntityType="Self.groups" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="marks" EntityType="Self.marks" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="marks_comments" EntityType="Self.marks_comments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="studetns" EntityType="Self.studetns" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="subjects" EntityType="Self.subjects" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="subjects_to_groups" EntityType="Self.subjects_to_groups" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="subjects_to_teachers" EntityType="Self.subjects_to_teachers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="teachers" EntityType="Self.teachers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="typeMark" EntityType="Self.typeMark" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_marks_comments_MarkId" Association="Self.FK_marks_comments_MarkId">
+            <End Role="marks" EntitySet="marks" />
+            <End Role="marks_comments" EntitySet="marks_comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_subject" Association="Self.FK_subject">
+            <End Role="subjects" EntitySet="subjects" />
+            <End Role="subjects_to_teachers" EntitySet="subjects_to_teachers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_teachers" Association="Self.FK_teachers">
+            <End Role="teachers" EntitySet="teachers" />
+            <End Role="subjects_to_teachers" EntitySet="subjects_to_teachers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_users_Roles" Association="Self.FK_users_Roles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="users" EntitySet="users" />
+          </AssociationSet>
           <AssociationSet Name="MarkToStudent" Association="Self.MarkToStudent">
             <End Role="studetns" EntitySet="studetns" />
             <End Role="marks" EntitySet="marks" />
@@ -194,6 +312,7 @@
           <Property Name="SubjectName" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
           <NavigationProperty Name="marks" Relationship="LogModel.MarkToSubject" FromRole="subject" ToRole="mark" />
           <NavigationProperty Name="subjects_to_groups" Relationship="LogModel.ThisToSubject" FromRole="subject" ToRole="subjects_to_groups" />
+          <NavigationProperty Name="subjects_to_teachers" Relationship="LogModel.FK_subject" FromRole="subject" ToRole="subjects_to_teachers" />
         </EntityType>
         <EntityContainer Name="LogEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="students" EntityType="LogModel.student" />
@@ -226,6 +345,27 @@
             <End Role="subject" EntitySet="subjects" />
             <End Role="subjects_to_groups" EntitySet="subjects_to_groups" />
           </AssociationSet>
+          <EntitySet Name="marks_comments" EntityType="LogModel.marks_comments" />
+          <EntitySet Name="Roles" EntityType="LogModel.Role" />
+          <EntitySet Name="subjects_to_teachers" EntityType="LogModel.subjects_to_teachers" />
+          <EntitySet Name="teachers" EntityType="LogModel.teacher" />
+          <EntitySet Name="users" EntityType="LogModel.user" />
+          <AssociationSet Name="FK_marks_comments_MarkId" Association="LogModel.FK_marks_comments_MarkId">
+            <End Role="mark" EntitySet="marks" />
+            <End Role="marks_comments" EntitySet="marks_comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_users_Roles" Association="LogModel.FK_users_Roles">
+            <End Role="Role" EntitySet="Roles" />
+            <End Role="user" EntitySet="users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_subject" Association="LogModel.FK_subject">
+            <End Role="subject" EntitySet="subjects" />
+            <End Role="subjects_to_teachers" EntitySet="subjects_to_teachers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_teachers" Association="LogModel.FK_teachers">
+            <End Role="teacher" EntitySet="teachers" />
+            <End Role="subjects_to_teachers" EntitySet="subjects_to_teachers" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="typeMark">
           <Key>
@@ -248,6 +388,7 @@
           <NavigationProperty Name="studetn" Relationship="LogModel.MarkToStudent" FromRole="mark" ToRole="studetn" />
           <NavigationProperty Name="subject" Relationship="LogModel.MarkToSubject" FromRole="mark" ToRole="subject" />
           <NavigationProperty Name="typeMark" Relationship="LogModel.MarkToType" FromRole="mark" ToRole="typeMark" />
+          <NavigationProperty Name="marks_comments" Relationship="LogModel.FK_marks_comments_MarkId" FromRole="mark" ToRole="marks_comments" />
         </EntityType>
         <Association Name="MarkToStudent">
           <End Type="LogModel.student" Role="studetn" Multiplicity="0..1">
@@ -298,6 +439,8 @@
           <Property Name="Id" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
           <NavigationProperty Name="studetns" Relationship="LogModel.StudentToGroup" FromRole="group" ToRole="student" />
           <NavigationProperty Name="subjects_to_groups" Relationship="LogModel.ThisToGroup" FromRole="group" ToRole="subjects_to_groups" />
+          <Property Name="AvgMark" Type="Double" />
+          <Property Name="SubjectCount" Type="Int32" />
         </EntityType>
         <Association Name="StudentToGroup">
           <End Type="LogModel.group" Role="group" Multiplicity="1">
@@ -351,6 +494,107 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="marks_comments">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MarkId" Type="Int32" Nullable="false" />
+          <Property Name="CommentText" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="mark" Relationship="LogModel.FK_marks_comments_MarkId" FromRole="marks_comments" ToRole="mark" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="users" Relationship="LogModel.FK_users_Roles" FromRole="Role" ToRole="user" />
+        </EntityType>
+        <EntityType Name="subjects_to_teachers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TeacherId" Type="Int32" Nullable="false" />
+          <Property Name="SubjectId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="subject" Relationship="LogModel.FK_subject" FromRole="subjects_to_teachers" ToRole="subject" />
+          <NavigationProperty Name="teacher" Relationship="LogModel.FK_teachers" FromRole="subjects_to_teachers" ToRole="teacher" />
+        </EntityType>
+        <EntityType Name="teacher">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fio" Type="String" Nullable="false" MaxLength="30" FixedLength="true" Unicode="true" />
+          <Property Name="AvgTeacherMark" Type="Double" />
+          <NavigationProperty Name="subjects_to_teachers" Relationship="LogModel.FK_teachers" FromRole="teacher" ToRole="subjects_to_teachers" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Role" Relationship="LogModel.FK_users_Roles" FromRole="user" ToRole="Role" />
+        </EntityType>
+        <Association Name="FK_marks_comments_MarkId">
+          <End Type="LogModel.mark" Role="mark" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="LogModel.marks_comments" Role="marks_comments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mark">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="marks_comments">
+              <PropertyRef Name="MarkId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_users_Roles">
+          <End Type="LogModel.Role" Role="Role" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="LogModel.user" Role="user" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="user">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_subject">
+          <End Type="LogModel.subject" Role="subject" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="LogModel.subjects_to_teachers" Role="subjects_to_teachers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="subject">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="subjects_to_teachers">
+              <PropertyRef Name="SubjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_teachers">
+          <End Type="LogModel.teacher" Role="teacher" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="LogModel.subjects_to_teachers" Role="subjects_to_teachers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="teacher">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="subjects_to_teachers">
+              <PropertyRef Name="TeacherId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -399,6 +643,8 @@
           <EntitySetMapping Name="groups">
             <EntityTypeMapping TypeName="LogModel.group">
               <MappingFragment StoreEntitySet="groups">
+                <ScalarProperty Name="SubjectCount" ColumnName="SubjectCount" />
+                <ScalarProperty Name="AvgMark" ColumnName="AvgMark" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -408,6 +654,50 @@
               <MappingFragment StoreEntitySet="subjects_to_groups">
                 <ScalarProperty Name="SubjectId" ColumnName="SubjectId" />
                 <ScalarProperty Name="GroupId" ColumnName="GroupId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="marks_comments">
+            <EntityTypeMapping TypeName="LogModel.marks_comments">
+              <MappingFragment StoreEntitySet="marks_comments">
+                <ScalarProperty Name="CommentText" ColumnName="CommentText" />
+                <ScalarProperty Name="MarkId" ColumnName="MarkId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="LogModel.Role">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="subjects_to_teachers">
+            <EntityTypeMapping TypeName="LogModel.subjects_to_teachers">
+              <MappingFragment StoreEntitySet="subjects_to_teachers">
+                <ScalarProperty Name="SubjectId" ColumnName="SubjectId" />
+                <ScalarProperty Name="TeacherId" ColumnName="TeacherId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="teachers">
+            <EntityTypeMapping TypeName="LogModel.teacher">
+              <MappingFragment StoreEntitySet="teachers">
+                <ScalarProperty Name="AvgTeacherMark" ColumnName="AvgTeacherMark" />
+                <ScalarProperty Name="Fio" ColumnName="Fio" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="users">
+            <EntityTypeMapping TypeName="LogModel.user">
+              <MappingFragment StoreEntitySet="users">
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

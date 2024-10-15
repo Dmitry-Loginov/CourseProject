@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="cb6fddc773424adba4c2989fc3996fec" Name="Diagram1" ZoomLevel="65">
+      <Diagram DiagramId="cb6fddc773424adba4c2989fc3996fec" Name="Diagram1" ZoomLevel="42">
         <EntityTypeShape EntityType="LogModel.student" Width="1.5" PointX="5.875" PointY="7.5" IsExpanded="true" />
         <EntityTypeShape EntityType="LogModel.subject" Width="1.5" PointX="11.75" PointY="12.25" IsExpanded="true" />
         <EntityTypeShape EntityType="LogModel.typeMark" Width="1.5" PointX="7.125" PointY="4.125" />
@@ -17,6 +17,15 @@
         <EntityTypeShape EntityType="LogModel.subjects_to_groups" Width="1.5" PointX="8.5" PointY="10.25" />
         <AssociationConnector Association="LogModel.ThisToGroup" />
         <AssociationConnector Association="LogModel.ThisToSubject" />
+        <EntityTypeShape EntityType="LogModel.marks_comments" Width="1.5" PointX="13.125" PointY="6.5" />
+        <EntityTypeShape EntityType="LogModel.Role" Width="1.5" PointX="0.75" PointY="1" />
+        <EntityTypeShape EntityType="LogModel.subjects_to_teachers" Width="1.5" PointX="14.375" PointY="12.25" />
+        <EntityTypeShape EntityType="LogModel.teacher" Width="1.5" PointX="12.125" PointY="15.375" />
+        <EntityTypeShape EntityType="LogModel.user" Width="1.5" PointX="3" PointY="0.875" />
+        <AssociationConnector Association="LogModel.FK_marks_comments_MarkId" />
+        <AssociationConnector Association="LogModel.FK_users_Roles" />
+        <AssociationConnector Association="LogModel.FK_subject" />
+        <AssociationConnector Association="LogModel.FK_teachers" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
