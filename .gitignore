@@ -9,8 +9,9 @@
 *.user
 *.userosscache
 *.sln.docstates
-DataBase/*.mdf
-DataBase/*.ldf
+*.mdf
+*.ldf
+DataBase/Log.mdf
 
 
 # User-specific files (MonoDevelop/Xamarin Studio)
