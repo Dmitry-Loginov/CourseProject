@@ -32,7 +32,7 @@ namespace Log
                 Phone = phoneTextBox.Text
             };
 
-            string sql = "select * from studetns where PassportId = @PASSPORT";
+            string sql = "select * from students where PassportId = @PASSPORT";
             SqlParameter sqlParameter = new SqlParameter("@PASSPORT", student.PassportId);
 
             List<student> students = LogEntities.students.SqlQuery(sql, sqlParameter)?.ToList();

@@ -18,6 +18,7 @@ namespace Log
         public mark()
         {
             this.marks_comments = new HashSet<marks_comments>();
+            this.marks_history = new HashSet<marks_history>();
         }
     
         public int Id { get; set; }
@@ -26,11 +27,14 @@ namespace Log
         public Nullable<int> TypeId { get; set; }
         public Nullable<int> Month { get; set; }
         public string Value { get; set; }
+        public Nullable<int> CommentCount { get; set; }
     
-        public virtual student studetn { get; set; }
         public virtual subject subject { get; set; }
         public virtual typeMark typeMark { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<marks_comments> marks_comments { get; set; }
+        public virtual student student { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<marks_history> marks_history { get; set; }
     }
 }

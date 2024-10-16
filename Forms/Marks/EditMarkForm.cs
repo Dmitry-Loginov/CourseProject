@@ -80,7 +80,7 @@ namespace Log
                 if (mark == null) continue;
                 if (mark.Month == null) return false;
                 if (mark.StudentId == null) return false;
-                if (mark.studetn == null) return false;
+                if (mark.student == null) return false;
                 if (mark.subject == null) return false;
                 if (mark.SubjectId == null) return false;
                 if (mark.TypeId == null) return false;
@@ -103,7 +103,7 @@ namespace Log
             NewMarks.Add(newMark);
             if (!groupCheckBox.Checked)
             {
-                newMark.studetn = log.students.Where(s => s.GroupId == groupComboBox.SelectedValue.ToString()).FirstOrDefault();
+                newMark.student = log.students.Where(s => s.GroupId == groupComboBox.SelectedValue.ToString()).FirstOrDefault();
             }
             if (!subjectCheckBox.Checked)
             {
@@ -252,7 +252,7 @@ namespace Log
         List<mark> FillSortedGroupMarks()
         {
             string id = groupComboBox.SelectedValue?.ToString();
-            SortedGroupMarks = Marks.Where(m => new[] { id }.Contains(m.studetn?.GroupId)).ToList();
+            SortedGroupMarks = Marks.Where(m => new[] { id }.Contains(m.student?.GroupId)).ToList();
             return SortedGroupMarks; 
         }
 
@@ -340,7 +340,7 @@ namespace Log
         {
             if (mark.Month == null) return false;
             if (mark.StudentId == null) return false;
-            if (mark.studetn == null) return false;
+            if (mark.student == null) return false;
             if (mark.subject == null) return false;
             if (mark.SubjectId == null) return false;
             if (mark.TypeId == null) return false;

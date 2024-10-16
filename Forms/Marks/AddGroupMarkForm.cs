@@ -125,7 +125,7 @@ namespace Log
                     string groupId = (groupComboBox.SelectedItem as group).Id;
 
                     SqlParameter sqlParameter = new SqlParameter("@GROUPID", groupId);
-                    string sql = "select * from studetns where GroupId = @GROUPID";
+                    string sql = "select * from students where GroupId = @GROUPID";
 
                     studentBinding.DataSource = log.Database.SqlQuery<student>(sql, sqlParameter).ToList();
                     studetnComboBox.DataSource = studentBinding;
@@ -142,7 +142,7 @@ namespace Log
                 SqlParameter parameter = new SqlParameter("@PASSPORT", passportId);
                 string sql = "" +
                             "declare @groupId nchar(10);" +
-                            "select @groupId = studetns.GroupId from studetns where PassportId = @PASSPORT;" +
+                            "select @groupId = students.GroupId from students where PassportId = @PASSPORT;" +
                             "select * from subjects where Id in(" +
                             "select subjects_to_groups.SubjectId from subjects_to_groups where GroupId in (@groupId)); ";
                 subjectBinding.DataSource = log.Database.SqlQuery<subject>(sql, parameter).ToList();

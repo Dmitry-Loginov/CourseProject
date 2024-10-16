@@ -100,8 +100,8 @@ namespace Log
             // 
             // dataGridViewTextBoxColumn2
             // 
-            this.dataGridViewTextBoxColumn2.DataPropertyName = "studetns";
-            this.dataGridViewTextBoxColumn2.HeaderText = "studetns";
+            this.dataGridViewTextBoxColumn2.DataPropertyName = "students";
+            this.dataGridViewTextBoxColumn2.HeaderText = "students";
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             this.dataGridViewTextBoxColumn2.Visible = false;
             // 

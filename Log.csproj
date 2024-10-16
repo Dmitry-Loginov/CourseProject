@@ -119,6 +119,9 @@
     <Compile Include="marks_comments.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="marks_history.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -163,6 +166,12 @@
     <Compile Include="Role.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="sp_GetStudentsWithMarksAbove_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_GetTeachersWithSubjects_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="student.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -182,6 +191,15 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="user.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vw_StudentAvgMarkWithGroup.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vw_TeachersWithSubjectsAndAvgMark.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vw_TopStudentsByGroup.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Forms\Directories\AddSubjectToGroup.resx">

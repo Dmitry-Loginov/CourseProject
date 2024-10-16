@@ -23,6 +23,7 @@
           <Property Name="TypeId" Type="int" />
           <Property Name="Month" Type="int" />
           <Property Name="Value" Type="nchar" MaxLength="4" />
+          <Property Name="CommentCount" Type="int" />
         </EntityType>
         <EntityType Name="marks_comments">
           <Key>
@@ -32,6 +33,16 @@
           <Property Name="MarkId" Type="int" Nullable="false" />
           <Property Name="CommentText" Type="nvarchar" MaxLength="255" Nullable="false" />
         </EntityType>
+        <EntityType Name="marks_history">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MarkId" Type="int" Nullable="false" />
+          <Property Name="OldValue" Type="nchar" MaxLength="4" Nullable="false" />
+          <Property Name="NewValue" Type="nchar" MaxLength="4" Nullable="false" />
+          <Property Name="ChangeDate" Type="datetime" />
+        </EntityType>
         <EntityType Name="Roles">
           <Key>
             <PropertyRef Name="Id" />
@@ -39,7 +50,7 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="RoleName" Type="nchar" MaxLength="10" Nullable="false" />
         </EntityType>
-        <EntityType Name="studetns">
+        <EntityType Name="students">
           <Key>
             <PropertyRef Name="PassportId" />
           </Key>
@@ -94,6 +105,56 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserName" Type="nchar" MaxLength="20" />
           <Property Name="RoleId" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "C:\USERS\STUDENT\DESKTOP\LEARN 2021-2022\2020-2021\КУРСОВОЙ C#\LOG\DATABASE\LOG.MDF.dbo.vw_StudentAvgMarkWithGroup" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="vw_StudentAvgMarkWithGroup">
+          <Key>
+            <PropertyRef Name="PassportId" />
+            <PropertyRef Name="GroupId" />
+          </Key>
+          <Property Name="PassportId" Type="nchar" MaxLength="25" Nullable="false" />
+          <Property Name="Fio" Type="nchar" MaxLength="35" />
+          <Property Name="GroupId" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="SubjectCount" Type="int" />
+          <Property Name="AvgMark" Type="float" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6013: Первичный ключ в таблице или представлении "C:\USERS\STUDENT\DESKTOP\LEARN 2021-2022\2020-2021\КУРСОВОЙ C#\LOG\DATABASE\LOG.MDF.dbo.vw_StudentMarksWithComments" не определен, его не удалось вывести. Эта таблица или представление исключены. Чтобы использовать сущность, необходимо проверить схему, добавить правильные ключи и раскомментировать ее.
+        <EntityType Name="vw_StudentMarksWithComments">
+          <Property Name="Fio" Type="nchar" MaxLength="35" />
+          <Property Name="SubjectName" Type="nchar" MaxLength="30" />
+          <Property Name="MarkValue" Type="nchar" MaxLength="4" />
+          <Property Name="CommentText" Type="nvarchar" MaxLength="255" />
+        </EntityType>-->
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6013: Первичный ключ в таблице или представлении "C:\USERS\STUDENT\DESKTOP\LEARN 2021-2022\2020-2021\КУРСОВОЙ C#\LOG\DATABASE\LOG.MDF.dbo.vw_SubjectMarkStatistics" не определен, его не удалось вывести. Эта таблица или представление исключены. Чтобы использовать сущность, необходимо проверить схему, добавить правильные ключи и раскомментировать ее.
+        <EntityType Name="vw_SubjectMarkStatistics">
+          <Property Name="SubjectName" Type="nchar" MaxLength="30" />
+          <Property Name="MarkCount" Type="int" />
+          <Property Name="AvgMark" Type="float" />
+        </EntityType>-->
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "C:\USERS\STUDENT\DESKTOP\LEARN 2021-2022\2020-2021\КУРСОВОЙ C#\LOG\DATABASE\LOG.MDF.dbo.vw_TeachersWithSubjectsAndAvgMark" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="vw_TeachersWithSubjectsAndAvgMark">
+          <Key>
+            <PropertyRef Name="TeacherId" />
+            <PropertyRef Name="Fio" />
+          </Key>
+          <Property Name="TeacherId" Type="int" Nullable="false" />
+          <Property Name="Fio" Type="nchar" MaxLength="30" Nullable="false" />
+          <Property Name="SubjectCount" Type="int" />
+          <Property Name="AvgMark" Type="float" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "C:\USERS\STUDENT\DESKTOP\LEARN 2021-2022\2020-2021\КУРСОВОЙ C#\LOG\DATABASE\LOG.MDF.dbo.vw_TopStudentsByGroup" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="vw_TopStudentsByGroup">
+          <Key>
+            <PropertyRef Name="GroupId" />
+          </Key>
+          <Property Name="GroupId" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Fio" Type="nchar" MaxLength="35" />
+          <Property Name="AvgMark" Type="float" />
         </EntityType>
         <Association Name="FK_marks_comments_MarkId">
           <End Role="marks" Type="Self.marks" Multiplicity="1">
@@ -151,13 +212,27 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FR_mark_history">
+          <End Role="marks" Type="Self.marks" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="marks_history" Type="Self.marks_history" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="marks">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="marks_history">
+              <PropertyRef Name="MarkId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="MarkToStudent">
-          <End Role="studetns" Type="Self.studetns" Multiplicity="0..1">
+          <End Role="students" Type="Self.students" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="marks" Type="Self.marks" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="studetns">
+            <Principal Role="students">
               <PropertyRef Name="PassportId" />
             </Principal>
             <Dependent Role="marks">
@@ -197,12 +272,12 @@
           <End Role="groups" Type="Self.groups" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="studetns" Type="Self.studetns" Multiplicity="*" />
+          <End Role="students" Type="Self.students" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="groups">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="studetns">
+            <Dependent Role="students">
               <PropertyRef Name="GroupId" />
             </Dependent>
           </ReferentialConstraint>
@@ -235,18 +310,74 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="fn_GetMarkCountBySubjectAndGroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int">
+          <Parameter Name="SubjectId" Type="int" Mode="In" />
+          <Parameter Name="GroupId" Type="nchar" Mode="In" />
+        </Function>
+        <Function Name="fn_GetStudentAvgMark" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="float">
+          <Parameter Name="StudentId" Type="nchar" Mode="In" />
+        </Function>
+        <Function Name="fn_GetStudentsCountInGroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int">
+          <Parameter Name="GroupId" Type="nchar" Mode="In" />
+        </Function>
+        <Function Name="fn_GetSubjectAvgMark" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="float">
+          <Parameter Name="SubjectId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="fn_GetTeacherSubjectCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int">
+          <Parameter Name="TeacherId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_GetStudentsWithMarksAbove" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MarkThreshold" Type="float" Mode="In" />
+        </Function>
+        <Function Name="sp_GetTeachersWithSubjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_GetTotalMarksCountByGroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="GroupId" Type="nchar" Mode="In" />
+        </Function>
+        <Function Name="sp_GetTotalMarksCountInGroupBySubject" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="GroupId" Type="nchar" Mode="In" />
+          <Parameter Name="SubjectId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_UpdateSubject" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SubjectId" Type="int" Mode="In" />
+          <Parameter Name="NewName" Type="nchar" Mode="In" />
+        </Function>
         <EntityContainer Name="Хранилище LogModelContainer">
           <EntitySet Name="groups" EntityType="Self.groups" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="marks" EntityType="Self.marks" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="marks_comments" EntityType="Self.marks_comments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="marks_history" EntityType="Self.marks_history" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="studetns" EntityType="Self.studetns" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="students" EntityType="Self.students" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="subjects" EntityType="Self.subjects" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="subjects_to_groups" EntityType="Self.subjects_to_groups" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="subjects_to_teachers" EntityType="Self.subjects_to_teachers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="teachers" EntityType="Self.teachers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="typeMark" EntityType="Self.typeMark" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="vw_StudentAvgMarkWithGroup" EntityType="Self.vw_StudentAvgMarkWithGroup" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vw_StudentAvgMarkWithGroup].[PassportId] AS [PassportId], 
+    [vw_StudentAvgMarkWithGroup].[Fio] AS [Fio], 
+    [vw_StudentAvgMarkWithGroup].[GroupId] AS [GroupId], 
+    [vw_StudentAvgMarkWithGroup].[SubjectCount] AS [SubjectCount], 
+    [vw_StudentAvgMarkWithGroup].[AvgMark] AS [AvgMark]
+    FROM [dbo].[vw_StudentAvgMarkWithGroup] AS [vw_StudentAvgMarkWithGroup]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vw_TeachersWithSubjectsAndAvgMark" EntityType="Self.vw_TeachersWithSubjectsAndAvgMark" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vw_TeachersWithSubjectsAndAvgMark].[TeacherId] AS [TeacherId], 
+    [vw_TeachersWithSubjectsAndAvgMark].[Fio] AS [Fio], 
+    [vw_TeachersWithSubjectsAndAvgMark].[SubjectCount] AS [SubjectCount], 
+    [vw_TeachersWithSubjectsAndAvgMark].[AvgMark] AS [AvgMark]
+    FROM [dbo].[vw_TeachersWithSubjectsAndAvgMark] AS [vw_TeachersWithSubjectsAndAvgMark]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vw_TopStudentsByGroup" EntityType="Self.vw_TopStudentsByGroup" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vw_TopStudentsByGroup].[GroupId] AS [GroupId], 
+    [vw_TopStudentsByGroup].[Fio] AS [Fio], 
+    [vw_TopStudentsByGroup].[AvgMark] AS [AvgMark]
+    FROM [dbo].[vw_TopStudentsByGroup] AS [vw_TopStudentsByGroup]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_marks_comments_MarkId" Association="Self.FK_marks_comments_MarkId">
             <End Role="marks" EntitySet="marks" />
             <End Role="marks_comments" EntitySet="marks_comments" />
@@ -263,8 +394,12 @@
             <End Role="Roles" EntitySet="Roles" />
             <End Role="users" EntitySet="users" />
           </AssociationSet>
+          <AssociationSet Name="FR_mark_history" Association="Self.FR_mark_history">
+            <End Role="marks" EntitySet="marks" />
+            <End Role="marks_history" EntitySet="marks_history" />
+          </AssociationSet>
           <AssociationSet Name="MarkToStudent" Association="Self.MarkToStudent">
-            <End Role="studetns" EntitySet="studetns" />
+            <End Role="students" EntitySet="students" />
             <End Role="marks" EntitySet="marks" />
           </AssociationSet>
           <AssociationSet Name="MarkToSubject" Association="Self.MarkToSubject">
@@ -277,7 +412,7 @@
           </AssociationSet>
           <AssociationSet Name="StudentToGroup" Association="Self.StudentToGroup">
             <End Role="groups" EntitySet="groups" />
-            <End Role="studetns" EntitySet="studetns" />
+            <End Role="students" EntitySet="students" />
           </AssociationSet>
           <AssociationSet Name="ThisToGroup" Association="Self.ThisToGroup">
             <End Role="groups" EntitySet="groups" />
@@ -292,18 +427,6 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="LogModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="student">
-          <Key>
-            <PropertyRef Name="PassportId" />
-          </Key>
-          <Property Name="PassportId" Type="String" MaxLength="25" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="Fio" Type="String" MaxLength="35" FixedLength="true" Unicode="true" />
-          <Property Name="GroupId" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="Birthday" Type="DateTime" Precision="3" />
-          <Property Name="Phone" Type="String" MaxLength="14" FixedLength="true" Unicode="true" />
-          <NavigationProperty Name="marks" Relationship="LogModel.MarkToStudent" FromRole="studetn" ToRole="mark" />
-          <NavigationProperty Name="group" Relationship="LogModel.StudentToGroup" FromRole="student" ToRole="group" />
-        </EntityType>
         <EntityType Name="subject">
           <Key>
             <PropertyRef Name="Id" />
@@ -315,14 +438,9 @@
           <NavigationProperty Name="subjects_to_teachers" Relationship="LogModel.FK_subject" FromRole="subject" ToRole="subjects_to_teachers" />
         </EntityType>
         <EntityContainer Name="LogEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="students" EntityType="LogModel.student" />
           <EntitySet Name="subjects" EntityType="Self.subject" />
           <EntitySet Name="typeMarks" EntityType="LogModel.typeMark" />
           <EntitySet Name="marks" EntityType="LogModel.mark" />
-          <AssociationSet Name="MarkToStudent" Association="LogModel.MarkToStudent">
-            <End Role="studetn" EntitySet="students" />
-            <End Role="mark" EntitySet="marks" />
-          </AssociationSet>
           <AssociationSet Name="MarkToSubject" Association="LogModel.MarkToSubject">
             <End Role="subject" EntitySet="subjects" />
             <End Role="mark" EntitySet="marks" />
@@ -332,10 +450,6 @@
             <End Role="mark" EntitySet="marks" />
           </AssociationSet>
           <EntitySet Name="groups" EntityType="LogModel.group" />
-          <AssociationSet Name="StudentToGroup" Association="LogModel.StudentToGroup">
-            <End Role="group" EntitySet="groups" />
-            <End Role="student" EntitySet="students" />
-          </AssociationSet>
           <EntitySet Name="subjects_to_groups" EntityType="LogModel.subjects_to_groups" />
           <AssociationSet Name="ThisToGroup" Association="LogModel.ThisToGroup">
             <End Role="group" EntitySet="groups" />
@@ -366,6 +480,38 @@
             <End Role="teacher" EntitySet="teachers" />
             <End Role="subjects_to_teachers" EntitySet="subjects_to_teachers" />
           </AssociationSet>
+          <EntitySet Name="students" EntityType="LogModel.student" />
+          <AssociationSet Name="StudentToGroup1" Association="LogModel.StudentToGroup1">
+            <End Role="group" EntitySet="groups" />
+            <End Role="student1" EntitySet="students" />
+          </AssociationSet>
+          <AssociationSet Name="MarkToStudent1" Association="LogModel.MarkToStudent1">
+            <End Role="student1" EntitySet="students" />
+            <End Role="mark" EntitySet="marks" />
+          </AssociationSet>
+          <EntitySet Name="marks_history" EntityType="LogModel.marks_history" />
+          <EntitySet Name="vw_StudentAvgMarkWithGroup" EntityType="LogModel.vw_StudentAvgMarkWithGroup" />
+          <EntitySet Name="vw_TeachersWithSubjectsAndAvgMark" EntityType="LogModel.vw_TeachersWithSubjectsAndAvgMark" />
+          <EntitySet Name="vw_TopStudentsByGroup" EntityType="LogModel.vw_TopStudentsByGroup" />
+          <AssociationSet Name="FR_mark_history" Association="LogModel.FR_mark_history">
+            <End Role="mark" EntitySet="marks" />
+            <End Role="marks_history" EntitySet="marks_history" />
+          </AssociationSet>
+          <FunctionImport Name="sp_GetStudentsWithMarksAbove" ReturnType="Collection(LogModel.sp_GetStudentsWithMarksAbove_Result)">
+            <Parameter Name="MarkThreshold" Mode="In" Type="Double" />
+          </FunctionImport>
+          <FunctionImport Name="sp_GetTeachersWithSubjects" ReturnType="Collection(LogModel.sp_GetTeachersWithSubjects_Result)" />
+          <FunctionImport Name="sp_GetTotalMarksCountByGroup" ReturnType="Collection(Int32)">
+            <Parameter Name="GroupId" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_GetTotalMarksCountInGroupBySubject" ReturnType="Collection(Int32)">
+            <Parameter Name="GroupId" Mode="In" Type="String" />
+            <Parameter Name="SubjectId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_UpdateSubject">
+            <Parameter Name="SubjectId" Mode="In" Type="Int32" />
+            <Parameter Name="NewName" Mode="In" Type="String" />
+          </FunctionImport>
           </EntityContainer>
         <EntityType Name="typeMark">
           <Key>
@@ -385,25 +531,13 @@
           <Property Name="TypeId" Type="Int32" />
           <Property Name="Month" Type="Int32" />
           <Property Name="Value" Type="String" MaxLength="4" FixedLength="true" Unicode="true" />
-          <NavigationProperty Name="studetn" Relationship="LogModel.MarkToStudent" FromRole="mark" ToRole="studetn" />
           <NavigationProperty Name="subject" Relationship="LogModel.MarkToSubject" FromRole="mark" ToRole="subject" />
           <NavigationProperty Name="typeMark" Relationship="LogModel.MarkToType" FromRole="mark" ToRole="typeMark" />
           <NavigationProperty Name="marks_comments" Relationship="LogModel.FK_marks_comments_MarkId" FromRole="mark" ToRole="marks_comments" />
+          <NavigationProperty Name="student" Relationship="LogModel.MarkToStudent1" FromRole="mark" ToRole="student1" />
+          <Property Name="CommentCount" Type="Int32" />
+          <NavigationProperty Name="marks_history" Relationship="LogModel.FR_mark_history" FromRole="mark" ToRole="marks_history" />
         </EntityType>
-        <Association Name="MarkToStudent">
-          <End Type="LogModel.student" Role="studetn" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="LogModel.mark" Role="mark" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="studetn">
-              <PropertyRef Name="PassportId" />
-            </Principal>
-            <Dependent Role="mark">
-              <PropertyRef Name="StudentId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="MarkToSubject">
           <End Type="LogModel.subject" Role="subject" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
@@ -437,25 +571,11 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
-          <NavigationProperty Name="studetns" Relationship="LogModel.StudentToGroup" FromRole="group" ToRole="student" />
           <NavigationProperty Name="subjects_to_groups" Relationship="LogModel.ThisToGroup" FromRole="group" ToRole="subjects_to_groups" />
           <Property Name="AvgMark" Type="Double" />
           <Property Name="SubjectCount" Type="Int32" />
+          <NavigationProperty Name="students" Relationship="LogModel.StudentToGroup1" FromRole="group" ToRole="student1" />
         </EntityType>
-        <Association Name="StudentToGroup">
-          <End Type="LogModel.group" Role="group" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="LogModel.student" Role="student" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="group">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="student">
-              <PropertyRef Name="GroupId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="subjects_to_groups">
           <Key>
             <PropertyRef Name="Id" />
@@ -595,23 +715,114 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="student">
+          <Key>
+            <PropertyRef Name="PassportId" />
+          </Key>
+          <Property Name="PassportId" Type="String" Nullable="false" MaxLength="25" FixedLength="true" Unicode="true" />
+          <Property Name="Fio" Type="String" MaxLength="35" FixedLength="true" Unicode="true" />
+          <Property Name="GroupId" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Birthday" Type="DateTime" Precision="3" />
+          <Property Name="Phone" Type="String" MaxLength="14" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="group" Relationship="LogModel.StudentToGroup1" FromRole="student1" ToRole="group" />
+          <NavigationProperty Name="marks" Relationship="LogModel.MarkToStudent1" FromRole="student1" ToRole="mark" />
+        </EntityType>
+        <Association Name="StudentToGroup1">
+          <End Type="LogModel.group" Role="group" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="LogModel.student" Role="student1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="group">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="student1">
+              <PropertyRef Name="GroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MarkToStudent1">
+          <End Type="LogModel.student" Role="student1" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="LogModel.mark" Role="mark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="student1">
+              <PropertyRef Name="PassportId" />
+            </Principal>
+            <Dependent Role="mark">
+              <PropertyRef Name="StudentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="marks_history">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MarkId" Type="Int32" Nullable="false" />
+          <Property Name="OldValue" Type="String" Nullable="false" MaxLength="4" FixedLength="true" Unicode="true" />
+          <Property Name="NewValue" Type="String" Nullable="false" MaxLength="4" FixedLength="true" Unicode="true" />
+          <Property Name="ChangeDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="mark" Relationship="LogModel.FR_mark_history" FromRole="marks_history" ToRole="mark" />
+        </EntityType>
+        <EntityType Name="vw_StudentAvgMarkWithGroup">
+          <Key>
+            <PropertyRef Name="PassportId" />
+            <PropertyRef Name="GroupId" />
+          </Key>
+          <Property Name="PassportId" Type="String" Nullable="false" MaxLength="25" FixedLength="true" Unicode="true" />
+          <Property Name="Fio" Type="String" MaxLength="35" FixedLength="true" Unicode="true" />
+          <Property Name="GroupId" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="SubjectCount" Type="Int32" />
+          <Property Name="AvgMark" Type="Double" />
+        </EntityType>
+        <EntityType Name="vw_TeachersWithSubjectsAndAvgMark">
+          <Key>
+            <PropertyRef Name="TeacherId" />
+            <PropertyRef Name="Fio" />
+          </Key>
+          <Property Name="TeacherId" Type="Int32" Nullable="false" />
+          <Property Name="Fio" Type="String" Nullable="false" MaxLength="30" FixedLength="true" Unicode="true" />
+          <Property Name="SubjectCount" Type="Int32" />
+          <Property Name="AvgMark" Type="Double" />
+        </EntityType>
+        <EntityType Name="vw_TopStudentsByGroup">
+          <Key>
+            <PropertyRef Name="GroupId" />
+          </Key>
+          <Property Name="GroupId" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Fio" Type="String" MaxLength="35" FixedLength="true" Unicode="true" />
+          <Property Name="AvgMark" Type="Double" />
+        </EntityType>
+        <Association Name="FR_mark_history">
+          <End Type="LogModel.mark" Role="mark" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="LogModel.marks_history" Role="marks_history" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mark">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="marks_history">
+              <PropertyRef Name="MarkId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="sp_GetStudentsWithMarksAbove_Result">
+          <Property Type="String" Name="Fio" Nullable="true" MaxLength="35" />
+          <Property Type="Double" Name="AvgMark" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_GetTeachersWithSubjects_Result">
+          <Property Type="String" Name="TeacherName" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="SubjectName" Nullable="true" MaxLength="30" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="Хранилище LogModelContainer" CdmEntityContainer="LogEntities">
-          <EntitySetMapping Name="students">
-            <EntityTypeMapping TypeName="LogModel.student">
-              <MappingFragment StoreEntitySet="studetns">
-                <ScalarProperty Name="PassportId" ColumnName="PassportId" />
-                <ScalarProperty Name="Fio" ColumnName="Fio" />
-                <ScalarProperty Name="GroupId" ColumnName="GroupId" />
-                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="subjects">
             <EntityTypeMapping TypeName="LogModel.subject">
               <MappingFragment StoreEntitySet="subjects">
@@ -631,6 +842,7 @@
           <EntitySetMapping Name="marks">
             <EntityTypeMapping TypeName="LogModel.mark">
               <MappingFragment StoreEntitySet="marks">
+                <ScalarProperty Name="CommentCount" ColumnName="CommentCount" />
                 <ScalarProperty Name="Value" ColumnName="Value" />
                 <ScalarProperty Name="Month" ColumnName="Month" />
                 <ScalarProperty Name="TypeId" ColumnName="TypeId" />
@@ -702,6 +914,77 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="students">
+            <EntityTypeMapping TypeName="LogModel.student">
+              <MappingFragment StoreEntitySet="students">
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+                <ScalarProperty Name="GroupId" ColumnName="GroupId" />
+                <ScalarProperty Name="Fio" ColumnName="Fio" />
+                <ScalarProperty Name="PassportId" ColumnName="PassportId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="marks_history">
+            <EntityTypeMapping TypeName="LogModel.marks_history">
+              <MappingFragment StoreEntitySet="marks_history">
+                <ScalarProperty Name="ChangeDate" ColumnName="ChangeDate" />
+                <ScalarProperty Name="NewValue" ColumnName="NewValue" />
+                <ScalarProperty Name="OldValue" ColumnName="OldValue" />
+                <ScalarProperty Name="MarkId" ColumnName="MarkId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vw_StudentAvgMarkWithGroup">
+            <EntityTypeMapping TypeName="LogModel.vw_StudentAvgMarkWithGroup">
+              <MappingFragment StoreEntitySet="vw_StudentAvgMarkWithGroup">
+                <ScalarProperty Name="AvgMark" ColumnName="AvgMark" />
+                <ScalarProperty Name="SubjectCount" ColumnName="SubjectCount" />
+                <ScalarProperty Name="GroupId" ColumnName="GroupId" />
+                <ScalarProperty Name="Fio" ColumnName="Fio" />
+                <ScalarProperty Name="PassportId" ColumnName="PassportId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vw_TeachersWithSubjectsAndAvgMark">
+            <EntityTypeMapping TypeName="LogModel.vw_TeachersWithSubjectsAndAvgMark">
+              <MappingFragment StoreEntitySet="vw_TeachersWithSubjectsAndAvgMark">
+                <ScalarProperty Name="AvgMark" ColumnName="AvgMark" />
+                <ScalarProperty Name="SubjectCount" ColumnName="SubjectCount" />
+                <ScalarProperty Name="Fio" ColumnName="Fio" />
+                <ScalarProperty Name="TeacherId" ColumnName="TeacherId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vw_TopStudentsByGroup">
+            <EntityTypeMapping TypeName="LogModel.vw_TopStudentsByGroup">
+              <MappingFragment StoreEntitySet="vw_TopStudentsByGroup">
+                <ScalarProperty Name="AvgMark" ColumnName="AvgMark" />
+                <ScalarProperty Name="Fio" ColumnName="Fio" />
+                <ScalarProperty Name="GroupId" ColumnName="GroupId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_GetStudentsWithMarksAbove" FunctionName="Хранилище LogModel.sp_GetStudentsWithMarksAbove">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="LogModel.sp_GetStudentsWithMarksAbove_Result">
+                <ScalarProperty Name="Fio" ColumnName="Fio" />
+                <ScalarProperty Name="AvgMark" ColumnName="AvgMark" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_GetTeachersWithSubjects" FunctionName="Хранилище LogModel.sp_GetTeachersWithSubjects">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="LogModel.sp_GetTeachersWithSubjects_Result">
+                <ScalarProperty Name="TeacherName" ColumnName="TeacherName" />
+                <ScalarProperty Name="SubjectName" ColumnName="SubjectName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_GetTotalMarksCountByGroup" FunctionName="Хранилище LogModel.sp_GetTotalMarksCountByGroup" />
+          <FunctionImportMapping FunctionImportName="sp_GetTotalMarksCountInGroupBySubject" FunctionName="Хранилище LogModel.sp_GetTotalMarksCountInGroupBySubject" />
+          <FunctionImportMapping FunctionImportName="sp_UpdateSubject" FunctionName="Хранилище LogModel.sp_UpdateSubject" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

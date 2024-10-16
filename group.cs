@@ -17,8 +17,8 @@ namespace Log
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public group()
         {
-            this.studetns = new HashSet<student>();
             this.subjects_to_groups = new HashSet<subjects_to_groups>();
+            this.students = new HashSet<student>();
         }
     
         public string Id { get; set; }
@@ -26,8 +26,8 @@ namespace Log
         public Nullable<int> SubjectCount { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<student> studetns { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<subjects_to_groups> subjects_to_groups { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<student> students { get; set; }
     }
 }
