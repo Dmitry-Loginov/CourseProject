@@ -498,11 +498,11 @@
             <End Role="marks_history" EntitySet="marks_history" />
           </AssociationSet>
           <FunctionImport Name="sp_GetStudentsWithMarksAbove" ReturnType="Collection(LogModel.sp_GetStudentsWithMarksAbove_Result)">
-            <Parameter Name="MarkThreshold" Mode="In" Type="Double" />
+          <Parameter Name="MarkThreshold" Mode="In" Type="Double" />
           </FunctionImport>
           <FunctionImport Name="sp_GetTeachersWithSubjects" ReturnType="Collection(LogModel.sp_GetTeachersWithSubjects_Result)" />
           <FunctionImport Name="sp_GetTotalMarksCountByGroup" ReturnType="Collection(Int32)">
-            <Parameter Name="GroupId" Mode="In" Type="String" />
+          <Parameter Name="GroupId" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_GetTotalMarksCountInGroupBySubject" ReturnType="Collection(Int32)">
             <Parameter Name="GroupId" Mode="In" Type="String" />
