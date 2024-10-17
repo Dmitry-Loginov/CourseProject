@@ -18,6 +18,7 @@ namespace Log
         public teacher()
         {
             this.subjects_to_teachers = new HashSet<subjects_to_teachers>();
+            this.marks = new HashSet<mark>();
         }
     
         public int Id { get; set; }
@@ -26,5 +27,7 @@ namespace Log
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<subjects_to_teachers> subjects_to_teachers { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<mark> marks { get; set; }
     }
 }

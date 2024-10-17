@@ -28,6 +28,7 @@ namespace Log
         public Nullable<int> Month { get; set; }
         public string Value { get; set; }
         public Nullable<int> CommentCount { get; set; }
+        public Nullable<int> TeacherId { get; set; }
     
         public virtual subject subject { get; set; }
         public virtual typeMark typeMark { get; set; }
@@ -36,5 +37,6 @@ namespace Log
         public virtual student student { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<marks_history> marks_history { get; set; }
+        public virtual teacher teacher { get; set; }
     }
 }

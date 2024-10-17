@@ -24,6 +24,7 @@
           <Property Name="Month" Type="int" />
           <Property Name="Value" Type="nchar" MaxLength="4" />
           <Property Name="CommentCount" Type="int" />
+          <Property Name="TeacherId" Type="int" />
         </EntityType>
         <EntityType Name="marks_comments">
           <Key>
@@ -119,21 +120,6 @@
           <Property Name="SubjectCount" Type="int" />
           <Property Name="AvgMark" Type="float" />
         </EntityType>
-        <!--Ошибки, обнаруженные при создании:
-предупреждение 6013: Первичный ключ в таблице или представлении "C:\USERS\STUDENT\DESKTOP\LEARN 2021-2022\2020-2021\КУРСОВОЙ C#\LOG\DATABASE\LOG.MDF.dbo.vw_StudentMarksWithComments" не определен, его не удалось вывести. Эта таблица или представление исключены. Чтобы использовать сущность, необходимо проверить схему, добавить правильные ключи и раскомментировать ее.
-        <EntityType Name="vw_StudentMarksWithComments">
-          <Property Name="Fio" Type="nchar" MaxLength="35" />
-          <Property Name="SubjectName" Type="nchar" MaxLength="30" />
-          <Property Name="MarkValue" Type="nchar" MaxLength="4" />
-          <Property Name="CommentText" Type="nvarchar" MaxLength="255" />
-        </EntityType>-->
-        <!--Ошибки, обнаруженные при создании:
-предупреждение 6013: Первичный ключ в таблице или представлении "C:\USERS\STUDENT\DESKTOP\LEARN 2021-2022\2020-2021\КУРСОВОЙ C#\LOG\DATABASE\LOG.MDF.dbo.vw_SubjectMarkStatistics" не определен, его не удалось вывести. Эта таблица или представление исключены. Чтобы использовать сущность, необходимо проверить схему, добавить правильные ключи и раскомментировать ее.
-        <EntityType Name="vw_SubjectMarkStatistics">
-          <Property Name="SubjectName" Type="nchar" MaxLength="30" />
-          <Property Name="MarkCount" Type="int" />
-          <Property Name="AvgMark" Type="float" />
-        </EntityType>-->
         <!--Ошибки, обнаруженные при создании:
 предупреждение 6002: В таблице или представлении "C:\USERS\STUDENT\DESKTOP\LEARN 2021-2022\2020-2021\КУРСОВОЙ C#\LOG\DATABASE\LOG.MDF.dbo.vw_TeachersWithSubjectsAndAvgMark" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="vw_TeachersWithSubjectsAndAvgMark">
@@ -251,6 +237,20 @@
             </Principal>
             <Dependent Role="marks">
               <PropertyRef Name="SubjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MarkToTeacher">
+          <End Role="teachers" Type="Self.teachers" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="marks" Type="Self.marks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="teachers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="marks">
+              <PropertyRef Name="TeacherId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -406,6 +406,10 @@
             <End Role="subjects" EntitySet="subjects" />
             <End Role="marks" EntitySet="marks" />
           </AssociationSet>
+          <AssociationSet Name="MarkToTeacher" Association="Self.MarkToTeacher">
+            <End Role="teachers" EntitySet="teachers" />
+            <End Role="marks" EntitySet="marks" />
+          </AssociationSet>
           <AssociationSet Name="MarkToType" Association="Self.MarkToType">
             <End Role="typeMark" EntitySet="typeMark" />
             <End Role="marks" EntitySet="marks" />
@@ -512,6 +516,10 @@
             <Parameter Name="SubjectId" Mode="In" Type="Int32" />
             <Parameter Name="NewName" Mode="In" Type="String" />
           </FunctionImport>
+          <AssociationSet Name="MarkToTeacher" Association="LogModel.MarkToTeacher">
+            <End Role="teacher" EntitySet="teachers" />
+            <End Role="mark" EntitySet="marks" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="typeMark">
           <Key>
@@ -537,6 +545,8 @@
           <NavigationProperty Name="student" Relationship="LogModel.MarkToStudent1" FromRole="mark" ToRole="student1" />
           <Property Name="CommentCount" Type="Int32" />
           <NavigationProperty Name="marks_history" Relationship="LogModel.FR_mark_history" FromRole="mark" ToRole="marks_history" />
+          <Property Name="TeacherId" Type="Int32" />
+          <NavigationProperty Name="teacher" Relationship="LogModel.MarkToTeacher" FromRole="mark" ToRole="teacher" />
         </EntityType>
         <Association Name="MarkToSubject">
           <End Type="LogModel.subject" Role="subject" Multiplicity="0..1">
@@ -649,6 +659,7 @@
           <Property Name="Fio" Type="String" Nullable="false" MaxLength="30" FixedLength="true" Unicode="true" />
           <Property Name="AvgTeacherMark" Type="Double" />
           <NavigationProperty Name="subjects_to_teachers" Relationship="LogModel.FK_teachers" FromRole="teacher" ToRole="subjects_to_teachers" />
+          <NavigationProperty Name="marks" Relationship="LogModel.MarkToTeacher" FromRole="teacher" ToRole="mark" />
         </EntityType>
         <EntityType Name="user">
           <Key>
@@ -817,6 +828,20 @@
           <Property Type="String" Name="TeacherName" Nullable="false" MaxLength="30" />
           <Property Type="String" Name="SubjectName" Nullable="true" MaxLength="30" />
         </ComplexType>
+        <Association Name="MarkToTeacher">
+          <End Type="LogModel.teacher" Role="teacher" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="LogModel.mark" Role="mark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="teacher">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="mark">
+              <PropertyRef Name="TeacherId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -842,6 +867,7 @@
           <EntitySetMapping Name="marks">
             <EntityTypeMapping TypeName="LogModel.mark">
               <MappingFragment StoreEntitySet="marks">
+                <ScalarProperty Name="TeacherId" ColumnName="TeacherId" />
                 <ScalarProperty Name="CommentCount" ColumnName="CommentCount" />
                 <ScalarProperty Name="Value" ColumnName="Value" />
                 <ScalarProperty Name="Month" ColumnName="Month" />

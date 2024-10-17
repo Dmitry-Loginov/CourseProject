@@ -31,6 +31,7 @@
         <EntityTypeShape EntityType="LogModel.vw_TeachersWithSubjectsAndAvgMark" Width="1.5" PointX="2.75" PointY="3.75" />
         <EntityTypeShape EntityType="LogModel.vw_TopStudentsByGroup" Width="1.5" PointX="4.75" PointY="3.75" />
         <AssociationConnector Association="LogModel.FR_mark_history" />
+        <AssociationConnector Association="LogModel.MarkToTeacher" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
