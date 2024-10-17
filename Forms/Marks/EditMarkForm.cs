@@ -378,7 +378,7 @@ namespace Log
 
         private void dataGridView_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
         {
-            if(e.ColumnIndex == 5 || e.ColumnIndex == 6)
+            if(e.ColumnIndex == 5 || e.ColumnIndex == 6git)
             try
             {
                 Convert.ToInt32(e.FormattedValue);
