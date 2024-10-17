@@ -40,10 +40,14 @@ namespace Log
             this.studentBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.subjectIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.subjectBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.teacherIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.teacherBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.TypeId = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.typeMarkBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.monthDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.valueDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CommentCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.marks_comments = new System.Windows.Forms.DataGridViewButtonColumn();
             this.markBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.addBtn = new System.Windows.Forms.Button();
             this.deleteBtn = new System.Windows.Forms.Button();
@@ -52,6 +56,7 @@ namespace Log
             this.groupBindingSourceMenu = new System.Windows.Forms.BindingSource(this.components);
             this.groupCheckBox = new System.Windows.Forms.CheckBox();
             this.sortedBox = new System.Windows.Forms.GroupBox();
+            this.update = new System.Windows.Forms.Button();
             this.averageLabel = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.subjectCheckBox = new System.Windows.Forms.CheckBox();
@@ -60,10 +65,10 @@ namespace Log
             this.groupBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.subjectBindingGridView = new System.Windows.Forms.BindingSource(this.components);
             this.studentBindingGridView = new System.Windows.Forms.BindingSource(this.components);
-            this.update = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.studentBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.subjectBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.teacherBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.typeMarkBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.markBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupBindingSourceMenu)).BeginInit();
@@ -100,9 +105,12 @@ namespace Log
             this.Column1,
             this.studentIdDataGridViewTextBoxColumn,
             this.subjectIdDataGridViewTextBoxColumn,
+            this.teacherIdDataGridViewTextBoxColumn,
             this.TypeId,
             this.monthDataGridViewTextBoxColumn,
-            this.valueDataGridViewTextBoxColumn});
+            this.valueDataGridViewTextBoxColumn,
+            this.CommentCount,
+            this.marks_comments});
             this.dataGridView.DataSource = this.markBindingSource;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
@@ -117,7 +125,7 @@ namespace Log
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.RowTemplate.Height = 35;
             this.dataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.dataGridView.Size = new System.Drawing.Size(784, 560);
+            this.dataGridView.Size = new System.Drawing.Size(984, 560);
             this.dataGridView.TabIndex = 0;
             this.dataGridView.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.dataGridView_CellValidating);
             this.dataGridView.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_CellValueChanged);
@@ -164,6 +172,22 @@ namespace Log
             // 
             this.subjectBindingSource.DataSource = typeof(Log.subject);
             // 
+            // teacherIdDataGridViewTextBoxColumn
+            // 
+            this.teacherIdDataGridViewTextBoxColumn.DataPropertyName = "TeacherId";
+            this.teacherIdDataGridViewTextBoxColumn.DataSource = this.teacherBindingSource;
+            this.teacherIdDataGridViewTextBoxColumn.DisplayMember = "Fio";
+            this.teacherIdDataGridViewTextBoxColumn.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox;
+            this.teacherIdDataGridViewTextBoxColumn.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.teacherIdDataGridViewTextBoxColumn.HeaderText = "Учитель";
+            this.teacherIdDataGridViewTextBoxColumn.Name = "teacherIdDataGridViewTextBoxColumn";
+            this.teacherIdDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.teacherIdDataGridViewTextBoxColumn.ValueMember = "Id";
+            // 
+            // teacherBindingSource
+            // 
+            this.teacherBindingSource.DataSource = typeof(Log.teacher);
+            // 
             // TypeId
             // 
             this.TypeId.DataPropertyName = "TypeId";
@@ -194,6 +218,19 @@ namespace Log
             this.valueDataGridViewTextBoxColumn.HeaderText = "Значение";
             this.valueDataGridViewTextBoxColumn.MaxInputLength = 2;
             this.valueDataGridViewTextBoxColumn.Name = "valueDataGridViewTextBoxColumn";
+            // 
+            // CommentCount
+            // 
+            this.CommentCount.DataPropertyName = "CommentCount";
+            this.CommentCount.HeaderText = "Количество комментариев";
+            this.CommentCount.Name = "CommentCount";
+            this.CommentCount.ReadOnly = true;
+            // 
+            // marks_comments
+            // 
+            this.marks_comments.DataPropertyName = "marks_comments";
+            this.marks_comments.HeaderText = "Комментарии";
+            this.marks_comments.Name = "marks_comments";
             // 
             // markBindingSource
             // 
@@ -282,6 +319,16 @@ namespace Log
             this.sortedBox.TabStop = false;
             this.sortedBox.Text = "Сортировка";
             // 
+            // update
+            // 
+            this.update.Location = new System.Drawing.Point(11, 361);
+            this.update.Name = "update";
+            this.update.Size = new System.Drawing.Size(277, 40);
+            this.update.TabIndex = 20;
+            this.update.Text = "Обновить";
+            this.update.UseVisualStyleBackColor = true;
+            this.update.Click += new System.EventHandler(this.update_Click);
+            // 
             // averageLabel
             // 
             this.averageLabel.AutoSize = true;
@@ -336,22 +383,12 @@ namespace Log
             // 
             this.groupBindingSource.DataSource = typeof(Log.group);
             // 
-            // update
-            // 
-            this.update.Location = new System.Drawing.Point(11, 361);
-            this.update.Name = "update";
-            this.update.Size = new System.Drawing.Size(277, 40);
-            this.update.TabIndex = 20;
-            this.update.Text = "Обновить";
-            this.update.UseVisualStyleBackColor = true;
-            this.update.Click += new System.EventHandler(this.update_Click);
-            // 
             // EditMarkForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1100, 585);
+            this.ClientSize = new System.Drawing.Size(1300, 585);
             this.Controls.Add(this.sortedBox);
             this.Controls.Add(this.dataGridView);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -367,6 +404,7 @@ namespace Log
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.studentBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.subjectBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.teacherBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.typeMarkBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.markBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupBindingSourceMenu)).EndInit();
@@ -402,12 +440,16 @@ namespace Log
         private System.Windows.Forms.BindingSource groupBindingSource;
         private System.Windows.Forms.BindingSource subjectBindingGridView;
         private System.Windows.Forms.BindingSource studentBindingGridView;
+        private System.Windows.Forms.Button update;
+        private System.Windows.Forms.BindingSource teacherBindingSource;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewComboBoxColumn studentIdDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewComboBoxColumn subjectIdDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewComboBoxColumn teacherIdDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewComboBoxColumn TypeId;
         private System.Windows.Forms.DataGridViewTextBoxColumn monthDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn valueDataGridViewTextBoxColumn;
-        private System.Windows.Forms.Button update;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CommentCount;
+        private System.Windows.Forms.DataGridViewButtonColumn marks_comments;
     }
 }

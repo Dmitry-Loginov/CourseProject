@@ -196,6 +196,7 @@ namespace Log
                 studentBindingSource.DataSource = log.students.ToList();
                 subjectBindingSource.DataSource = log.subjects.ToList();
                 typeMarkBindingSource.DataSource = log.typeMarks.ToList();
+                teacherBindingSource.DataSource = log.teachers.ToList();
 
                 markBindingSource.DataSource = SortedMarks;
             }
@@ -377,7 +378,7 @@ namespace Log
 
         private void dataGridView_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
         {
-            if(e.ColumnIndex == 4 || e.ColumnIndex == 5)
+            if(e.ColumnIndex == 5 || e.ColumnIndex == 6)
             try
             {
                 Convert.ToInt32(e.FormattedValue);
