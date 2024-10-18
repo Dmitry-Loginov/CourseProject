@@ -410,6 +410,11 @@ namespace Log
 
         private void update_Click(object sender, EventArgs e)
         {
+            update_marks_table();
+        }
+
+        public void update_marks_table()
+        {
             fillGrid = FillData;
             fillGridSorted = FillSorted;
             log = LogEntities.GetInstance();
@@ -431,7 +436,7 @@ namespace Log
             if (dataGridView.Columns.Count != (e.ColumnIndex + 1) || e.RowIndex == -1) return;
 
             int mark_id = (int)dataGridView.Rows[e.RowIndex].Cells[0].Value;
-            new MarkCommentForm(mark_id).Show();
+            new MarkCommentForm(mark_id, this).Show();
         }
     }
 }

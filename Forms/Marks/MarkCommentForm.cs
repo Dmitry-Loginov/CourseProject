@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -17,28 +16,31 @@ namespace Log.Forms.Marks
             InitializeComponent();
         }
 
-        public MarkCommentForm(int mark_id)
+        public MarkCommentForm(int mark_id, EditMarkForm editMarkForm)
         {
             InitializeComponent();
             MarkId = mark_id;
+            EditMarkForm = editMarkForm;
             markscommentsBindingSource.DataSource = LogEntities.marks_comments.ToList().Where(mc => mc.MarkId == mark_id).ToList();
         }
 
         public int MarkId { get; }
 
+        public EditMarkForm EditMarkForm { get; }
+
         private LogEntities LogEntities = LogEntities.GetInstance();
 
         private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-            if(LogEntities != null) LogEntities.SaveChanges();
+            if (LogEntities != null) LogEntities.SaveChanges();
         }
 
         private void MarkCommentForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             LogEntities.SaveChanges();
+            EditMarkForm.update_marks_table();
         }
-
-        private void добавитьКомментарийToolStripMenuItem_Click(object sender, EventArgs e)
+        public void добавитьКомментарийToolStripMenuItem_Click(object sender, EventArgs e)
         {
             marks_comments marks_Comment = new marks_comments();
             marks_Comment.MarkId = MarkId;
@@ -46,9 +48,10 @@ namespace Log.Forms.Marks
             LogEntities.marks_comments.Add(marks_Comment);
             LogEntities.SaveChanges();
             markscommentsBindingSource.DataSource = LogEntities.marks_comments.ToList().Where(mc => mc.MarkId == MarkId).ToList();
+            EditMarkForm.update_marks_table();
         }
 
-        private void удалитьКомментарийToolStripMenuItem_Click(object sender, EventArgs e)
+        public void удалитьКомментарийToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var response = MessageBox.Show("Удалить?", "Подтверждение удаления", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             if (response == DialogResult.Yes)
@@ -57,6 +60,7 @@ namespace Log.Forms.Marks
                 LogEntities.marks_comments.Remove(LogEntities.marks_comments.Find(markCommentGridView.Rows[RowIndex].Cells[0].Value));
                 LogEntities.SaveChanges();
                 markscommentsBindingSource.DataSource = LogEntities.marks_comments.ToList().Where(mc => mc.MarkId == MarkId).ToList();
+                EditMarkForm.update_marks_table();
             }
         }
     }
