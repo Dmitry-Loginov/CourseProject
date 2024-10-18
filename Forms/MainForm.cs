@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Log.Forms.Directories;
+using System;
 using System.Diagnostics;
 using System.Windows.Forms;
 
@@ -52,6 +53,12 @@ namespace Log
         private void справкаToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Process.Start("Help.html");
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            TeachersForm teachersForm = new TeachersForm();
+            teachersForm.Show();
         }
     }
     public delegate void FillDataGridView();

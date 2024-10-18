@@ -39,6 +39,7 @@ namespace Log
             this.button6 = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.справкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.button5 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -46,6 +47,7 @@ namespace Log
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.button5);
             this.groupBox1.Controls.Add(this.button4);
             this.groupBox1.Controls.Add(this.button3);
             this.groupBox1.Controls.Add(this.button2);
@@ -54,14 +56,14 @@ namespace Log
             this.groupBox1.Margin = new System.Windows.Forms.Padding(6);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(6);
-            this.groupBox1.Size = new System.Drawing.Size(327, 281);
+            this.groupBox1.Size = new System.Drawing.Size(327, 407);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Работа со справочниками";
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(45, 187);
+            this.button4.Location = new System.Drawing.Point(45, 239);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(200, 76);
             this.button4.TabIndex = 3;
@@ -137,11 +139,21 @@ namespace Log
             this.справкаToolStripMenuItem.Text = "Справка    F1";
             this.справкаToolStripMenuItem.Click += new System.EventHandler(this.справкаToolStripMenuItem_Click);
             // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(45, 187);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(200, 46);
+            this.button5.TabIndex = 4;
+            this.button5.Text = "Учителя";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(637, 326);
+            this.ClientSize = new System.Drawing.Size(637, 452);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.menuStrip1);
@@ -174,6 +186,7 @@ namespace Log
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem справкаToolStripMenuItem;
+        private System.Windows.Forms.Button button5;
     }
 }
 

@@ -35,11 +35,11 @@ namespace Log
             this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.addMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.delMenu = new System.Windows.Forms.ToolStripMenuItem();
-            this.subjectBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.subjectBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.subjectDataGridView)).BeginInit();
             this.contextMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.subjectBindingSource)).BeginInit();
@@ -48,10 +48,12 @@ namespace Log
             // subjectDataGridView
             // 
             this.subjectDataGridView.AllowUserToAddRows = false;
+            this.subjectDataGridView.AllowUserToDeleteRows = false;
             this.subjectDataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.subjectDataGridView.AutoGenerateColumns = false;
+            this.subjectDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.subjectDataGridView.BackgroundColor = System.Drawing.Color.White;
             this.subjectDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.subjectDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -75,25 +77,21 @@ namespace Log
             this.addMenu,
             this.delMenu});
             this.contextMenu.Name = "contextMenu";
-            this.contextMenu.Size = new System.Drawing.Size(140, 52);
+            this.contextMenu.Size = new System.Drawing.Size(127, 48);
             // 
             // addMenu
             // 
             this.addMenu.Name = "addMenu";
-            this.addMenu.Size = new System.Drawing.Size(139, 24);
+            this.addMenu.Size = new System.Drawing.Size(126, 22);
             this.addMenu.Text = "Добавить";
             this.addMenu.Click += new System.EventHandler(this.addMenu_Click);
             // 
             // delMenu
             // 
             this.delMenu.Name = "delMenu";
-            this.delMenu.Size = new System.Drawing.Size(139, 24);
+            this.delMenu.Size = new System.Drawing.Size(126, 22);
             this.delMenu.Text = "Удалить";
             this.delMenu.Click += new System.EventHandler(this.delMenu_Click);
-            // 
-            // subjectBindingSource
-            // 
-            this.subjectBindingSource.DataSource = typeof(Log.subject);
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -108,7 +106,6 @@ namespace Log
             this.dataGridViewTextBoxColumn2.HeaderText = "Название предмета";
             this.dataGridViewTextBoxColumn2.MaxInputLength = 300;
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.Width = 300;
             // 
             // dataGridViewTextBoxColumn3
             // 
@@ -123,6 +120,10 @@ namespace Log
             this.dataGridViewTextBoxColumn4.HeaderText = "subjects_to_groups";
             this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
             this.dataGridViewTextBoxColumn4.Visible = false;
+            // 
+            // subjectBindingSource
+            // 
+            this.subjectBindingSource.DataSource = typeof(Log.subject);
             // 
             // SubjectsForm
             // 

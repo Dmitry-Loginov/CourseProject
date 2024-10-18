@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Log.Forms.Marks;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -378,7 +379,7 @@ namespace Log
 
         private void dataGridView_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
         {
-            if(e.ColumnIndex == 5 || e.ColumnIndex == 6git)
+            if(e.ColumnIndex == 5 || e.ColumnIndex == 6)
             try
             {
                 Convert.ToInt32(e.FormattedValue);
@@ -423,6 +424,14 @@ namespace Log
             FillSortedMarks();
 
             NewMarks = new List<mark>();
+        }
+
+        private void dataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dataGridView.Columns.Count != (e.ColumnIndex + 1) || e.RowIndex == -1) return;
+
+            int mark_id = (int)dataGridView.Rows[e.RowIndex].Cells[0].Value;
+            new MarkCommentForm(mark_id).Show();
         }
     }
 }

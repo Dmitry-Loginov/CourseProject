@@ -35,10 +35,12 @@ namespace Log
             this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.addMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.delMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.groupBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AvgMark = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SubjectCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.groupBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.groupDataGridView)).BeginInit();
             this.contextMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupBindingSource)).BeginInit();
@@ -55,6 +57,8 @@ namespace Log
             this.groupDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.groupDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn1,
+            this.AvgMark,
+            this.SubjectCount,
             this.dataGridViewTextBoxColumn2,
             this.dataGridViewTextBoxColumn3});
             this.groupDataGridView.ContextMenuStrip = this.contextMenu;
@@ -64,7 +68,7 @@ namespace Log
             this.groupDataGridView.MultiSelect = false;
             this.groupDataGridView.Name = "groupDataGridView";
             this.groupDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.groupDataGridView.Size = new System.Drawing.Size(242, 424);
+            this.groupDataGridView.Size = new System.Drawing.Size(455, 424);
             this.groupDataGridView.TabIndex = 1;
             this.groupDataGridView.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.groupDataGridView_CellValidating);
             // 
@@ -74,21 +78,25 @@ namespace Log
             this.addMenu,
             this.delMenu});
             this.contextMenu.Name = "contextMenu";
-            this.contextMenu.Size = new System.Drawing.Size(140, 52);
+            this.contextMenu.Size = new System.Drawing.Size(127, 48);
             // 
             // addMenu
             // 
             this.addMenu.Name = "addMenu";
-            this.addMenu.Size = new System.Drawing.Size(139, 24);
+            this.addMenu.Size = new System.Drawing.Size(126, 22);
             this.addMenu.Text = "Добавить";
             this.addMenu.Click += new System.EventHandler(this.addMenu_Click);
             // 
             // delMenu
             // 
             this.delMenu.Name = "delMenu";
-            this.delMenu.Size = new System.Drawing.Size(139, 24);
+            this.delMenu.Size = new System.Drawing.Size(126, 22);
             this.delMenu.Text = "Удалить";
             this.delMenu.Click += new System.EventHandler(this.delMenu_Click);
+            // 
+            // groupBindingSource
+            // 
+            this.groupBindingSource.DataSource = typeof(Log.group);
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -97,6 +105,20 @@ namespace Log
             this.dataGridViewTextBoxColumn1.MaxInputLength = 15;
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
             this.dataGridViewTextBoxColumn1.Width = 120;
+            // 
+            // AvgMark
+            // 
+            this.AvgMark.DataPropertyName = "AvgMark";
+            this.AvgMark.HeaderText = "Средний балл";
+            this.AvgMark.Name = "AvgMark";
+            this.AvgMark.ReadOnly = true;
+            // 
+            // SubjectCount
+            // 
+            this.SubjectCount.DataPropertyName = "SubjectCount";
+            this.SubjectCount.HeaderText = "Количество предметов";
+            this.SubjectCount.Name = "SubjectCount";
+            this.SubjectCount.ReadOnly = true;
             // 
             // dataGridViewTextBoxColumn2
             // 
@@ -112,15 +134,11 @@ namespace Log
             this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
             this.dataGridViewTextBoxColumn3.Visible = false;
             // 
-            // groupBindingSource
-            // 
-            this.groupBindingSource.DataSource = typeof(Log.group);
-            // 
             // GroupsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(245, 423);
+            this.ClientSize = new System.Drawing.Size(458, 423);
             this.Controls.Add(this.groupDataGridView);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -144,6 +162,8 @@ namespace Log
         private System.Windows.Forms.ToolStripMenuItem addMenu;
         private System.Windows.Forms.ToolStripMenuItem delMenu;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AvgMark;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SubjectCount;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
     }

@@ -87,6 +87,12 @@
     <Compile Include="Forms\Directories\AddStudentForm.Designer.cs">
       <DependentUpon>AddStudentForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Directories\TeachersForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Directories\TeachersForm.Designer.cs">
+      <DependentUpon>TeachersForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Marks\AddGroupMarkForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -104,6 +110,12 @@
     </Compile>
     <Compile Include="Forms\Directories\GroupsForm.Designer.cs">
       <DependentUpon>GroupsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Marks\MarkCommentForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Marks\MarkCommentForm.Designer.cs">
+      <DependentUpon>MarkCommentForm.cs</DependentUpon>
     </Compile>
     <Compile Include="group.cs">
       <DependentUpon>Model.tt</DependentUpon>
@@ -209,6 +221,9 @@
     <EmbeddedResource Include="Forms\Directories\AddStudentForm.resx">
       <DependentUpon>AddStudentForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Directories\TeachersForm.resx">
+      <DependentUpon>TeachersForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Marks\AddGroupMarkForm.resx">
       <DependentUpon>AddGroupMarkForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -217,6 +232,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Directories\GroupsForm.resx">
       <DependentUpon>GroupsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Marks\MarkCommentForm.resx">
+      <DependentUpon>MarkCommentForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -259,6 +277,7 @@
     </None>
     <None Include="packages.config" />
     <None Include="Properties\DataSources\group1.datasource" />
+    <None Include="Properties\DataSources\marks_comments.datasource" />
     <None Include="Properties\DataSources\subject1.datasource" />
     <None Include="Properties\DataSources\teacher.datasource" />
     <None Include="Properties\DataSources\typeMark1.datasource" />
@@ -277,10 +296,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="DataBase\Log.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="DataBase\Log_log.ldf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <DependentUpon>Log.mdf</DependentUpon>
     </Content>
     <Content Include="Model.Context.tt">
