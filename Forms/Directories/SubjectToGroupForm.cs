@@ -18,8 +18,19 @@ namespace Log
 
         void FillGrid()
         {
-            subjectBindingSource.DataSource = LogEntities.subjects.ToList();
-            subjects_to_groupsBindingSource.DataSource = LogEntities.subjects_to_groups.ToList();
+            List<SubjectToGroupViewModelItem> targetItems = new List<SubjectToGroupViewModelItem>();
+            var subject_groups = LogEntities.subjects_to_groups.ToList();
+            for (int i = 0; i < subject_groups.Count; i++)
+            {
+                SubjectToGroupViewModelItem modelItem = new SubjectToGroupViewModelItem(subject_groups[i].Id, subject_groups[i].GroupId, subject_groups[i].subject.SubjectName);
+                targetItems.Add(modelItem);
+            }
+            subjects_to_groupsDataGridView.DataSource = targetItems;
+            subjects_to_groupsDataGridView.Columns[0].Visible = false;
+            subjects_to_groupsDataGridView.Columns[1].HeaderText = "Группа";
+            subjects_to_groupsDataGridView.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            subjects_to_groupsDataGridView.Columns[2].HeaderText = "Предмет";
+            subjects_to_groupsDataGridView.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
         }
 
         public SubjectToGroupForm()
@@ -61,6 +72,20 @@ namespace Log
         {
             AddSubjectToGroup addSubjectToGroup = new AddSubjectToGroup(FillSubjectToGroup);
             addSubjectToGroup.Show();
+        }
+    }
+
+    public class SubjectToGroupViewModelItem
+    {
+        public int Id { get; }
+        public string Group { get; set; }
+        public string Subject { get; set; }
+
+        public SubjectToGroupViewModelItem(int id, string group, string subject)
+        {
+            Id = id;
+            Group = group;
+            Subject = subject;
         }
     }
 }
