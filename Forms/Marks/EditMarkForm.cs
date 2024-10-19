@@ -21,7 +21,7 @@ namespace Log
             SortedSubjectMarks = log.marks.ToList();
             subjectBindingSourceMenu.DataSource = log.subjects.ToList();
             groupBindingSourceMenu.DataSource = log.groups.ToList();
-            
+
             FillSortedMarks();
 
             NewMarks = new List<mark>();
@@ -155,19 +155,18 @@ namespace Log
                 {
                     EditingSubjectComboBox(e);
                 }
+
+                if (dataGridView.SelectedCells[0].OwningColumn.Index == 3)
+                {
+                    EditingTeacherComboBox(e);
+                }
             }
             catch { }
         }
 
         private void subjectCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            
             ChangeCheckBox(subjectCheckBox, subjectComboBox1);
-        }
-
-        private void typeComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (!IsClosed) { }
         }
 
         void ChangeCheckBox(CheckBox checkBox, ComboBox comboBox1)
@@ -265,6 +264,27 @@ namespace Log
             return SortedSubjectMarks;
         }
 
+        void EditingTeacherComboBox(DataGridViewEditingControlShowingEventArgs e)
+        {
+            if (!LogEntities.IsExistInstance) return;
+            if (e.Control as ComboBox != null)
+            {
+                int subjectId = GetSubjectIdSelectedSubject();
+                List<subjects_to_teachers> subjects_To_Teachers = log.subjects_to_teachers.Where(sub => sub.SubjectId == subjectId).ToList();
+                var teachersId = subjects_To_Teachers.Select(s => s.TeacherId).ToList();
+                List<teacher> teachers = log.teachers.Where(t => teachersId.Contains(t.Id)).ToList();
+
+                teacherBindingGridView.DataSource = teachers;
+                (e.Control as ComboBox).DataSource = teacherBindingGridView;
+            }
+        }
+
+        private int GetSubjectIdSelectedSubject()
+        {
+            int rowIndex = dataGridView.SelectedCells[0].RowIndex;
+            return (int)dataGridView.Rows[rowIndex].Cells[2].Value;
+        }
+
         void EditingSubjectComboBox(DataGridViewEditingControlShowingEventArgs e)
         {
             if (!LogEntities.IsExistInstance) return;
@@ -290,6 +310,8 @@ namespace Log
                 string groupId = (groupComboBox.SelectedItem as group).Id;
                 studentBindingGridView.DataSource = log.students.Where(s => s.GroupId == groupId).ToList();
                 (e.Control as ComboBox).DataSource = studentBindingGridView;
+                dataGridView.Columns[2].ReadOnly = false;
+                ;
             }
         }
 
@@ -362,6 +384,7 @@ namespace Log
                     studentBindingSource.DataSource = log.students.ToList();
                     subjectBindingSource.DataSource = log.subjects.ToList();
                     typeMarkBindingSource.DataSource = log.typeMarks.ToList();
+                    teacherBindingSource.DataSource = log.teachers.ToList();
                     if (SortedMarks.Count != 0)
                     {
                         double average = SortedMarks.Average(m => Convert.ToInt32(m.Value));
@@ -371,6 +394,20 @@ namespace Log
                     else
                         averageLabel.Text = "0";
                     FillSorted();
+
+                    if (e.ColumnIndex == 1)
+                    {
+                        dataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex + 1].Value = null;
+                        dataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex + 2].Value = null;
+                        subjectBindingSource.DataSource = null;
+                        teacherBindingSource.DataSource = null;
+                    }
+
+                    if (e.ColumnIndex == 2)
+                    {
+                        dataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex + 1].Value = null;
+                        teacherBindingSource.DataSource = null;
+                    }
                 }
                 
             }
@@ -433,10 +470,38 @@ namespace Log
 
         private void dataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (dataGridView.Columns.Count != (e.ColumnIndex + 1) || e.RowIndex == -1) return;
+            if (e.RowIndex == -1) return;
+            if (dataGridView.Columns.Count == (e.ColumnIndex + 1))
+            {
+                int mark_id = (int)dataGridView.Rows[e.RowIndex].Cells[0].Value;
+                new MarkCommentForm(mark_id, this).Show();
+            }
+            else
+            {
+                if (dataGridView.SelectedCells[0].ColumnIndex == 2)
+                {
+                    if(dataGridView.Rows[dataGridView.SelectedCells[0].RowIndex].Cells[1].Value == null)
+                    {
+                        dataGridView.Rows[dataGridView.SelectedCells[0].RowIndex].Cells[2].ReadOnly = true;
+                    }
+                    else
+                    {
+                        dataGridView.Rows[dataGridView.SelectedCells[0].RowIndex].Cells[2].ReadOnly = false;
+                    }
+                }
 
-            int mark_id = (int)dataGridView.Rows[e.RowIndex].Cells[0].Value;
-            new MarkCommentForm(mark_id, this).Show();
+                if (dataGridView.SelectedCells[0].ColumnIndex == 3)
+                {
+                    if (dataGridView.Rows[dataGridView.SelectedCells[0].RowIndex].Cells[2].Value == null)
+                    {
+                        dataGridView.Rows[dataGridView.SelectedCells[0].RowIndex].Cells[3].ReadOnly = true;
+                    }
+                    else
+                    {
+                        dataGridView.Rows[dataGridView.SelectedCells[0].RowIndex].Cells[3].ReadOnly = false;
+                    }
+                }
+            }
         }
     }
 }

@@ -39,30 +39,5 @@ namespace Log
             LogEntities.SaveChanges();
             FillSubjectToGroup();
         }
-
-        private void subjects_to_groupsBindingNavigatorSaveItem_Click(object sender, EventArgs e)
-        {
-            this.Validate();
-            this.subjects_to_groupsBindingSource.EndEdit();
-            this.tableAdapterManager.UpdateAll(this.logDataSet);
-
-        }
-
-        private void AddSubjectToGroup_Load(object sender, EventArgs e)
-        {
-            // TODO: данная строка кода позволяет загрузить данные в таблицу "logDataSet.subjects_to_groups". При необходимости она может быть перемещена или удалена.
-            this.subjects_to_groupsTableAdapter.Fill(this.logDataSet.subjects_to_groups);
-            // TODO: данная строка кода позволяет загрузить данные в таблицу "logDataSet.subjects_to_groups". При необходимости она может быть перемещена или удалена.
-            this.subjects_to_groupsTableAdapter.Fill(this.logDataSet.subjects_to_groups);
-
-        }
-
-        private void subjects_to_groupsBindingNavigatorSaveItem_Click_1(object sender, EventArgs e)
-        {
-            this.Validate();
-            this.subjects_to_groupsBindingSource.EndEdit();
-            this.tableAdapterManager.UpdateAll(this.logDataSet);
-
-        }
     }
 }

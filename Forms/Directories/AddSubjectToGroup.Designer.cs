@@ -33,42 +33,18 @@ namespace Log
             System.Windows.Forms.Label groupIdLabel;
             System.Windows.Forms.Label subjectIdLabel;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddSubjectToGroup));
-            this.logDataSet = new Log.LogDataSet();
             this.subjects_to_groupsBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.subjects_to_groupsTableAdapter = new Log.LogDataSetTableAdapters.subjects_to_groupsTableAdapter();
-            this.tableAdapterManager = new Log.LogDataSetTableAdapters.TableAdapterManager();
             this.groupIdComboBox = new System.Windows.Forms.ComboBox();
-            this.subjectIdListBox = new System.Windows.Forms.ListBox();
             this.groupBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.subjectIdListBox = new System.Windows.Forms.ListBox();
             this.subjectBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.add = new System.Windows.Forms.Button();
             groupIdLabel = new System.Windows.Forms.Label();
             subjectIdLabel = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.logDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.subjects_to_groupsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.subjectBindingSource)).BeginInit();
             this.SuspendLayout();
-            // 
-            // logDataSet
-            // 
-            this.logDataSet.DataSetName = "LogDataSet";
-            this.logDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // subjects_to_groupsBindingSource
-            // 
-            this.subjects_to_groupsBindingSource.DataMember = "subjects_to_groups";
-            this.subjects_to_groupsBindingSource.DataSource = this.logDataSet;
-            // 
-            // subjects_to_groupsTableAdapter
-            // 
-            this.subjects_to_groupsTableAdapter.ClearBeforeFill = true;
-            // 
-            // tableAdapterManager
-            // 
-            this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
-            this.tableAdapterManager.subjects_to_groupsTableAdapter = this.subjects_to_groupsTableAdapter;
-            this.tableAdapterManager.UpdateOrder = Log.LogDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
             // 
             // groupIdLabel
             // 
@@ -79,8 +55,20 @@ namespace Log
             groupIdLabel.TabIndex = 1;
             groupIdLabel.Text = "Группа";
             // 
+            // subjectIdLabel
+            // 
+            subjectIdLabel.AutoSize = true;
+            subjectIdLabel.Location = new System.Drawing.Point(8, 77);
+            subjectIdLabel.Name = "subjectIdLabel";
+            subjectIdLabel.Size = new System.Drawing.Size(91, 24);
+            subjectIdLabel.TabIndex = 3;
+            subjectIdLabel.Text = "Предмет";
+            // 
             // groupIdComboBox
             // 
+            this.groupIdComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupIdComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.subjects_to_groupsBindingSource, "GroupId", true));
             this.groupIdComboBox.DataSource = this.groupBindingSource;
             this.groupIdComboBox.DisplayMember = "Id";
@@ -91,17 +79,15 @@ namespace Log
             this.groupIdComboBox.TabIndex = 2;
             this.groupIdComboBox.ValueMember = "Id";
             // 
-            // subjectIdLabel
+            // groupBindingSource
             // 
-            subjectIdLabel.AutoSize = true;
-            subjectIdLabel.Location = new System.Drawing.Point(8, 77);
-            subjectIdLabel.Name = "subjectIdLabel";
-            subjectIdLabel.Size = new System.Drawing.Size(91, 24);
-            subjectIdLabel.TabIndex = 3;
-            subjectIdLabel.Text = "Предмет";
+            this.groupBindingSource.DataSource = typeof(Log.group);
             // 
             // subjectIdListBox
             // 
+            this.subjectIdListBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.subjectIdListBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.subjects_to_groupsBindingSource, "SubjectId", true));
             this.subjectIdListBox.DataSource = this.subjectBindingSource;
             this.subjectIdListBox.DisplayMember = "SubjectName";
@@ -113,16 +99,14 @@ namespace Log
             this.subjectIdListBox.TabIndex = 4;
             this.subjectIdListBox.ValueMember = "Id";
             // 
-            // groupBindingSource
-            // 
-            this.groupBindingSource.DataSource = typeof(Log.group);
-            // 
             // subjectBindingSource
             // 
             this.subjectBindingSource.DataSource = typeof(Log.subject);
             // 
             // add
             // 
+            this.add.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.add.Location = new System.Drawing.Point(12, 355);
             this.add.Name = "add";
             this.add.Size = new System.Drawing.Size(343, 37);
@@ -145,10 +129,10 @@ namespace Log
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(6);
+            this.MaximizeBox = false;
             this.Name = "AddSubjectToGroup";
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.Text = "Добавить связь группа-предмет";
-            this.Load += new System.EventHandler(this.AddSubjectToGroup_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.logDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.subjects_to_groupsBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.subjectBindingSource)).EndInit();
@@ -158,11 +142,7 @@ namespace Log
         }
 
         #endregion
-
-        private LogDataSet logDataSet;
         private System.Windows.Forms.BindingSource subjects_to_groupsBindingSource;
-        private LogDataSetTableAdapters.subjects_to_groupsTableAdapter subjects_to_groupsTableAdapter;
-        private LogDataSetTableAdapters.TableAdapterManager tableAdapterManager;
         private System.Windows.Forms.ComboBox groupIdComboBox;
         private System.Windows.Forms.BindingSource groupBindingSource;
         private System.Windows.Forms.ListBox subjectIdListBox;

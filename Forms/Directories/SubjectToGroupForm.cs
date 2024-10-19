@@ -41,15 +41,6 @@ namespace Log
             FillSubjectToGroup();
         }
 
-        private void SubjectToGroupForm_Load(object sender, EventArgs e)
-        {
-            // TODO: данная строка кода позволяет загрузить данные в таблицу "logDataSet.subjects_to_groups". При необходимости она может быть перемещена или удалена.
-            this.subjects_to_groupsTableAdapter.Fill(this.logDataSet.subjects_to_groups);
-            // TODO: данная строка кода позволяет загрузить данные в таблицу "logDataSet.subjects_to_groups". При необходимости она может быть перемещена или удалена.
-            this.subjects_to_groupsTableAdapter.Fill(this.logDataSet.subjects_to_groups);
-
-        }
-
         private void SubjectToGroupForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             LogEntities.SaveChanges();

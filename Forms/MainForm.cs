@@ -60,8 +60,15 @@ namespace Log
             TeachersForm teachersForm = new TeachersForm();
             teachersForm.Show();
         }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            SubjectToTeacherForm subjectToTeacherForm = new SubjectToTeacherForm();
+            subjectToTeacherForm.Show();
+        }
     }
     public delegate void FillDataGridView();
     public delegate void FillStudentsGrid();
     public delegate void FillSubjectToGroupGrid();
+    public delegate void FillSubjectToTeacherGrid();
 }

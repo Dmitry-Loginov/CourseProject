@@ -65,6 +65,7 @@ namespace Log
             this.groupBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.subjectBindingGridView = new System.Windows.Forms.BindingSource(this.components);
             this.studentBindingGridView = new System.Windows.Forms.BindingSource(this.components);
+            this.teacherBindingGridView = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.studentBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.subjectBindingSource)).BeginInit();
@@ -77,6 +78,7 @@ namespace Log
             ((System.ComponentModel.ISupportInitialize)(this.groupBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.subjectBindingGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.studentBindingGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.teacherBindingGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridView
@@ -120,7 +122,7 @@ namespace Log
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridView.DefaultCellStyle = dataGridViewCellStyle3;
-            this.dataGridView.Location = new System.Drawing.Point(304, 15);
+            this.dataGridView.Location = new System.Drawing.Point(303, 15);
             this.dataGridView.MultiSelect = false;
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.RowTemplate.Height = 35;
@@ -225,7 +227,6 @@ namespace Log
             this.CommentCount.DataPropertyName = "CommentCount";
             this.CommentCount.HeaderText = "Количество комментариев";
             this.CommentCount.Name = "CommentCount";
-            this.CommentCount.ReadOnly = true;
             // 
             // marks_comments
             // 
@@ -415,6 +416,7 @@ namespace Log
             ((System.ComponentModel.ISupportInitialize)(this.groupBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.subjectBindingGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.studentBindingGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.teacherBindingGridView)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -452,5 +454,6 @@ namespace Log
         private System.Windows.Forms.DataGridViewTextBoxColumn valueDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn CommentCount;
         private System.Windows.Forms.DataGridViewButtonColumn marks_comments;
+        private System.Windows.Forms.BindingSource teacherBindingGridView;
     }
 }
