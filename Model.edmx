@@ -60,6 +60,7 @@
           <Property Name="GroupId" Type="nchar" MaxLength="10" Nullable="false" />
           <Property Name="Birthday" Type="datetime" />
           <Property Name="Phone" Type="nchar" MaxLength="14" />
+          <Property Name="AvgMark" Type="float" />
         </EntityType>
         <EntityType Name="subjects">
           <Key>
@@ -737,6 +738,7 @@
           <Property Name="Phone" Type="String" MaxLength="14" FixedLength="true" Unicode="true" />
           <NavigationProperty Name="group" Relationship="LogModel.StudentToGroup1" FromRole="student1" ToRole="group" />
           <NavigationProperty Name="marks" Relationship="LogModel.MarkToStudent1" FromRole="student1" ToRole="mark" />
+          <Property Name="AvgMark" Type="Double" />
         </EntityType>
         <Association Name="StudentToGroup1">
           <End Type="LogModel.group" Role="group" Multiplicity="1">
@@ -943,6 +945,7 @@
           <EntitySetMapping Name="students">
             <EntityTypeMapping TypeName="LogModel.student">
               <MappingFragment StoreEntitySet="students">
+                <ScalarProperty Name="AvgMark" ColumnName="AvgMark" />
                 <ScalarProperty Name="Phone" ColumnName="Phone" />
                 <ScalarProperty Name="Birthday" ColumnName="Birthday" />
                 <ScalarProperty Name="GroupId" ColumnName="GroupId" />
