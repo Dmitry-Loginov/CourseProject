@@ -108,7 +108,7 @@ namespace Log
             }
             if (!subjectCheckBox.Checked)
             {
-                newMark.subject = log.subjects.Where(subj => subj.Id == Convert.ToInt32(subjectComboBox1.SelectedValue)).FirstOrDefault();
+                newMark.subject = log.subjects.Where(subj => subj.Id.ToString() == subjectComboBox1.SelectedValue.ToString()).FirstOrDefault();
             }
             log.marks.Add(newMark);
             //чтобы данные записались, надо сохранить
@@ -136,6 +136,7 @@ namespace Log
                 {
                     FillSortedGroupMarks();
                     FillSortedMarks();
+                    FillSubjectMenu();
                 }
                 else
                     MessageBox.Show("Сначала заполните данные!", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -166,25 +167,42 @@ namespace Log
 
         private void subjectCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            ChangeCheckBox(subjectCheckBox, subjectComboBox1);
+            ChangeCheckBox(subjectCheckBox, subjectComboBox1, true);
         }
 
-        void ChangeCheckBox(CheckBox checkBox, ComboBox comboBox1)
+        void ChangeCheckBox(CheckBox checkBox, ComboBox comboBox1, bool is_subject = false)
         {
 
             if (checkBox.Checked)
             {
                 IsSorted = false;
                 comboBox1.Enabled = false;
+
+                if (!is_subject)
+                    subjectBindingSourceMenu.DataSource = log.subjects.ToList();
+
                 FillSorted();
             }
             else
             {
                 IsSorted = true;
                 comboBox1.Enabled = true;
+
+                if (!is_subject)
+                    FillSubjectMenu();
+
                 FillSorted();
             }
 
+        }
+
+        void FillSubjectMenu()
+        {
+            string groupId = groupComboBox.SelectedValue.ToString();
+            List<subjects_to_groups> subjects_To_Groups = log.subjects_to_groups.Where(sub => sub.GroupId == groupId).ToList();
+            var subjectsId = subjects_To_Groups.Select(s => s.SubjectId).ToList();
+            List<subject> subjects = log.subjects.Where(sb => subjectsId.Contains(sb.Id)).ToList();
+            subjectBindingSourceMenu.DataSource = subjects;
         }
 
         private void FillData()
@@ -224,7 +242,7 @@ namespace Log
                 if (!groupCheckBox.Checked)
                     FillSortedGroupMarks();
                 else
-                    SortedGroupMarks = log.marks.ToList();//!!!!!!!!!!!!!!!
+                    SortedGroupMarks = log.marks.ToList();
 
                 if (!subjectCheckBox.Checked)
                     FillSortedSubjectMarks();
@@ -399,14 +417,14 @@ namespace Log
                     {
                         dataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex + 1].Value = null;
                         dataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex + 2].Value = null;
-                        subjectBindingSource.DataSource = null;
-                        teacherBindingSource.DataSource = null;
+                        //subjectBindingSource.DataSource = null;
+                        //teacherBindingSource.DataSource = null;
                     }
 
                     if (e.ColumnIndex == 2)
                     {
                         dataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex + 1].Value = null;
-                        teacherBindingSource.DataSource = null;
+                    //    teacherBindingSource.DataSource = null;
                     }
                 }
                 
@@ -458,11 +476,13 @@ namespace Log
 
             Marks = log.marks.ToList();
 
-            SortedGroupMarks = log.marks.ToList();
-            SortedSubjectMarks = log.marks.ToList();
-            subjectBindingSourceMenu.DataSource = log.subjects.ToList();
             groupBindingSourceMenu.DataSource = log.groups.ToList();
+            if (groupCheckBox.Checked)
+                subjectBindingSourceMenu.DataSource = log.subjects.ToList();
+            else
+                FillSubjectMenu();
 
+            FillSorted();
             FillSortedMarks();
 
             NewMarks = new List<mark>();
@@ -480,7 +500,7 @@ namespace Log
             {
                 if (dataGridView.SelectedCells[0].ColumnIndex == 2)
                 {
-                    if(dataGridView.Rows[dataGridView.SelectedCells[0].RowIndex].Cells[1].Value == null)
+                    if (dataGridView.Rows[dataGridView.SelectedCells[0].RowIndex].Cells[1].Value == null)
                     {
                         dataGridView.Rows[dataGridView.SelectedCells[0].RowIndex].Cells[2].ReadOnly = true;
                     }
