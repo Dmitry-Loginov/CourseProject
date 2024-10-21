@@ -257,15 +257,27 @@ namespace Log
         {
             SortedMarks = SortedSubjectMarks.Intersect(SortedGroupMarks).ToList();
             markBindingSource.DataSource = SortedMarks;
+            CountAverageMark();
+        }
+
+        void CountAverageMark()
+        {
             if (SortedMarks.Count != 0)
             {
-                double average = SortedMarks.Average(m => Convert.ToInt32(m.Value));
+                List<mark> not_empty_marks = SortedMarks.Where(s => s.Value != "" && s.Value != null).ToList();
+
+                if(not_empty_marks.Count == 0)
+                {
+                    averageLabel.Text = "0";
+                    return;
+                }
+
+                double average = not_empty_marks.Average(m => Convert.ToInt32(m.Value));
                 average = Math.Round(average, 2);
                 averageLabel.Text = average.ToString();
             }
             else
                 averageLabel.Text = "0";
-            
         }
 
         List<mark> FillSortedGroupMarks()
@@ -403,14 +415,7 @@ namespace Log
                     subjectBindingSource.DataSource = log.subjects.ToList();
                     typeMarkBindingSource.DataSource = log.typeMarks.ToList();
                     teacherBindingSource.DataSource = log.teachers.ToList();
-                    if (SortedMarks.Count != 0)
-                    {
-                        double average = SortedMarks.Average(m => Convert.ToInt32(m.Value));
-                        average = Math.Round(average, 2);
-                        averageLabel.Text = average.ToString();
-                    }
-                    else
-                        averageLabel.Text = "0";
+                    CountAverageMark();
                     FillSorted();
 
                     if (e.ColumnIndex == 1)

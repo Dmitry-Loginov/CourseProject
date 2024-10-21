@@ -56,6 +56,10 @@ namespace Log
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.studentBinding = new System.Windows.Forms.BindingSource(this.components);
+            this.label4 = new System.Windows.Forms.Label();
+            this.teacherComboBox = new System.Windows.Forms.ComboBox();
+            this.teacherCheckBoxVoid = new System.Windows.Forms.CheckBox();
+            this.teacherBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.studentBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.subjectBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.typeMarkBindingSource)).BeginInit();
@@ -63,6 +67,7 @@ namespace Log
             this.groupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.studentBinding)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.teacherBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // studentBindingSource
@@ -106,7 +111,7 @@ namespace Log
             this.typeMarkComboBox.DataSource = this.typeMarkBindingSource;
             this.typeMarkComboBox.DisplayMember = "Type";
             this.typeMarkComboBox.FormattingEnabled = true;
-            this.typeMarkComboBox.Location = new System.Drawing.Point(16, 301);
+            this.typeMarkComboBox.Location = new System.Drawing.Point(16, 381);
             this.typeMarkComboBox.Name = "typeMarkComboBox";
             this.typeMarkComboBox.Size = new System.Drawing.Size(484, 32);
             this.typeMarkComboBox.TabIndex = 4;
@@ -115,7 +120,7 @@ namespace Log
             // monthLabel
             // 
             this.monthLabel.AutoSize = true;
-            this.monthLabel.Location = new System.Drawing.Point(17, 350);
+            this.monthLabel.Location = new System.Drawing.Point(17, 425);
             this.monthLabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.monthLabel.Name = "monthLabel";
             this.monthLabel.Size = new System.Drawing.Size(68, 24);
@@ -125,7 +130,7 @@ namespace Log
             // valueLabel
             // 
             this.valueLabel.AutoSize = true;
-            this.valueLabel.Location = new System.Drawing.Point(200, 350);
+            this.valueLabel.Location = new System.Drawing.Point(200, 425);
             this.valueLabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.valueLabel.Name = "valueLabel";
             this.valueLabel.Size = new System.Drawing.Size(53, 24);
@@ -148,14 +153,14 @@ namespace Log
             "8",
             "9",
             "10"});
-            this.ballListBox.Location = new System.Drawing.Point(201, 377);
+            this.ballListBox.Location = new System.Drawing.Point(201, 452);
             this.ballListBox.Name = "ballListBox";
             this.ballListBox.Size = new System.Drawing.Size(120, 148);
             this.ballListBox.TabIndex = 6;
             // 
             // addButton
             // 
-            this.addButton.Location = new System.Drawing.Point(21, 531);
+            this.addButton.Location = new System.Drawing.Point(21, 606);
             this.addButton.Name = "addButton";
             this.addButton.Size = new System.Drawing.Size(483, 45);
             this.addButton.TabIndex = 7;
@@ -180,7 +185,7 @@ namespace Log
             "10",
             "11",
             "12"});
-            this.monthListBox.Location = new System.Drawing.Point(21, 377);
+            this.monthListBox.Location = new System.Drawing.Point(21, 452);
             this.monthListBox.Name = "monthListBox";
             this.monthListBox.Size = new System.Drawing.Size(120, 148);
             this.monthListBox.TabIndex = 8;
@@ -215,7 +220,7 @@ namespace Log
             "23",
             "24",
             "25"});
-            this.countListBox.Location = new System.Drawing.Point(384, 377);
+            this.countListBox.Location = new System.Drawing.Point(384, 452);
             this.countListBox.Name = "countListBox";
             this.countListBox.Size = new System.Drawing.Size(120, 148);
             this.countListBox.TabIndex = 9;
@@ -224,7 +229,7 @@ namespace Log
             // labelCount
             // 
             this.labelCount.AutoSize = true;
-            this.labelCount.Location = new System.Drawing.Point(382, 350);
+            this.labelCount.Location = new System.Drawing.Point(382, 425);
             this.labelCount.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.labelCount.Name = "labelCount";
             this.labelCount.Size = new System.Drawing.Size(117, 24);
@@ -239,7 +244,7 @@ namespace Log
             // 
             this.studentCheckBoxVoid.AutoSize = true;
             this.studentCheckBoxVoid.BackColor = System.Drawing.Color.Transparent;
-            this.studentCheckBoxVoid.Location = new System.Drawing.Point(249, 124);
+            this.studentCheckBoxVoid.Location = new System.Drawing.Point(268, 124);
             this.studentCheckBoxVoid.Name = "studentCheckBoxVoid";
             this.studentCheckBoxVoid.Size = new System.Drawing.Size(188, 28);
             this.studentCheckBoxVoid.TabIndex = 10;
@@ -251,7 +256,7 @@ namespace Log
             // 
             this.subjectCheckBoxVoid.AutoSize = true;
             this.subjectCheckBoxVoid.BackColor = System.Drawing.Color.Transparent;
-            this.subjectCheckBoxVoid.Location = new System.Drawing.Point(249, 202);
+            this.subjectCheckBoxVoid.Location = new System.Drawing.Point(268, 202);
             this.subjectCheckBoxVoid.Name = "subjectCheckBoxVoid";
             this.subjectCheckBoxVoid.Size = new System.Drawing.Size(188, 28);
             this.subjectCheckBoxVoid.TabIndex = 10;
@@ -263,7 +268,7 @@ namespace Log
             // 
             this.typeMarkCheckBoxVoid.AutoSize = true;
             this.typeMarkCheckBoxVoid.BackColor = System.Drawing.Color.Transparent;
-            this.typeMarkCheckBoxVoid.Location = new System.Drawing.Point(248, 272);
+            this.typeMarkCheckBoxVoid.Location = new System.Drawing.Point(267, 352);
             this.typeMarkCheckBoxVoid.Name = "typeMarkCheckBoxVoid";
             this.typeMarkCheckBoxVoid.Size = new System.Drawing.Size(188, 28);
             this.typeMarkCheckBoxVoid.TabIndex = 10;
@@ -335,7 +340,7 @@ namespace Log
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(16, 274);
+            this.label3.Location = new System.Drawing.Point(16, 354);
             this.label3.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(217, 24);
@@ -346,13 +351,46 @@ namespace Log
             // 
             this.studentBinding.DataSource = typeof(Log.student);
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(11, 278);
+            this.label4.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(244, 24);
+            this.label4.TabIndex = 2;
+            this.label4.Text = "Выберите преподавателя";
+            // 
+            // teacherComboBox
+            // 
+            this.teacherComboBox.DisplayMember = "SubjectName";
+            this.teacherComboBox.FormattingEnabled = true;
+            this.teacherComboBox.Location = new System.Drawing.Point(15, 305);
+            this.teacherComboBox.Name = "teacherComboBox";
+            this.teacherComboBox.Size = new System.Drawing.Size(484, 32);
+            this.teacherComboBox.TabIndex = 3;
+            this.teacherComboBox.ValueMember = "Id";
+            // 
+            // teacherCheckBoxVoid
+            // 
+            this.teacherCheckBoxVoid.AutoSize = true;
+            this.teacherCheckBoxVoid.BackColor = System.Drawing.Color.Transparent;
+            this.teacherCheckBoxVoid.Location = new System.Drawing.Point(267, 276);
+            this.teacherCheckBoxVoid.Name = "teacherCheckBoxVoid";
+            this.teacherCheckBoxVoid.Size = new System.Drawing.Size(188, 28);
+            this.teacherCheckBoxVoid.TabIndex = 10;
+            this.teacherCheckBoxVoid.Text = "Оставить пустым";
+            this.teacherCheckBoxVoid.UseVisualStyleBackColor = false;
+            this.teacherCheckBoxVoid.CheckedChanged += new System.EventHandler(this.subjectCheckBoxVoid_CheckedChanged);
+            // 
             // AddGroupMarkForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(530, 588);
+            this.ClientSize = new System.Drawing.Size(530, 674);
             this.Controls.Add(this.groupBox);
             this.Controls.Add(this.typeMarkCheckBoxVoid);
+            this.Controls.Add(this.teacherCheckBoxVoid);
             this.Controls.Add(this.subjectCheckBoxVoid);
             this.Controls.Add(this.studentCheckBoxVoid);
             this.Controls.Add(this.countListBox);
@@ -360,10 +398,12 @@ namespace Log
             this.Controls.Add(this.addButton);
             this.Controls.Add(this.ballListBox);
             this.Controls.Add(this.typeMarkComboBox);
+            this.Controls.Add(this.teacherComboBox);
             this.Controls.Add(this.subjectComboBox);
             this.Controls.Add(this.labelCount);
             this.Controls.Add(this.valueLabel);
             this.Controls.Add(this.label3);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.monthLabel);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -381,6 +421,7 @@ namespace Log
             this.groupBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.studentBinding)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.teacherBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -413,5 +454,9 @@ namespace Log
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.BindingSource studentBinding;
         private System.Windows.Forms.BindingSource groupBindingSource;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ComboBox teacherComboBox;
+        private System.Windows.Forms.CheckBox teacherCheckBoxVoid;
+        private System.Windows.Forms.BindingSource teacherBindingSource;
     }
 }

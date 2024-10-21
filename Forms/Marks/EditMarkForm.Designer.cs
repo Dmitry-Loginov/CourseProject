@@ -260,12 +260,14 @@ namespace Log
             // 
             // addGroupBtn
             // 
-            this.addGroupBtn.Location = new System.Drawing.Point(11, 312);
+            this.addGroupBtn.Enabled = false;
+            this.addGroupBtn.Location = new System.Drawing.Point(11, 358);
             this.addGroupBtn.Name = "addGroupBtn";
             this.addGroupBtn.Size = new System.Drawing.Size(277, 43);
             this.addGroupBtn.TabIndex = 4;
             this.addGroupBtn.Text = "Добавить группу отметок";
             this.addGroupBtn.UseVisualStyleBackColor = true;
+            this.addGroupBtn.Visible = false;
             this.addGroupBtn.Click += new System.EventHandler(this.AddGroupBtn_Click);
             // 
             // groupComboBox
@@ -323,7 +325,7 @@ namespace Log
             // 
             // update
             // 
-            this.update.Location = new System.Drawing.Point(11, 361);
+            this.update.Location = new System.Drawing.Point(9, 312);
             this.update.Name = "update";
             this.update.Size = new System.Drawing.Size(277, 40);
             this.update.TabIndex = 20;
