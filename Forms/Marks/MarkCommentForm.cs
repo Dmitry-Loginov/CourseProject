@@ -22,6 +22,12 @@ namespace Log.Forms.Marks
             MarkId = mark_id;
             EditMarkForm = editMarkForm;
             markscommentsBindingSource.DataSource = LogEntities.marks_comments.ToList().Where(mc => mc.MarkId == mark_id).ToList();
+
+            if (LogEntities.GetInstance().Role != "Teacher")
+            {
+                contextMenuStrip1.Visible = false;
+                markCommentGridView.ReadOnly = true;
+            }
         }
 
         public int MarkId { get; }

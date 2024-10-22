@@ -37,18 +37,16 @@ namespace Log
             this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.button6 = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.справкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.создатьРезервнуюКопиюБДToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.восстановитьБдИзКопииToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.button8 = new System.Windows.Forms.Button();
+            this.createBackupMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.restoreDbItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sqlQueryBtn = new System.Windows.Forms.Button();
             this.button9 = new System.Windows.Forms.Button();
             this.button11 = new System.Windows.Forms.Button();
             this.button13 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -67,7 +65,7 @@ namespace Log
             this.groupBox1.Size = new System.Drawing.Size(327, 407);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Работа со справочниками";
+            this.groupBox1.Text = "Справочники";
             // 
             // button7
             // 
@@ -129,23 +127,13 @@ namespace Log
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.button6);
-            this.groupBox2.Location = new System.Drawing.Point(375, 15);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(223, 112);
-            this.groupBox2.TabIndex = 1;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Работа с отметками";
-            // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(22, 28);
+            this.button6.Location = new System.Drawing.Point(397, 47);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(172, 75);
             this.button6.TabIndex = 1;
-            this.button6.Text = "Режим редактирования";
+            this.button6.Text = "Работа с отметками";
             this.button6.UseVisualStyleBackColor = true;
             this.button6.Click += new System.EventHandler(this.Button6_Click);
             // 
@@ -153,8 +141,8 @@ namespace Log
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.справкаToolStripMenuItem,
-            this.создатьРезервнуюКопиюБДToolStripMenuItem,
-            this.восстановитьБдИзКопииToolStripMenuItem});
+            this.createBackupMenuItem,
+            this.restoreDbItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(637, 24);
@@ -169,33 +157,33 @@ namespace Log
             this.справкаToolStripMenuItem.Text = "Справка    F1";
             this.справкаToolStripMenuItem.Click += new System.EventHandler(this.справкаToolStripMenuItem_Click);
             // 
-            // создатьРезервнуюКопиюБДToolStripMenuItem
+            // createBackupMenuItem
             // 
-            this.создатьРезервнуюКопиюБДToolStripMenuItem.Name = "создатьРезервнуюКопиюБДToolStripMenuItem";
-            this.создатьРезервнуюКопиюБДToolStripMenuItem.Size = new System.Drawing.Size(183, 20);
-            this.создатьРезервнуюКопиюБДToolStripMenuItem.Text = "Создать резервную копию БД";
-            this.создатьРезервнуюКопиюБДToolStripMenuItem.Click += new System.EventHandler(this.создатьРезервнуюКопиюБДToolStripMenuItem_Click);
+            this.createBackupMenuItem.Name = "createBackupMenuItem";
+            this.createBackupMenuItem.Size = new System.Drawing.Size(183, 20);
+            this.createBackupMenuItem.Text = "Создать резервную копию БД";
+            this.createBackupMenuItem.Click += new System.EventHandler(this.создатьРезервнуюКопиюБДToolStripMenuItem_Click);
             // 
-            // восстановитьБдИзКопииToolStripMenuItem
+            // restoreDbItem
             // 
-            this.восстановитьБдИзКопииToolStripMenuItem.Name = "восстановитьБдИзКопииToolStripMenuItem";
-            this.восстановитьБдИзКопииToolStripMenuItem.Size = new System.Drawing.Size(162, 20);
-            this.восстановитьБдИзКопииToolStripMenuItem.Text = "Восстановить бд из копии";
-            this.восстановитьБдИзКопииToolStripMenuItem.Click += new System.EventHandler(this.восстановитьБдИзКопииToolStripMenuItem_Click);
+            this.restoreDbItem.Name = "restoreDbItem";
+            this.restoreDbItem.Size = new System.Drawing.Size(162, 20);
+            this.restoreDbItem.Text = "Восстановить бд из копии";
+            this.restoreDbItem.Click += new System.EventHandler(this.восстановитьБдИзКопииToolStripMenuItem_Click);
             // 
-            // button8
+            // sqlQueryBtn
             // 
-            this.button8.Location = new System.Drawing.Point(397, 133);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(172, 75);
-            this.button8.TabIndex = 3;
-            this.button8.Text = "Запрос через SQL";
-            this.button8.UseVisualStyleBackColor = true;
-            this.button8.Click += new System.EventHandler(this.button8_Click);
+            this.sqlQueryBtn.Location = new System.Drawing.Point(397, 351);
+            this.sqlQueryBtn.Name = "sqlQueryBtn";
+            this.sqlQueryBtn.Size = new System.Drawing.Size(172, 75);
+            this.sqlQueryBtn.TabIndex = 3;
+            this.sqlQueryBtn.Text = "Запрос через SQL";
+            this.sqlQueryBtn.UseVisualStyleBackColor = true;
+            this.sqlQueryBtn.Click += new System.EventHandler(this.button8_Click);
             // 
             // button9
             // 
-            this.button9.Location = new System.Drawing.Point(397, 214);
+            this.button9.Location = new System.Drawing.Point(397, 128);
             this.button9.Name = "button9";
             this.button9.Size = new System.Drawing.Size(172, 67);
             this.button9.TabIndex = 4;
@@ -205,7 +193,7 @@ namespace Log
             // 
             // button11
             // 
-            this.button11.Location = new System.Drawing.Point(397, 287);
+            this.button11.Location = new System.Drawing.Point(397, 201);
             this.button11.Name = "button11";
             this.button11.Size = new System.Drawing.Size(172, 74);
             this.button11.TabIndex = 6;
@@ -215,7 +203,7 @@ namespace Log
             // 
             // button13
             // 
-            this.button13.Location = new System.Drawing.Point(397, 367);
+            this.button13.Location = new System.Drawing.Point(397, 281);
             this.button13.Name = "button13";
             this.button13.Size = new System.Drawing.Size(172, 64);
             this.button13.TabIndex = 8;
@@ -228,11 +216,11 @@ namespace Log
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(637, 665);
+            this.Controls.Add(this.button6);
             this.Controls.Add(this.button13);
             this.Controls.Add(this.button11);
             this.Controls.Add(this.button9);
-            this.Controls.Add(this.button8);
-            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.sqlQueryBtn);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.menuStrip1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -244,8 +232,8 @@ namespace Log
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.Text = "Электронный журнал";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
             this.groupBox1.ResumeLayout(false);
-            this.groupBox2.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -260,15 +248,14 @@ namespace Log
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem справкаToolStripMenuItem;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button7;
-        private System.Windows.Forms.Button button8;
-        private System.Windows.Forms.ToolStripMenuItem создатьРезервнуюКопиюБДToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem восстановитьБдИзКопииToolStripMenuItem;
+        private System.Windows.Forms.Button sqlQueryBtn;
+        private System.Windows.Forms.ToolStripMenuItem createBackupMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem restoreDbItem;
         private System.Windows.Forms.Button button9;
         private System.Windows.Forms.Button button11;
         private System.Windows.Forms.Button button13;

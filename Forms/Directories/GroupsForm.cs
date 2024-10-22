@@ -11,6 +11,11 @@ namespace Log
         {
             InitializeComponent();
             groupBindingSource.DataSource = LogEntities.groups.ToList();
+            if(LogEntities.Role != "Teacher")
+            {
+                contextMenu.Visible = false;
+                groupDataGridView.ReadOnly = true;
+            }
         }
 
         private void GroupsForm_FormClosing(object sender, FormClosingEventArgs e)

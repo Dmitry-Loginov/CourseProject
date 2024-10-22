@@ -17,6 +17,11 @@ namespace Log.Forms.Directories
         {
             InitializeComponent();
             teacherBindingSource.DataSource = LogEntities.teachers.ToList();
+            if (LogEntities.Role != "Teacher")
+            {
+                contextMenuStrip1.Visible = false;
+                teacherGridView.ReadOnly = true;
+            }
         }
 
         private void TeachersForm_FormClosed(object sender, FormClosedEventArgs e)

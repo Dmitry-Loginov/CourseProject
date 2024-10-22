@@ -10,6 +10,11 @@ namespace Log
         {
             InitializeComponent();
             subjectBindingSource.DataSource = LogEntities.subjects.ToList();
+            if (LogEntities.Role != "Teacher")
+            {
+                contextMenu.Visible = false;
+                subjectDataGridView.ReadOnly = true;
+            }
         }
 
         private void SubjectsForm_FormClosing(object sender, FormClosingEventArgs e)

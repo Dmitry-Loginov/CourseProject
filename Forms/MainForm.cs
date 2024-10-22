@@ -13,11 +13,20 @@ namespace Log
 {
     public partial class MainForm : Form
     {
-        public MainForm()
+        LogEntities LogEntities = LogEntities.GetInstance();
+        public MainForm(LoginForm loginForm)
         {
             InitializeComponent();
+            LoginForm = loginForm;
             CheckAndCreatePlannedBackup();
+            if(LogEntities.Role != "Admin")
+            {
+                sqlQueryBtn.Visible = false;
+                createBackupMenuItem.Visible = false;
+                restoreDbItem.Visible = false;
+            }
         }
+        LoginForm LoginForm { get; set; }
 
         EditMarkForm EditMarkForm { get; set; }
         private void Button6_Click(object sender, EventArgs e)
@@ -312,6 +321,12 @@ namespace Log
             TopStudentByGroupForm topStudentByGroupForm = new TopStudentByGroupForm();
             topStudentByGroupForm.Show();
         }
+
+        private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            LoginForm.Close();
+        }
+
     }
     public delegate void FillDataGridView();
     public delegate void FillStudentsGrid();

@@ -13,6 +13,11 @@ namespace Log
             InitializeComponent();
             LogEntities = LogEntities.GetInstance();
             FillStudentsGridDelegate += FillStudents;
+            if (LogEntities.Role != "Teacher")
+            {
+                contextMenu.Visible = false;
+                studentDataGridView.ReadOnly = true;
+            }
         }
 
         void FillStudents()

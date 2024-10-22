@@ -107,6 +107,7 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserName" Type="nchar" MaxLength="20" />
           <Property Name="RoleId" Type="int" Nullable="false" />
+          <Property Name="Password" Type="nchar" MaxLength="20" />
         </EntityType>
         <!--Ошибки, обнаруженные при создании:
 предупреждение 6002: В таблице или представлении "C:\USERS\STUDENT\DESKTOP\LEARN 2021-2022\2020-2021\КУРСОВОЙ C#\LOG\DATABASE\LOG.MDF.dbo.vw_StudentAvgMarkWithGroup" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
@@ -670,6 +671,7 @@
           <Property Name="UserName" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
           <Property Name="RoleId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Role" Relationship="LogModel.FK_users_Roles" FromRole="user" ToRole="Role" />
+          <Property Name="Password" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
         </EntityType>
         <Association Name="FK_marks_comments_MarkId">
           <End Type="LogModel.mark" Role="mark" Multiplicity="1">
@@ -936,6 +938,7 @@
           <EntitySetMapping Name="users">
             <EntityTypeMapping TypeName="LogModel.user">
               <MappingFragment StoreEntitySet="users">
+                <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="RoleId" ColumnName="RoleId" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="Id" ColumnName="Id" />

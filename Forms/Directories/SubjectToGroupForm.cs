@@ -39,6 +39,11 @@ namespace Log
             LogEntities = LogEntities.GetInstance();
             FillSubjectToGroup += FillGrid;
             FillSubjectToGroup();
+            if (LogEntities.Role != "Teacher")
+            {
+                contextMenu.Visible = false;
+                subjects_to_groupsDataGridView.ReadOnly = true;
+            }
         }
 
         private void SubjectToGroupForm_FormClosing(object sender, FormClosingEventArgs e)

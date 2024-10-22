@@ -24,6 +24,13 @@ namespace Log
 
             FillSortedMarks();
 
+            if(LogEntities.GetInstance().Role != "Teacher")
+            {
+                addBtn.Visible = false;
+                deleteBtn.Visible = false;
+                dataGridView.ReadOnly = true;
+            }
+
             NewMarks = new List<mark>();
 
         }

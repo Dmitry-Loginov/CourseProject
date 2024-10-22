@@ -24,6 +24,8 @@ namespace Log
 
         private static LogEntities _instance;
 
+        public string Role { get; set; }
+
         private static readonly object _lock = new object();
 
         public static LogEntities GetInstance()
