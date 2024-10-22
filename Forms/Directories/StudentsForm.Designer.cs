@@ -35,18 +35,18 @@ namespace Log
             this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.добавитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.удалитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.groupBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.studentBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.AvgMark = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AvgMark = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.studentBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.groupBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.studentDataGridView)).BeginInit();
             this.contextMenu.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.groupBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.studentBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.groupBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // studentDataGridView
@@ -97,13 +97,12 @@ namespace Log
             this.удалитьToolStripMenuItem.Text = "Удалить";
             this.удалитьToolStripMenuItem.Click += new System.EventHandler(this.удалитьToolStripMenuItem_Click);
             // 
-            // groupBindingSource
+            // AvgMark
             // 
-            this.groupBindingSource.DataSource = typeof(Log.group);
-            // 
-            // studentBindingSource
-            // 
-            this.studentBindingSource.DataSource = typeof(Log.student);
+            this.AvgMark.DataPropertyName = "AvgMark";
+            this.AvgMark.HeaderText = "Средний балл";
+            this.AvgMark.Name = "AvgMark";
+            this.AvgMark.ReadOnly = true;
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -130,13 +129,6 @@ namespace Log
             this.dataGridViewTextBoxColumn3.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridViewTextBoxColumn3.Width = 130;
             // 
-            // AvgMark
-            // 
-            this.AvgMark.DataPropertyName = "AvgMark";
-            this.AvgMark.HeaderText = "Средний балл";
-            this.AvgMark.Name = "AvgMark";
-            this.AvgMark.ReadOnly = true;
-            // 
             // dataGridViewTextBoxColumn4
             // 
             this.dataGridViewTextBoxColumn4.DataPropertyName = "Birthday";
@@ -151,6 +143,14 @@ namespace Log
             this.dataGridViewTextBoxColumn5.MaxInputLength = 15;
             this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
             this.dataGridViewTextBoxColumn5.Width = 120;
+            // 
+            // studentBindingSource
+            // 
+            this.studentBindingSource.DataSource = typeof(Log.student);
+            // 
+            // groupBindingSource
+            // 
+            this.groupBindingSource.DataSource = typeof(Log.group);
             // 
             // StudentsForm
             // 
@@ -167,8 +167,8 @@ namespace Log
             this.Load += new System.EventHandler(this.StudentsForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.studentDataGridView)).EndInit();
             this.contextMenu.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.groupBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.studentBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.groupBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
