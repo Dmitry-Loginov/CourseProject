@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Data;
+using System.Data.SqlClient;
 using System.Drawing.Printing;
 using System.IO;
 using System.Linq;
@@ -19,7 +21,25 @@ namespace Log.Forms.Marks
         {
             InitializeComponent();
             bindingSource1.DataSource = LogEntities.vw_TopStudentsByGroup.ToList();
-            dataGridView1.DataSource = bindingSource1;
+
+            using (var connection = new SqlConnection(LogEntities.Database.Connection.ConnectionString))
+            {
+                connection.Open();
+                using (var command = new SqlCommand("select * from vw_TopStudentsByGroup;", connection))
+                {
+                        using (var adapter = new SqlDataAdapter(command))
+                        {
+                            DataTable resultTable = new DataTable();
+                            adapter.Fill(resultTable);
+                            dataGridView1.DataSource = resultTable;  // Отображаем результат в DataGridView
+                        dataGridView1.Columns[0].HeaderText = "Группа";
+                        dataGridView1.Columns[1].HeaderText = "Студент";
+                        dataGridView1.Columns[2].HeaderText = "Средний балл";
+                        }
+                }
+            }
+
+                   // dataGridView1.DataSource = bindingSource1;
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
             printDocument.PrintPage += new PrintPageEventHandler(PrintDocument_PrintPage);

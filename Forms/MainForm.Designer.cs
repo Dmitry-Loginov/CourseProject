@@ -152,9 +152,9 @@ namespace Log
             // справкаToolStripMenuItem
             // 
             this.справкаToolStripMenuItem.Name = "справкаToolStripMenuItem";
-            this.справкаToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F1;
             this.справкаToolStripMenuItem.Size = new System.Drawing.Size(89, 20);
             this.справкаToolStripMenuItem.Text = "Справка    F1";
+            this.справкаToolStripMenuItem.Visible = false;
             this.справкаToolStripMenuItem.Click += new System.EventHandler(this.справкаToolStripMenuItem_Click);
             // 
             // createBackupMenuItem
