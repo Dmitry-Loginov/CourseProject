@@ -24,7 +24,7 @@ namespace Log
 
             FillSortedMarks();
 
-            if(LogEntities.GetInstance().Role != "Teacher")
+            if(LogEntities.GetInstance().Role == "Guest")
             {
                 addBtn.Visible = false;
                 deleteBtn.Visible = false;
@@ -324,6 +324,11 @@ namespace Log
 
         void EditingSubjectComboBox(DataGridViewEditingControlShowingEventArgs e)
         {
+            LoadLinkedSubjects(e);
+        }
+
+        void LoadLinkedSubjects(DataGridViewEditingControlShowingEventArgs e)
+        {
             if (!LogEntities.IsExistInstance) return;
             if (e.Control as ComboBox != null)
             {
@@ -427,16 +432,41 @@ namespace Log
 
                     if (e.ColumnIndex == 1)
                     {
-                        dataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex + 1].Value = null;
-                        dataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex + 2].Value = null;
-                        //subjectBindingSource.DataSource = null;
-                        //teacherBindingSource.DataSource = null;
+                        string passportId = GetPassportIdSelectedStudent();
+
+                        string groupId = log.students.Where(s => s.PassportId == passportId).First().GroupId;
+                        List<subjects_to_groups> subjects_To_Groups = log.subjects_to_groups.Where(sub => sub.GroupId == groupId).ToList();
+                        var subjectsId = subjects_To_Groups.Select(s => s.SubjectId).ToList();
+                        List<subject> subjects = log.subjects.Where(sb => subjectsId.Contains(sb.Id)).ToList();
+
+                        subjectBindingGridView.DataSource = subjects;
+                        DataGridViewComboBoxCell subjectCell = (dataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex + 1] as DataGridViewComboBoxCell);
+                        subjectCell.DataSource = subjects;
+                        subjectCell.Value = subjects.FirstOrDefault().Id;
+
+
+                        int subjectId = GetSubjectIdSelectedSubject();
+                        List<subjects_to_teachers> subjects_To_Teachers = log.subjects_to_teachers.Where(sub => sub.SubjectId == subjectId).ToList();
+                        var teachersId = subjects_To_Teachers.Select(s => s.TeacherId).ToList();
+                        List<teacher> teachers = log.teachers.Where(t => teachersId.Contains(t.Id)).ToList();
+
+                        teacherBindingGridView.DataSource = teachers;
+                        DataGridViewComboBoxCell teacherCell = (dataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex + 2] as DataGridViewComboBoxCell);
+                        teacherCell.DataSource = teachers;
+                        teacherCell.Value = teachers.FirstOrDefault().Id;
                     }
 
                     if (e.ColumnIndex == 2)
                     {
-                        dataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex + 1].Value = null;
-                    //    teacherBindingSource.DataSource = null;
+                        int subjectId = GetSubjectIdSelectedSubject();
+                        List<subjects_to_teachers> subjects_To_Teachers = log.subjects_to_teachers.Where(sub => sub.SubjectId == subjectId).ToList();
+                        var teachersId = subjects_To_Teachers.Select(s => s.TeacherId).ToList();
+                        List<teacher> teachers = log.teachers.Where(t => teachersId.Contains(t.Id)).ToList();
+
+                        teacherBindingGridView.DataSource = teachers;
+                        DataGridViewComboBoxCell teacherCell = (dataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex + 1] as DataGridViewComboBoxCell);
+                        teacherCell.DataSource = teachers;
+                        teacherCell.Value = teachers.FirstOrDefault().Id;
                     }
                 }
                 

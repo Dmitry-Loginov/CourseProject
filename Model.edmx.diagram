@@ -29,7 +29,7 @@
         <EntityTypeShape EntityType="LogModel.marks_history" Width="1.5" PointX="13.125" PointY="3.5" />
         <EntityTypeShape EntityType="LogModel.vw_StudentAvgMarkWithGroup" Width="2.75" PointX="0.5" PointY="3.375" />
         <EntityTypeShape EntityType="LogModel.vw_TeachersWithSubjectsAndAvgMark" Width="2.375" PointX="0.5" PointY="6.375" />
-        <EntityTypeShape EntityType="LogModel.vw_TopStudentsByGroup" Width="2.5" PointX="3.875" PointY="3.25" />
+        <EntityTypeShape EntityType="LogModel.vw_TopStudentsByGroup" Width="2.5" PointX="4.375" PointY="3.125" />
         <AssociationConnector Association="LogModel.FR_mark_history" />
         <AssociationConnector Association="LogModel.MarkToTeacher" />
         </Diagram>

@@ -17,7 +17,7 @@ namespace Log.Forms.Directories
         {
             InitializeComponent();
             teacherBindingSource.DataSource = LogEntities.teachers.ToList();
-            if (LogEntities.Role != "Teacher")
+            if (LogEntities.GetInstance().Role == "Guest")
             {
                 contextMenuStrip1.Visible = false;
                 teacherGridView.ReadOnly = true;

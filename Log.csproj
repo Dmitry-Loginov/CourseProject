@@ -361,6 +361,7 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <None Include="ClassDiagram2.cd" />
     <None Include="LogDataSet.xsc">
       <DependentUpon>LogDataSet.xsd</DependentUpon>
     </None>

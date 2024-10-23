@@ -10,7 +10,7 @@ namespace Log
         {
             InitializeComponent();
             subjectBindingSource.DataSource = LogEntities.subjects.ToList();
-            if (LogEntities.Role != "Teacher")
+            if (LogEntities.GetInstance().Role == "Guest")
             {
                 contextMenu.Visible = false;
                 subjectDataGridView.ReadOnly = true;

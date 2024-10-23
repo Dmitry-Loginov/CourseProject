@@ -11,7 +11,7 @@ namespace Log
         {
             InitializeComponent();
             groupBindingSource.DataSource = LogEntities.groups.ToList();
-            if(LogEntities.Role != "Teacher")
+            if (LogEntities.GetInstance().Role == "Guest")
             {
                 contextMenu.Visible = false;
                 groupDataGridView.ReadOnly = true;

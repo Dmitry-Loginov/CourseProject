@@ -15,7 +15,7 @@ namespace Log.Forms.Directories
             LogEntities = LogEntities.GetInstance();
             FillSubjectToTeacher += FillGrid;
             FillSubjectToTeacher();
-            if (LogEntities.Role != "Teacher")
+            if (LogEntities.GetInstance().Role == "Guest")
             {
                 contextMenuStrip1.Visible = false;
                 subjectToTeacherGridView.ReadOnly = true;
