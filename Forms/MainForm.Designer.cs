@@ -162,6 +162,7 @@ namespace Log
             this.createBackupMenuItem.Name = "createBackupMenuItem";
             this.createBackupMenuItem.Size = new System.Drawing.Size(183, 20);
             this.createBackupMenuItem.Text = "Создать резервную копию БД";
+            this.createBackupMenuItem.Visible = false;
             this.createBackupMenuItem.Click += new System.EventHandler(this.создатьРезервнуюКопиюБДToolStripMenuItem_Click);
             // 
             // restoreDbItem
@@ -169,6 +170,7 @@ namespace Log
             this.restoreDbItem.Name = "restoreDbItem";
             this.restoreDbItem.Size = new System.Drawing.Size(162, 20);
             this.restoreDbItem.Text = "Восстановить бд из копии";
+            this.restoreDbItem.Visible = false;
             this.restoreDbItem.Click += new System.EventHandler(this.восстановитьБдИзКопииToolStripMenuItem_Click);
             // 
             // sqlQueryBtn

@@ -23,6 +23,7 @@ namespace Log.Forms
             string username = loginTextBox.Text;
             string password = passwordTextBox.Text;
             string roleName;
+            new MainForm(this).CreateBackup(true);
             if (IsValidUser(username, password, out roleName))
             {
                 LogEntities.Role = roleName.Trim();

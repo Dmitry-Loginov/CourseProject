@@ -190,7 +190,7 @@ namespace Log
                 if (!lastPlanningBackupDate.HasValue || (DateTime.Now - lastPlanningBackupDate.Value).TotalDays > 7)
                 {
                     // Вызов метода создания бэкапа с параметром true (плановый бэкап)
-                    CreateBackup(true);
+                    //CreateBackup(true);
                 }
             }
             catch (Exception ex)
